@@ -6,17 +6,17 @@ const homeController = require('../../http/controllers/api/home.controller');
 /**
  * @swagger
  * tags:
- *  name: authentication
- *  description :  اندپوینت های احراز هویت 
+ *  name: index-Page
+ *  description :  اندپوینت های صفحه اصلی 
  */
 
 /**
  * @swagger
- * tag: authentication
+ * tag: index-Page
  * /:
  *  get:
  *      summary: index of routes 
- *      tags: [authentication]
+ *      tags: [index-Page]
  *      description : get all need data for index page
  *      parameters:
  *          -   in: header

@@ -6,6 +6,7 @@ class UserAuthController {
    async login(req, res, next) {
     try {
       const result =await authSchema.validateAsync(req.body);
+      // console.log("authSchema joi result:",result);
       return res.status(200).send("ورود شما با موفقیت انجام شد");
     } catch (error) {
       next(createHttpError.BadRequest(error.message));

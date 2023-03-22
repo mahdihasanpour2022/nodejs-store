@@ -15,8 +15,6 @@ Post http://localhost:3000/user/login
 Content-Type: application/json
 
 {
-"email" :"mehdi@gmail.com",
-"password" : "123456",
 "mobile" : "09217101700"
 }
 
