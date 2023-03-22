@@ -1,9 +1,9 @@
+const homeController = require('../../http/controllers/api/home.controller');
+
 // step 9 :
-const HomeController = require('../../http/controllers/api/home.controller');
 const router = require('express').Router();
 
-
-router.get("/" , HomeController.indexPage );
+router.post("/" , homeController.indexPage );
 
 module.exports = {
   HomeRoutes : router

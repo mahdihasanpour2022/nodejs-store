@@ -3,9 +3,9 @@
 
 // step 3 : create application
 const express = require("express");
+const createHttpError = require("http-errors");
 const morgan = require("morgan");
 const path = require("path");
-const createErrors = require("http-errors");
 const { AllRoutes } = require("./router/router");
 
 module.exports = class Application {
@@ -70,28 +70,24 @@ module.exports = class Application {
   errorHandling() {
     this.#app.use((req, res, next) => {
       // way 1 : with http-errors => packaje hhtp-errors errorha ro dar ghalebe namieshie standard neshon mide
-      next(createErrors.NotFound("آدرس مورد نظر یافت نشد."));
+      next(createHttpError.NotFound("آدرس مورد نظر یافت نشد."));
       // way 2 :normal way
       // return res.status(404).json({
       //   statusCode: 404
       // });
     });
     this.#app.use((error, req, res, next) => {
-      //createErrors craete server error code and message
-      const statusCode = error.status || createErrors.InternalServerError();
-      const message = error.message || createErrors.message();
+      //createHttpError craete server error code and message
+     const serverError = createHttpError.InternalServerError();
+      const statusCode = error.status || serverError.status;
+      const message = error.message || serverError.message;
       return res.status(statusCode).json({
         // way 1 : with http-errors
-        data: {
-          status: statusCode,
-          success: false,
-          result: null,
-          singleResult: null,
-          errors: {
-            statusCode,
-            message,
-          },
+        errors: {
+          statusCode,
+          message,
         },
+
         // way 2 : normal way
         // statusCode,
         // message,
