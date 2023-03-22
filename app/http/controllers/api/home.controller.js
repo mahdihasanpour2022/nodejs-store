@@ -8,7 +8,7 @@ module.exports = new class HomeController extends Controller {
   async indexPage(req, res, next) {
     try {
       const result =await authSchema.validateAsync(req.body);
-      return res.status(200).send("index page store");
+      return res.status(200).send("صفحه اصلی را نمایش میدهیم");
     } catch (error) {
       next(createHttpError.BadRequest(error.message));
     }
