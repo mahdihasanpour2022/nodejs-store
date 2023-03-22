@@ -4,17 +4,16 @@
 // step 3 : create application
 const express = require("express");
 const path = require("path");
-const http = require("http");
-const { default: mongoose } = require("mongoose");
+const { AllRoutes } = require("./router/router");
 
 module.exports =  class Application {
   #app = express();
   #PORT;
-  #DB_URL;
-  constructor(PORT, DB_URL) {
+  #DB_URI;
+  constructor(PORT, DB_URI) {
     //tartibeshon mohemme
     this.#PORT = PORT;
-    this.#DB_URL = DB_URL;
+    this.#DB_URI = DB_URI;
     this.configApplication();
     this.connectTOMongoDB();
     this.createServer();
@@ -30,17 +29,24 @@ module.exports =  class Application {
     this.#app.use(express.static(path.join(__dirname, "..", "public")));
   }
   createServer() {
+    const http = require("http");
     http.createServer(this.#app).listen(this.#PORT, () => {
       console.log("runed > http://localhost:" + this.#PORT);
     });
   }
-  connectTOMongoDB() {
-    mongoose.connect(this.#DB_URL, (error) => {
-      if (!error) return console.log("connect to mongoDB");
-      return console.log("failed connect to mongoDB");
-    });
+  connectTOMongoDB(DB_URI) {
+    const mongoose = require("mongoose");
+    mongoose.set("strictQuery", true);
+    mongoose.connect(this.#DB_URI);
+    console.log("connect to mongoDB")
+    // mongoose.connect(this.#DB_URI, (error) => {
+    //   if (!error) return console.log("connect to mongoDB");
+    //   return console.log("failed connect to mongoDB");
+    // });
   }
-  createRoutes() {}
+  createRoutes() {
+    this.#app.use(AllRoutes)
+  }
   errorHandling() {
     this.#app.use((req, res, next) => {
       return res.status(404).json({
@@ -53,7 +59,7 @@ module.exports =  class Application {
       const message = error.message || "internal server error darim";
       return res.status(statusCode).json({
         statusCode,
-        message,
+        message
       });
     });
   }
