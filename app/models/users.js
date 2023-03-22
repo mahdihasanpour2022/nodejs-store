@@ -4,9 +4,9 @@ const { default: mongoose } = require("mongoose");
 const Schema = new mongoose.Schema({
   first_name: { type: String },
   last_name: { type: String },
-  user_name: { type: String },
+  user_name: { type: String , lowerCase : true },
   phone: { type: String },
-  email: { type: String },
+  email: { type: String  , lowerCase : true },
   password: { type: String },
   otp: {
     type: Object,

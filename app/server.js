@@ -3,10 +3,11 @@
 
 // step 3 : create application
 const express = require("express");
+const morgan = require("morgan");
 const path = require("path");
 const { AllRoutes } = require("./router/router");
 
-module.exports =  class Application {
+module.exports = class Application {
   #app = express();
   #PORT;
   #DB_URI;
@@ -21,6 +22,9 @@ module.exports =  class Application {
     this.errorHandling();
   }
   configApplication() {
+    //  morgan log mindaze dar terminale node mige vase felan route req omade -->
+    // vorodish halate prod  ya dev hast va mishe vasash event nevesht mesle khate 52
+    this.#app.use(morgan("dev"));
     //in vase ine k betonim az samte client json  ersal konim
     this.#app.use(express.json());
     //betonim ba estefade az www/form url betonim form ersal konim
@@ -31,21 +35,36 @@ module.exports =  class Application {
   createServer() {
     const http = require("http");
     http.createServer(this.#app).listen(this.#PORT, () => {
-      console.log("runed > http://localhost:" + this.#PORT);
+      console.log(
+        "server runed at http://localhost:" + this.#PORT + " (successfully)"
+      );
     });
   }
   connectTOMongoDB(DB_URI) {
     const mongoose = require("mongoose");
     mongoose.set("strictQuery", true);
     mongoose.connect(this.#DB_URI);
-    console.log("connect to mongoDB")
+    console.log("connect to mongoDB (successfully)");
     // mongoose.connect(this.#DB_URI, (error) => {
     //   if (!error) return console.log("connect to mongoDB");
-    //   return console.log("failed connect to mongoDB");
+    //   return console.log(error.message);
     // });
+    //morgan event on mongoose
+    mongoose.connection.on("connected", () => {
+      console.log("morgan dar terminale node mige => mongoose connected to DB");
+    });
+    mongoose.connection.on("disconnected", () => {
+      console.log("morgan dar terminale node mige => mongoose is disconnected");
+    });
+    //morgan agar shoma dar terminal ctrl+c bzanid connection ro mibande k amniate site hefz bshe
+    process.on("SIGNINT", async ()=>{
+      await mongoose.connection.close();
+      console.log("morgan dar terminale node mige => connection baste shod");
+      process.exit(0);
+    })
   }
   createRoutes() {
-    this.#app.use(AllRoutes)
+    this.#app.use(AllRoutes);
   }
   errorHandling() {
     this.#app.use((req, res, next) => {
@@ -59,8 +78,8 @@ module.exports =  class Application {
       const message = error.message || "internal server error darim";
       return res.status(statusCode).json({
         statusCode,
-        message
+        message,
       });
     });
   }
-}
+};
