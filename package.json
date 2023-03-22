@@ -20,6 +20,8 @@
     "mongoose": "^7.0.2",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.21",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.2",
     "yarn": "^1.22.19"
   }
 }
