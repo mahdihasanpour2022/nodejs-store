@@ -1,4 +1,4 @@
-//step 17 : @hapi/joi az schema estefade mikone vase validation
+//step 17 :yarn add @hapi/joi baraie validation => @hapi/joi az schema estefade mikone vase validation
 //name moteghaiiere ro pascal bnvis
 const Joi = require("@hapi/joi");
 
