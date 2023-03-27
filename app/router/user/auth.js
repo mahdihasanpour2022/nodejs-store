@@ -42,7 +42,7 @@ const router = require("express").Router();
  */
 
 
-router.post("/login", UserAuthController.login);
+router.post("/login", UserAuthController.getOtp);
 
 //name router pascal bashe
 module.exports = {

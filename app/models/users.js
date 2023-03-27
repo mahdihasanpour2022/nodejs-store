@@ -5,14 +5,14 @@ const Schema = new mongoose.Schema({
   first_name: { type: String },
   last_name: { type: String },
   user_name: { type: String , lowerCase : true },
-  phone: { type: String },
+  mobile: { type: String , require : true },
   email: { type: String  , lowerCase : true },
   password: { type: String },
   otp: {
     type: Object,
     default: {
       code: 0,
-      expires: new Date().getDate() + 120000, // ms or 0
+      expiresIn: 0 , //  or new Date().getTime() + 120000
     },
   },
   bills: { type: [], default: [] },
