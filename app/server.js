@@ -10,7 +10,8 @@ const { AllRoutes } = require("./router/router");
 //step 21: yarn add swagger-ui-express swagger-jsdoc
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUIExp = require("swagger-ui-express");
-
+// step 40 : cors error handling  => yarn add cors
+const Cors = require("cors");
 
 module.exports = class Application {
   #app = express();
@@ -28,6 +29,8 @@ module.exports = class Application {
     
   }
   configApplication() {
+    //step 41 : use Cors in ##app to use in every where 
+    this.#app.use(Cors())
     // yarn add morgan =>  morgan log mindaze dar terminale node mige vase felan route req omade -->
     // vorodish halate prod  ya dev hast va mishe vasash event nevesht mesle khate 52
     this.#app.use(morgan("dev"));
