@@ -2,19 +2,25 @@
 const createHttpError = require("http-errors");
 const { UserModel } = require("../../../../models/users");
 const { USER_ROLES, EXPIRES_IN } = require("../../../../utils/constants");
-const { randomNumberGenerator } = require("../../../../utils/helperFunctions");
-const { authSchema } = require("../../../validators/user/auth.schema");
+const {
+  randomNumberGenerator,
+  CreateJWTToken,
+} = require("../../../../utils/helperFunctions");
+const {
+  getOtpSchema,
+  checkOtpSchema,
+} = require("../../../validators/user/auth.schema");
 const Controller = require("../../controller");
 
 class UserAuthController extends Controller {
-// inja miad req.body ro migire badesh check mikone bebine ghablan kasi ba in mobile hast dar db agar nabod yeki jadid bsaze  agar bod update user 
-// faaal mishe check mikone k otp khali nabase k updateOne kone dar db agar khali bod otp delete mikone
-// dar nahaiat save user iagar user dar db bode ghablan update mishe agar nabode sakhte mishe
-// va dar getOtp agar javabe saveUser true bode bashe getOtp movaffagh va agar false bashe vororde namovaffagh
+  // inja miad req.body ro migire badesh check mikone bebine ghablan kasi ba in mobile hast dar db agar nabod yeki jadid bsaze  agar bod update user
+  // faaal mishe check mikone k otp khali nabase k updateOne kone dar db agar khali bod otp delete mikone
+  // dar nahaiat save user iagar user dar db bode ghablan update mishe agar nabode sakhte mishe
+  // va dar getOtp agar javabe saveUser true bode bashe getOtp movaffagh va agar false bashe vororde namovaffagh
 
   async getOtp(req, res, next) {
     try {
-      await authSchema.validateAsync(req.body);
+      await getOtpSchema.validateAsync(req.body);
       const { mobile } = req.body;
       // step 26 : create otp
       const code = randomNumberGenerator();
@@ -28,10 +34,10 @@ class UserAuthController extends Controller {
           code,
           mobile,
         },
-        error : null
+        error: null,
       });
     } catch (error) {
-      next(createHttpError.BadRequest(error.message));
+      next(error);
     }
   }
 
@@ -71,6 +77,40 @@ class UserAuthController extends Controller {
       { $set: objectData }
     );
     return !!updateResult.modifiedCount;
+  }
+
+  // step 32 : check otp
+  async checkOTP(req, res, next) {
+    try {
+      await checkOtpSchema.validateAsync(req.body);
+
+      const { mobile, code } = req.body;
+      const user = await UserModel.findOne({ mobile });
+
+      // check kardane vojode karbari ba in moobile
+      if (!user)
+        throw createHttpError.NotFound("کاربری با این شماره موبایل یافت نشد..");
+      // check kardane code dar otp
+      if (user.otp.code != code) {
+        throw createHttpError.Unauthorized("کد ارسال شده صحیح نمی باشد.");
+      }
+      // check kardane expiresIn dar otp
+      const now = Date.now();
+      if (user.otp.exports < now)
+        throw createHttpError.Unauthorized("کد شما منقضی شده است.");
+      // step 35 : use CreateJWTToken
+      const accessToken =await CreateJWTToken(user._id);
+      return res.send({
+        data: {
+          // statusCode: 200,
+          accessToken ,
+          // message: "توکن با موفقسیت ارسال شد",
+        },
+        // error: null
+        });
+    } catch (error) {
+      next(error);
+    }
   }
 }
 

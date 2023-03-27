@@ -6,7 +6,7 @@ const Joi = require("@hapi/joi");
 // be komake error(new Error(""))  mitoni farsi error bdi
 // joi mobile validator nadare pas baiad ba pattern tosh regex benevisi
 
-const authSchema = Joi.object({
+const getOtpSchema = Joi.object({
   // email: Joi.string()
   //   .lowercase()
   //   .trim()
@@ -25,6 +25,14 @@ const authSchema = Joi.object({
     .error(new Error("موبایل صحیح نیست")),
 });
 
+// step 31 : check otp schema
+const checkOtpSchema = Joi.object({
+  mobile: Joi.string().length(11).pattern(/^09[0-9]{9}/).error(new Error("موبایل صحیح نیست")),
+  // b dalile khateaie systemi mopmkene 5 ta adad nabase pas min va max mizarim barash
+  code : Joi.string().min(4).max(6).error(new Error("otp صحیح نیست"))
+})
+
 module.exports = {
-  authSchema,
+  getOtpSchema,
+  checkOtpSchema
 };

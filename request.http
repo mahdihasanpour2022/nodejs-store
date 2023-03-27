@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 
-### b tartib inaro sakhti 1- authschema 2-UserAuthController 3-UserAuthRoutes 4-ezafe kardanesh dar router asli
+### b tartib inaro sakhti 1- getOtpSchema 2-UserAuthController 3-UserAuthRoutes 4-ezafe kardanesh dar router asli
 Post http://localhost:3000/user/login
 Content-Type: application/json
 
