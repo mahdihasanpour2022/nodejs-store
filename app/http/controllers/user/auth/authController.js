@@ -2,10 +2,9 @@
 const createHttpError = require("http-errors");
 const { UserModel } = require("../../../../models/users");
 const { USER_ROLES, EXPIRES_IN } = require("../../../../utils/constants");
-const {
-  randomNumberGenerator,
-  CreateJWTToken,
-} = require("../../../../utils/helperFunctions");
+const { CreateAccessToken } = require("../../../../utils/createAccessToken");
+const { randomNumberGenerator } = require("../../../../utils/randomNumberGenerator");
+
 const {
   getOtpSchema,
   checkOtpSchema,
@@ -99,7 +98,7 @@ class UserAuthController extends Controller {
       if (user.otp.exports < now)
         throw createHttpError.Unauthorized("کد شما منقضی شده است.");
       // step 35 : use CreateJWTToken
-      const accessToken =await CreateJWTToken(user._id);
+      const accessToken =await CreateAccessToken(user._id);
       return res.send({
         data: {
           // statusCode: 200,
