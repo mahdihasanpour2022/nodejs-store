@@ -3,7 +3,11 @@ const createHttpError = require("http-errors");
 const { UserModel } = require("../../../../models/users");
 const { USER_ROLES, EXPIRES_IN } = require("../../../../utils/constants");
 const { CreateAccessToken } = require("../../../../utils/createAccessToken");
-const { randomNumberGenerator } = require("../../../../utils/randomNumberGenerator");
+const { createRefreshToken } = require("../../../../utils/createRefreshToken");
+const {
+  randomNumberGenerator,
+} = require("../../../../utils/randomNumberGenerator");
+const { verifyRefreshToken } = require("../../../../utils/verifyRefreshToken");
 
 const {
   getOtpSchema,
@@ -98,17 +102,44 @@ class UserAuthController extends Controller {
       if (user.otp.exports < now)
         throw createHttpError.Unauthorized("کد شما منقضی شده است.");
       // step 35 : use CreateJWTToken
-      const accessToken =await CreateAccessToken(user._id);
-      return res.send({
+      const accessToken = await CreateAccessToken(user._id);
+      // step 45 :
+      const refreshToken = await createRefreshToken(user._id);
+
+      return res.json({
         data: {
-          // statusCode: 200,
-          accessToken ,
-          // message: "توکن با موفقسیت ارسال شد",
+          statusCode: 200,
+          accessToken,
+          refreshToken,
+          message: "توکن با موفقیت ارسال شد",
         },
-        // error: null
-        });
+        error: null,
+      });
     } catch (error) {
       next(error);
+    }
+  }
+
+  //step 42 :
+  async refreshToken(req, res, next) {
+    try {
+      const { refreshtoken } = req.body;
+      const mobile = await verifyRefreshToken(refreshtoken);
+      const user = await UserModel.findOne({ mobile });
+      if (!user) next(createHttpError.Unauthorized("کاربر یافت نشد."));
+      const accessToken = await CreateAccessToken(user._id);
+      const newRefreshToken = await createRefreshToken(user._id);
+      return res.json({
+        data: {
+          statusCode: 200,
+          accessToken,
+          refreshToken: newRefreshToken,
+          message: "رفرش توکن و توکن جدید با موفقیت ساخته شد.",
+        },
+        error: null,
+      });
+    } catch (err) {
+      next(err);
     }
   }
 }

@@ -82,6 +82,38 @@ router.post("/get-otp", UserAuthController.getOtp);
 // step 36 :
 router.post("/check-otp", UserAuthController.checkOTP);
 
+// step 46 : albate inja behtare to formData ersal bshe na body
+
+/**
+ * @swagger
+ *  /user/refresh-token:
+ *      post:
+ *          tags: [user-authentication]
+ *          summary: send refresh token for get new accessToken and refreshToken
+ *          description:  refresh token
+ *          parameters: 
+ *          -     in: body
+ *                name: refreshtoken
+ *                example: {refreshtoken : your refreshtoken here...}
+ *                requires: true
+ *                type : string
+ *          responses: 
+ *                200:
+ *                   description: Success
+ *                400:
+ *                   description: BadRequest
+ *                401:
+ *                   description: Unauthorized
+ *                404:
+ *                   description: Not Found
+ *                500:
+ *                   description: Internal Server Error
+ */
+
+
+// step 41 : create route for refresh-token
+router.post('/refresh-token' , UserAuthController.refreshToken)
+
 
 //name router pascal bashe
 module.exports = {
