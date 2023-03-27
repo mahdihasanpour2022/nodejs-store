@@ -1,7 +1,21 @@
+### 3 ta hashtag iania comment 
+
 Post http://localhost:3000
 Content-Type: application/json
 
 {
 "email" :"mehdi@gmail.com",
-"password" : "123456"
+"password" : "123456",
+"mobile" : "09217101700"
 }
+
+
+### b tartib inaro sakhti 1- authschema 2-UserAuthController 3-UserAuthRoutes 4-ezafe kardanesh dar router asli
+Post http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+"mobile" : "09217101700"
+}
+
+

@@ -7,6 +7,10 @@ const createHttpError = require("http-errors");
 const morgan = require("morgan");
 const path = require("path");
 const { AllRoutes } = require("./router/router");
+//step 21: yarn add swagger-ui-express swagger-jsdoc
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUIExp = require("swagger-ui-express");
+
 
 module.exports = class Application {
   #app = express();
@@ -21,6 +25,7 @@ module.exports = class Application {
     this.createServer();
     this.createRoutes();
     this.errorHandling();
+    
   }
   configApplication() {
     // yarn add morgan =>  morgan log mindaze dar terminale node mige vase felan route req omade -->
@@ -32,6 +37,27 @@ module.exports = class Application {
     this.#app.use(express.urlencoded({ extended: true }));
     //__dirname in poshie k server toshe ro barmigardone ma migim na boro aghab az on poshe public hesab kon
     this.#app.use(express.static(path.join(__dirname, "..", "public")));
+    //step 22 : sakhte swagger be addresse baseurl/api-doc
+    this.#app.use("/api" , swaggerUIExp.serve , swaggerUIExp.setup(swaggerJSDoc({
+      swaggerDefinition : {
+        info : {
+          title : "first store node.js",
+          version : "6.2.8",
+          description : "اولین تجربه فروشگاه من دربک اند",
+          contact: {
+            name: "mahdi hasanpour",
+            url: "https://hasanpour.com",
+            email: "mahdihasanpour2022@gmail.com",
+          },
+        },
+        servers : [
+          {
+            url  : "http://localhost:3000"
+          }
+        ]
+      },
+      apis : ["./app/router/*/*.js"]
+    })))
   }
   createServer() {
     const http = require("http");
@@ -78,7 +104,7 @@ module.exports = class Application {
     });
     this.#app.use((error, req, res, next) => {
       //createHttpError craete server error code and message
-     const serverError = createHttpError.InternalServerError();
+      const serverError = createHttpError.InternalServerError();
       const statusCode = error.status || serverError.status;
       const message = error.message || serverError.message;
       return res.status(statusCode).json({
