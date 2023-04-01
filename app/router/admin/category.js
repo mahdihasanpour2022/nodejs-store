@@ -122,6 +122,36 @@ router.get("/children/:parent" , CategoryController.getChildrenOfParentsCategory
 // step 72:
 router.get("/all" , CategoryController.getAllCategory )
 
+// step 76 :
+
+/**
+ * @swagger
+ * tag: admin-panel
+ * /admin/category/remove/{id}:
+ *  delete:
+ *      summary: delete category with object-id 
+ *      tags: [admin-panel]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *              required: true
+ *      responses:
+ *          201:
+ *              description: success
+ *          400: 
+ *              description: Bad Request
+ *          401: 
+ *              description: unauthorized
+ *          404: 
+ *              description: not Found
+ *          500: 
+ *              description: internal server error
+ */
+
+// step 75 :
+router.delete("/remove/:id" , CategoryController.removeCategory )
+
 // hamishe esme router ha pascal bashe
 module.exports = {
   CategoryRoutes: router,

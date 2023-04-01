@@ -28,9 +28,22 @@ class CategoryController extends Controller {
       next(error);
     }
   }
-
-  removeCategory(req, res, next) {
+// step 74 :
+ async removeCategory(req, res, next) {
     try {
+      const {id} = req.params ;
+      const category = await this.checkExistCategory(id);
+      const deleteResult =  await CategoryModel.deleteOne({_id : category._id});
+      if(deleteResult.deletedCount == 0  ) throw createHttpError.InternalServerError("حذف دسته بندی انجاام نشد.");
+      // 202 iani ba movafaghiat hazf shod  ========>  201 iani ba movafaghiat sakhte shod
+      return res.status(202).json({
+        data : {
+          sttausCode : 202 ,
+          message : "حذف با موفقیت حذف شد"
+        },
+        error : null
+      });
+
     } catch (error) {
       next(error);
     }
@@ -62,6 +75,7 @@ class CategoryController extends Controller {
       ]);
       return res.status(200).json({
         data: {
+          statusCode : 200 ,
           category,
         },
         error: null,
@@ -89,6 +103,7 @@ class CategoryController extends Controller {
       );
       return res.status(200).json({
         data: {
+          statusCode : 200 ,
           parents,
         },
       });
@@ -108,6 +123,7 @@ class CategoryController extends Controller {
       );
       return res.status(200).json({
         data: {
+          statusCode : 200 ,
           children,
         },
         error: null,
@@ -116,6 +132,15 @@ class CategoryController extends Controller {
       next(error);
     }
   }
+
+  // step 73 :
+  async checkExistCategory(id) {
+    const category = await CategoryModel.findById(id);
+    // har ja k throw koni , edamash dge ejra namishe 
+    if (!category) throw createHttpError.NotFound("دسته بندی یافت نسد.");
+    return category;
+  }
+
 }
 
 module.exports = {
