@@ -67,6 +67,36 @@ router.post("/create", CategoryController.createCategory);
 router.get("/parents", CategoryController.getAllParentsCategory);
 
 
+// step 68 :
+/**
+ * @swagger
+ * tag: admin-panel
+ * /admin/category/children/{parent}:
+ *  get:
+ *      summary: get all child of parentcategory
+ *      tags: [admin-panel]
+ *      parameters:
+ *          -   in: path
+ *              name: parent
+ *              type: string
+ *              required: true
+ *      responses:
+ *          201:
+ *              description: success
+ *          400: 
+ *              description: Bad Request
+ *          401: 
+ *              description: unauthorized
+ *          404: 
+ *              description: not Found
+ *          500: 
+ *              description: internal server error
+ */
+
+// step 69 :
+router.get("/children/:parent" , CategoryController.getChildrenOfParentsCategory)
+
+
 // hamishe esme router ha pascal bashe
 module.exports = {
   CategoryRoutes: router,

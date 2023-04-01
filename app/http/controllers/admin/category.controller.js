@@ -8,7 +8,6 @@ const {
 const Controller = require("../controller");
 
 class CategoryController extends Controller {
-
   async createCategory(req, res, next) {
     try {
       await createCategorySchema.validateAsync(req.body);
@@ -57,23 +56,33 @@ class CategoryController extends Controller {
       next(error);
     }
   }
- // step 66 :
-async getAllParentsCategory(req, res, next) {
+  // step 66 :
+  async getAllParentsCategory(req, res, next) {
     try {
       // baraie peida kardane onaie k parenteshon undefined hast => find baiad bashe chon yeki nist
-      const parents = await CategoryModel.find({parent : undefined});
+      // __v : 0 iani dar object haie k darone array k ba find migire __v hazf kon 
+      const parents = await CategoryModel.find({ parent: undefined }, {__v : 0} );
       return res.status(200).json({
-        data : {
-          parents
-        }
-      })
+        data: {
+          parents,
+        },
+      });
     } catch (error) {
       next(error);
     }
   }
-
-  getChildCategory(req, res, next) {
+  // step 67 :
+  async getChildrenOfParentsCategory(req, res, next) {
     try {
+      const { parent } = req.params;
+      // dar akharesh har chi benevisi dar res neshon  dade nemishe masalan __v : 0
+      const children = await CategoryModel.find({ parent } , {__v : 0 ,parent : 0 } );
+      return res.status(200).json({
+        data: {
+          children,
+        },
+        error: null,
+      });
     } catch (error) {
       next(error);
     }
