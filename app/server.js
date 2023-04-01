@@ -42,8 +42,7 @@ module.exports = class Application {
     //__dirname in poshie k server toshe ro barmigardone ma migim na boro aghab az on poshe public hesab kon
     this.#app.use(express.static(path.join(__dirname, "..", "public")));
     //step 22 : sakhte swagger be addresse baseurl/api-doc
-    this.#app.use(
-      "/api",
+    this.#app.use("/api-doc",
       swaggerUIExp.serve,
       swaggerUIExp.setup(
         swaggerJSDoc({
@@ -51,7 +50,7 @@ module.exports = class Application {
             info: {
               title: "first store node.js",
               version: "6.2.8",
-              description: "اولین تجربه فروشگاه من دربک اند",
+              description: "اولین تجربه فروشگاهی من دربک اند",
               contact: {
                 name: "mahdi hasanpour",
                 url: "https://hasanpour.com",

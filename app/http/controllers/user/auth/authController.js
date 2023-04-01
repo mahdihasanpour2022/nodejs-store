@@ -1,7 +1,7 @@
 // step 18 :
 const createHttpError = require("http-errors");
 const { UserModel } = require("../../../../models/users");
-const { USER_ROLES } = require("../../../../utils/constants");
+const {  ROLES } = require("../../../../utils/constants");
 const { CreateAccessToken } = require("../../../../utils/createAccessToken");
 const { createRefreshToken } = require("../../../../utils/createRefreshToken");
 const {
@@ -58,7 +58,7 @@ class UserAuthController extends Controller {
     return !!(await UserModel.create({
       mobile,
       otp,
-      Roles: [USER_ROLES],
+      Roles: [ROLES.USER],
     }));
   }
 
