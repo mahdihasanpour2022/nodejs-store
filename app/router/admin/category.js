@@ -73,7 +73,7 @@ router.get("/parents", CategoryController.getAllParentsCategory);
  * tag: admin-panel
  * /admin/category/children/{parent}:
  *  get:
- *      summary: get all child of parentcategory
+ *      summary: get all children of parents category
  *      tags: [admin-panel]
  *      parameters:
  *          -   in: path
@@ -96,6 +96,31 @@ router.get("/parents", CategoryController.getAllParentsCategory);
 // step 69 :
 router.get("/children/:parent" , CategoryController.getChildrenOfParentsCategory)
 
+
+// step 71:
+
+/**
+ * @swagger
+ * tag: admin-panel
+ * /admin/category/all:
+ *  get:
+ *      summary: get all categories 
+ *      tags: [admin-panel]
+ *      responses:
+ *          201:
+ *              description: success
+ *          400: 
+ *              description: Bad Request
+ *          401: 
+ *              description: unauthorized
+ *          404: 
+ *              description: not Found
+ *          500: 
+ *              description: internal server error
+ */
+
+// step 72:
+router.get("/all" , CategoryController.getAllCategory )
 
 // hamishe esme router ha pascal bashe
 module.exports = {
