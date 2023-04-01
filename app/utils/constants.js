@@ -1,6 +1,7 @@
 // step 30 : maghadire pish farz capital mizarim k hame ja beshe estefade kone
 //step 34(part 2) :
 module.exports = {
+  MONGO_ID_PATTERN : /^(?=[a-f\d]{24}$)(\d+[a-f]|[a-f]+\d)/i ,
   ROLES : {
     USER:"USER",
     ADMIN : "ADMIN",

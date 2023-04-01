@@ -3,6 +3,7 @@ const router = require("express").Router();
 const { HomeRoutes } = require("./api/index");
 const { UserAuthRoutes } = require("./user/auth");
 const { DeveloperRoutes } = require("./developer.routes");
+const { adminRoutes } = require("./admin/admin.routes");
 
 // const redisClient = require("../utils/init_redis");
 //step 49 : faghat vase inke test konim bebinim b redis motasel mishe ya na
@@ -41,8 +42,11 @@ const { DeveloperRoutes } = require("./developer.routes");
 //step 20:
 router.use("/user", UserAuthRoutes);
 
-//// step 55 :
+// step 55 :
 router.use("/developer", DeveloperRoutes);
+
+//// step 63 : hala agara dar swagger por koni mavaredesho dar mongodb compass mishine
+router.use("/admin", adminRoutes);
 
 // step 10 :
 router.use("/", HomeRoutes);
