@@ -57,9 +57,16 @@ class CategoryController extends Controller {
       next(error);
     }
   }
-
-  getAllParentsCategory(req, res, next) {
+ // step 66 :
+async getAllParentsCategory(req, res, next) {
     try {
+      // baraie peida kardane onaie k parenteshon undefined hast => find baiad bashe chon yeki nist
+      const parents = await CategoryModel.find({parent : undefined});
+      return res.status(200).json({
+        data : {
+          parents
+        }
+      })
     } catch (error) {
       next(error);
     }

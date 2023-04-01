@@ -1,4 +1,4 @@
-// step 59 :
+
 const router = require("express").Router();
 const {
   CategoryController,
@@ -37,8 +37,35 @@ const {
  */
 
 
-
+// step 59 :
 router.post("/create", CategoryController.createCategory);
+
+// step 65 :
+
+/**
+ * @swagger
+ * tag: admin-panel
+ * /admin/category/parents:
+ *  get:
+ *      summary: get all parent of category or category head
+ *      tags: [admin-panel]
+ *      responses:
+ *          201:
+ *              description: success
+ *          400: 
+ *              description: Bad Request
+ *          401: 
+ *              description: unauthorized
+ *          404: 
+ *              description: not Found
+ *          500: 
+ *              description: internal server error
+ */
+
+
+// step 64 :
+router.get("/parents", CategoryController.getAllParentsCategory);
+
 
 // hamishe esme router ha pascal bashe
 module.exports = {
