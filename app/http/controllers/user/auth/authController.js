@@ -1,7 +1,7 @@
 // step 18 :
 const createHttpError = require("http-errors");
 const { UserModel } = require("../../../../models/users");
-const { USER_ROLES, EXPIRES_IN } = require("../../../../utils/constants");
+const { USER_ROLES } = require("../../../../utils/constants");
 const { CreateAccessToken } = require("../../../../utils/createAccessToken");
 const { createRefreshToken } = require("../../../../utils/createRefreshToken");
 const {
@@ -48,7 +48,7 @@ class UserAuthController extends Controller {
   async saveUser(mobile, code) {
     let otp = {
       code,
-      expiresIn: EXPIRES_IN,
+      expiresIn: new Date().getTime() + 120000,
     };
     const result = await this.checkExistUser(mobile);
 

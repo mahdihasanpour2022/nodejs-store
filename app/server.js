@@ -17,20 +17,21 @@ module.exports = class Application {
   #app = express();
   #PORT;
   #DB_URI;
+
   constructor(PORT, DB_URI) {
     //tartibeshon mohemme
     this.#PORT = PORT;
     this.#DB_URI = DB_URI;
     this.configApplication();
+    this.initRedis();
     this.connectTOMongoDB();
     this.createServer();
     this.createRoutes();
     this.errorHandling();
-    
   }
   configApplication() {
-    //step 41 : use Cors in ##app to use in every where 
-    this.#app.use(Cors())
+    //step 41 : use Cors in ##app to use in every where
+    this.#app.use(Cors());
     // yarn add morgan =>  morgan log mindaze dar terminale node mige vase felan route req omade -->
     // vorodish halate prod  ya dev hast va mishe vasash event nevesht mesle khate 52
     this.#app.use(morgan("dev"));
@@ -41,26 +42,32 @@ module.exports = class Application {
     //__dirname in poshie k server toshe ro barmigardone ma migim na boro aghab az on poshe public hesab kon
     this.#app.use(express.static(path.join(__dirname, "..", "public")));
     //step 22 : sakhte swagger be addresse baseurl/api-doc
-    this.#app.use("/api" , swaggerUIExp.serve , swaggerUIExp.setup(swaggerJSDoc({
-      swaggerDefinition : {
-        info : {
-          title : "first store node.js",
-          version : "6.2.8",
-          description : "اولین تجربه فروشگاه من دربک اند",
-          contact: {
-            name: "mahdi hasanpour",
-            url: "https://hasanpour.com",
-            email: "mahdihasanpour2022@gmail.com",
+    this.#app.use(
+      "/api",
+      swaggerUIExp.serve,
+      swaggerUIExp.setup(
+        swaggerJSDoc({
+          swaggerDefinition: {
+            info: {
+              title: "first store node.js",
+              version: "6.2.8",
+              description: "اولین تجربه فروشگاه من دربک اند",
+              contact: {
+                name: "mahdi hasanpour",
+                url: "https://hasanpour.com",
+                email: "mahdihasanpour2022@gmail.com",
+              },
+            },
+            servers: [
+              {
+                url: "http://localhost:3000",
+              },
+            ],
           },
-        },
-        servers : [
-          {
-            url  : "http://localhost:3000"
-          }
-        ]
-      },
-      apis : ["./app/router/*/*.js"]
-    })))
+          apis: ["./app/router/*/*.js"],
+        })
+      )
+    );
   }
   createServer() {
     const http = require("http");
@@ -70,7 +77,7 @@ module.exports = class Application {
       );
     });
   }
-  connectTOMongoDB(DB_URI) {
+  connectTOMongoDB() {
     const mongoose = require("mongoose");
     mongoose.set("strictQuery", true);
     mongoose.connect(this.#DB_URI);
@@ -92,6 +99,11 @@ module.exports = class Application {
       console.log("morgan dar terminale node mige => connection baste shod");
       process.exit(0);
     });
+  }
+  
+  // step 48 :
+  initRedis() {
+    require("./utils/init_redis");
   }
   createRoutes() {
     this.#app.use(AllRoutes);
