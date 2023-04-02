@@ -8,8 +8,10 @@ const router = require("express").Router();
 /**
  * @swagger
  * tags:
- *  name: admin-panel
- *  description :  actions for admins (add , remove , edit ,...)  
+ *  -    name: admin-panel
+ *       description : actions for admins (add , remove , edit , ...)
+ *  -    name: category(AdminPanel)
+ *       description : all method for category section 
  */
 
 router.use("/category", CategoryRoutes);

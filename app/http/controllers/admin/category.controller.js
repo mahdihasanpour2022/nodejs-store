@@ -5,6 +5,7 @@ const createHttpError = require("http-errors");
 const { CategoryModel } = require("../../../models/categories");
 const {
   createCategorySchema,
+  updateCategorySchema,
 } = require("../../validators/admin/category.schema");
 const Controller = require("../controller");
 const mongoose = require("mongoose");
@@ -52,9 +53,33 @@ class CategoryController extends Controller {
       next(error);
     }
   }
-
-  editCategory(req, res, next) {
+  // step 85 :
+  async updateCategoryTitle(req, res, next) {
     try {
+      const { id } = req.params;
+      const { title } = req.body;
+      const category = await this.checkExistCategory(id);
+      if (!category)
+        throw createHttpError.InternalServerError("خطای داخل سرور");
+      // on body k ersal mishe ro baiad validation kone
+      await updateCategorySchema.validateAsync(req.body);
+      const resultOfUpdate = await CategoryModel.updateOne(
+        { _id: id },
+        { $set: {title} } // agar $set : {in mohtviat baiad dar obj bashe } vagarna in error ro mide : Invalid atomic update value for $set. Expected an object, received string
+      );
+      //  agar update shode bashe => === nazar
+      if (resultOfUpdate.modifiedCount == 0)
+        throw createHttpError.InternalServerError(
+          "بروز رسانی و آپدیت دسته بندی انجام نشد."
+        );
+      // 202 iani Accepted response
+      return res.status(202).json({
+        data: {
+          statusCode: 200,
+          message: "بروز رسانی با موفقیت انجام شد.",
+        },
+        error: null,
+      });
     } catch (error) {
       next(error);
     }

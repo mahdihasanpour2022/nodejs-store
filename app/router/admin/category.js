@@ -7,11 +7,11 @@ const {
 
 /**
  * @swagger
- * tag: admin-panel
+ * tag: category(AdminPanel)
  * /admin/category/create:
  *  post:
  *      summary: craete new category title
- *      tags: [admin-panel]
+ *      tags: [category(AdminPanel)]
  *      parameters:
  *          -   in: formData
  *              name: title
@@ -41,11 +41,11 @@ router.post("/create", CategoryController.createCategory);
 
 /**
  * @swagger
- * tag: admin-panel
+ * tag: category(AdminPanel)
  * /admin/category/parents:
  *  get:
  *      summary: get all parent of category or category head
- *      tags: [admin-panel]
+ *      tags: [category(AdminPanel)]
  *      responses:
  *          200:
  *              description: success
@@ -65,11 +65,11 @@ router.get("/parents", CategoryController.getAllParentsCategory);
 // step 68 :
 /**
  * @swagger
- * tag: admin-panel
+ * tag: category(AdminPanel)
  * /admin/category/children/{parent}:
  *  get:
  *      summary: get all children of parents category
- *      tags: [admin-panel]
+ *      tags: [category(AdminPanel)]
  *      parameters:
  *          -   in: path
  *              name: parent
@@ -98,11 +98,11 @@ router.get(
 
 /**
  * @swagger
- * tag: admin-panel
+ * tag: category(AdminPanel)
  * /admin/category/all:
  *  get:
  *      summary: get all categories
- *      tags: [admin-panel]
+ *      tags: [category(AdminPanel)]
  *      responses:
  *          200:
  *              description: success
@@ -123,11 +123,11 @@ router.get("/all", CategoryController.getAllCategory);
 
 /**
  * @swagger
- * tag: admin-panel
+ * tag: category(AdminPanel)
  * /admin/category/remove/{id}:
  *  delete:
  *      summary: delete category with object-id
- *      tags: [admin-panel]
+ *      tags: [category(AdminPanel)]
  *      parameters:
  *          -   in: path
  *              name: id
@@ -150,13 +150,14 @@ router.get("/all", CategoryController.getAllCategory);
 router.delete("/remove/:id", CategoryController.removeCategory);
 
 // step 84 :
+
 /**
  * @swagger
- * tag: admin-panel
+ * tag: category(AdminPanel)
  * /admin/category/list-of-all:
  *  get:
  *      summary: get all categories whitout populate and nested structure
- *      tags: [admin-panel]
+ *      tags: [category(AdminPanel)]
  *      responses:
  *          200:
  *              description: success
@@ -169,18 +170,49 @@ router.delete("/remove/:id", CategoryController.removeCategory);
  *          500:
  *              description: internal server error
  */
+
 // step 83 : in baiad balatar az marhalie 77 bashe chon onke param dare baiad akharin khat bashe
 router.get("/list-of-all", CategoryController.getAllCategoriesWithoutPopulate);
+
+
+// step 88:
+
+/**
+ * @swagger
+ * tag: category(AdminPanel)
+ * /admin/category/update/{id}:
+ *  patch:
+ *      summary: update title of category
+ *      tags: [category(AdminPanel)]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *              required: true
+ *          -   in: formData
+ *              name: title
+ *              type: string
+ *              required: true
+ *      responses:
+ *          200:
+ *              description: success
+ *          500:
+ *              description: internal server error
+ */
+
+// step 87 : chon faghat ye parameter title ro darim avaz mikonim baiad patch bashe na put
+router.patch("/update/:id", CategoryController.updateCategoryTitle);
+
 
 // step 78 :
 
 /**
  * @swagger
- * tag: admin-panel
+ * tag: category(AdminPanel)
  * /admin/category/{id}:
  *  get:
  *      summary: find category with object id
- *      tags: [admin-panel]
+ *      tags: [category(AdminPanel)]
  *      parameters:
  *          -   in: path
  *              name: id
