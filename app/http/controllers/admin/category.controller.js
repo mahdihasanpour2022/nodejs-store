@@ -28,22 +28,22 @@ class CategoryController extends Controller {
       next(error);
     }
   }
-// step 74 :
- async removeCategory(req, res, next) {
+  // step 74 :
+  async removeCategory(req, res, next) {
     try {
-      const {id} = req.params ;
+      const { id } = req.params;
       const category = await this.checkExistCategory(id);
-      const deleteResult =  await CategoryModel.deleteOne({_id : category._id});
-      if(deleteResult.deletedCount == 0  ) throw createHttpError.InternalServerError("حذف دسته بندی انجاام نشد.");
+      const deleteResult = await CategoryModel.deleteOne({ _id: category._id });
+      if (deleteResult.deletedCount == 0)
+        throw createHttpError.InternalServerError("حذف دسته بندی انجاام نشد.");
       // 202 iani ba movafaghiat hazf shod  ========>  201 iani ba movafaghiat sakhte shod
       return res.status(202).json({
-        data : {
-          sttausCode : 202 ,
-          message : "حذف با موفقیت حذف شد"
+        data: {
+          sttausCode: 202,
+          message: "حذف با موفقیت حذف شد",
         },
-        error : null
+        error: null,
       });
-
     } catch (error) {
       next(error);
     }
@@ -60,22 +60,39 @@ class CategoryController extends Controller {
     try {
       // aggregate mire boro begard donbale ona k id daran va dakhele khodeshon y chizi daran b name parent k ba id barabare va natijaro dakhele children berize ye array mide
       // on akharesh ba $project migi kodoma ro az res hazf kone
+      // startWith mige az kodom mikhay shoro koni
+      // connectFromField mige az chi mikhay connect bzani
+      // connectToField mige b chi mikhay connecte bzani iani b chi conectet berese
+      // maxDepth ta chandta zir majmoie dashte bashe
+      //  depthField ye adad bar asase hamon adade maxDepth mide b frontend k betone zir majmoie felan ro bgiere
+
       const category = await CategoryModel.aggregate([
         {
-          $lookup: {
+          $graphLookup: {
             from: "categories",
-            localField: "_id",
-            foreignField: "parent",
+            startWith: "$_id" , 
+            connectFromField: "_id",
+            connectToField: "parent",
+            maxDepth :5 ,
+            depthField : "depth" ,
             as: "children",
           },
         },
         {
-          $project: { __v: 0, "children.__v": 0, "children.parent": 0 },
-        },
+          $project: {
+            __v: 0,
+            "children.__v": 0,
+            // "children.parent": 0,
+          },
+        },{
+          $match : {
+            parent : undefined
+          }
+        }
       ]);
       return res.status(200).json({
         data: {
-          statusCode : 200 ,
+          statusCode: 200,
           category,
         },
         error: null,
@@ -103,7 +120,7 @@ class CategoryController extends Controller {
       );
       return res.status(200).json({
         data: {
-          statusCode : 200 ,
+          statusCode: 200,
           parents,
         },
       });
@@ -123,7 +140,7 @@ class CategoryController extends Controller {
       );
       return res.status(200).json({
         data: {
-          statusCode : 200 ,
+          statusCode: 200,
           children,
         },
         error: null,
@@ -136,11 +153,10 @@ class CategoryController extends Controller {
   // step 73 :
   async checkExistCategory(id) {
     const category = await CategoryModel.findById(id);
-    // har ja k throw koni , edamash dge ejra namishe 
+    // har ja k throw koni , edamash dge ejra namishe
     if (!category) throw createHttpError.NotFound("دسته بندی یافت نسد.");
     return category;
   }
-
 }
 
 module.exports = {
