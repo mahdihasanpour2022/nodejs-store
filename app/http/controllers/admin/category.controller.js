@@ -70,35 +70,42 @@ class CategoryController extends Controller {
       // maxDepth ta chandta zir majmoie dashte bashe
       //  depthField ye adad bar asase hamon adade maxDepth mide b frontend k betone zir majmoie felan ro bgiere
 
-      const category = await CategoryModel.aggregate([
-        {
-          $graphLookup: {
-            from: "categories",
-            startWith: "$_id",
-            connectFromField: "_id",
-            connectToField: "parent",
-            maxDepth: 5,
-            depthField: "depth",
-            as: "children",
-          },
-        },
-        {
-          $project: {
-            __v: 0,
-            "children.__v": 0,
-            "children.parent": 0,
-          },
-        },
-        {
-          $match: {
-            parent: undefined,
-          },
-        },
-      ]);
+      // const categories = await CategoryModel.aggregate([
+      //   {
+      //     $graphLookup: {
+      //       from: "categories",
+      //       startWith: "$_id",
+      //       connectFromField: "_id",
+      //       connectToField: "parent",
+      //       maxDepth: 5,
+      //       depthField: "depth",
+      //       as: "children",
+      //     },
+      //   },
+      //   {
+      //     $project: {
+      //       __v: 0,
+      //       "children.__v": 0,
+      //       "children.parent": 0,
+      //     },
+      //   },
+      //   {
+      //     $match: {
+      //       parent: undefined,
+      //     },
+      //   },
+      // ]);
+
+      // __v : 0  iani ino b man neshon nade
+      const categories = await CategoryModel.find(
+        { parent: undefined },
+        { __v: 0 }
+      );
+
       return res.status(200).json({
         data: {
           statusCode: 200,
-          category,
+          categories,
         },
         error: null,
       });
@@ -177,6 +184,24 @@ class CategoryController extends Controller {
         data: {
           statusCode: 200,
           children,
+        },
+        error: null,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // step 82 :
+  async getAllCategoriesWithoutPopulate(req, res, next) {
+    try {
+      const categories = await CategoryModel.aggregate([
+        { $match: {} }, // vaghti match khali bashe hamaro migire
+      ]);
+      return res.status(200).json({
+        data: {
+          statusCode: 200,
+          categories,
         },
         error: null,
       });

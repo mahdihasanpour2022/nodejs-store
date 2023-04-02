@@ -1,11 +1,9 @@
-
 const router = require("express").Router();
 const {
   CategoryController,
 } = require("../../http/controllers/admin/category.controller");
 
 // step 60 :
-
 
 /**
  * @swagger
@@ -26,16 +24,15 @@ const {
  *      responses:
  *          201:
  *              description: success
- *          400: 
+ *          400:
  *              description: Bad Request
- *          401: 
+ *          401:
  *              description: unauthorized
- *          404: 
+ *          404:
  *              description: not Found
- *          500: 
+ *          500:
  *              description: internal server error
  */
-
 
 // step 59 :
 router.post("/create", CategoryController.createCategory);
@@ -50,22 +47,20 @@ router.post("/create", CategoryController.createCategory);
  *      summary: get all parent of category or category head
  *      tags: [admin-panel]
  *      responses:
- *          201:
+ *          200:
  *              description: success
- *          400: 
+ *          400:
  *              description: Bad Request
- *          401: 
+ *          401:
  *              description: unauthorized
- *          404: 
+ *          404:
  *              description: not Found
- *          500: 
+ *          500:
  *              description: internal server error
  */
 
-
 // step 64 :
 router.get("/parents", CategoryController.getAllParentsCategory);
-
 
 // step 68 :
 /**
@@ -81,21 +76,23 @@ router.get("/parents", CategoryController.getAllParentsCategory);
  *              type: string
  *              required: true
  *      responses:
- *          201:
+ *          200:
  *              description: success
- *          400: 
+ *          400:
  *              description: Bad Request
- *          401: 
+ *          401:
  *              description: unauthorized
- *          404: 
+ *          404:
  *              description: not Found
- *          500: 
+ *          500:
  *              description: internal server error
  */
 
 // step 69 :
-router.get("/children/:parent" , CategoryController.getChildrenOfParentsCategory)
-
+router.get(
+  "/children/:parent",
+  CategoryController.getChildrenOfParentsCategory
+);
 
 // step 71:
 
@@ -104,23 +101,23 @@ router.get("/children/:parent" , CategoryController.getChildrenOfParentsCategory
  * tag: admin-panel
  * /admin/category/all:
  *  get:
- *      summary: get all categories 
+ *      summary: get all categories
  *      tags: [admin-panel]
  *      responses:
- *          201:
+ *          200:
  *              description: success
- *          400: 
+ *          400:
  *              description: Bad Request
- *          401: 
+ *          401:
  *              description: unauthorized
- *          404: 
+ *          404:
  *              description: not Found
- *          500: 
+ *          500:
  *              description: internal server error
  */
 
 // step 72:
-router.get("/all" , CategoryController.getAllCategory )
+router.get("/all", CategoryController.getAllCategory);
 
 // step 76 :
 
@@ -129,7 +126,7 @@ router.get("/all" , CategoryController.getAllCategory )
  * tag: admin-panel
  * /admin/category/remove/{id}:
  *  delete:
- *      summary: delete category with object-id 
+ *      summary: delete category with object-id
  *      tags: [admin-panel]
  *      parameters:
  *          -   in: path
@@ -137,20 +134,43 @@ router.get("/all" , CategoryController.getAllCategory )
  *              type: string
  *              required: true
  *      responses:
- *          201:
+ *          202:
  *              description: success
- *          400: 
+ *          400:
  *              description: Bad Request
- *          401: 
+ *          401:
  *              description: unauthorized
- *          404: 
+ *          404:
  *              description: not Found
- *          500: 
+ *          500:
  *              description: internal server error
  */
 
 // step 75 :
-router.delete("/remove/:id" , CategoryController.removeCategory )
+router.delete("/remove/:id", CategoryController.removeCategory);
+
+// step 84 :
+/**
+ * @swagger
+ * tag: admin-panel
+ * /admin/category/list-of-all:
+ *  get:
+ *      summary: get all categories whitout populate and nested structure
+ *      tags: [admin-panel]
+ *      responses:
+ *          200:
+ *              description: success
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
+// step 83 : in baiad balatar az marhalie 77 bashe chon onke param dare baiad akharin khat bashe
+router.get("/list-of-all", CategoryController.getAllCategoriesWithoutPopulate);
 
 // step 78 :
 
@@ -159,7 +179,7 @@ router.delete("/remove/:id" , CategoryController.removeCategory )
  * tag: admin-panel
  * /admin/category/{id}:
  *  get:
- *      summary: find category with object id 
+ *      summary: find category with object id
  *      tags: [admin-panel]
  *      parameters:
  *          -   in: path
@@ -167,21 +187,20 @@ router.delete("/remove/:id" , CategoryController.removeCategory )
  *              type: string
  *              required: true
  *      responses:
- *          201:
+ *          200:
  *              description: success
- *          400: 
+ *          400:
  *              description: Bad Request
- *          401: 
+ *          401:
  *              description: unauthorized
- *          404: 
+ *          404:
  *              description: not Found
- *          500: 
+ *          500:
  *              description: internal server error
  */
 
 // step 77 :
-router.get("/:id" , CategoryController.getCategoryById )
-
+router.get("/:id", CategoryController.getCategoryById);
 
 // hamishe esme router ha pascal bashe
 module.exports = {
