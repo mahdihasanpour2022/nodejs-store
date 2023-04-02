@@ -1,6 +1,4 @@
-const {
-  UserAuthController,
-} = require("../../http/controllers/user/auth/authController");
+const {UserAuthController} = require("../../http/controllers/user/auth/authController");
 
 // step 19 :
 const router = require("express").Router();
@@ -81,6 +79,7 @@ router.post("/get-otp", UserAuthController.getOtp);
 
 // step 36 :
 router.post("/check-otp", UserAuthController.checkOTP);
+
 
 // step 46 : albate inja behtare to formData ersal bshe na body
 
