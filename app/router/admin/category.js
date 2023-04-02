@@ -152,6 +152,37 @@ router.get("/all" , CategoryController.getAllCategory )
 // step 75 :
 router.delete("/remove/:id" , CategoryController.removeCategory )
 
+// step 78 :
+
+/**
+ * @swagger
+ * tag: admin-panel
+ * /admin/category/{id}:
+ *  get:
+ *      summary: find category with object id 
+ *      tags: [admin-panel]
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *              required: true
+ *      responses:
+ *          201:
+ *              description: success
+ *          400: 
+ *              description: Bad Request
+ *          401: 
+ *              description: unauthorized
+ *          404: 
+ *              description: not Found
+ *          500: 
+ *              description: internal server error
+ */
+
+// step 77 :
+router.get("/:id" , CategoryController.getCategoryById )
+
+
 // hamishe esme router ha pascal bashe
 module.exports = {
   CategoryRoutes: router,

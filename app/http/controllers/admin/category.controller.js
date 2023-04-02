@@ -1,11 +1,13 @@
 // step 57 : create controller for category
 
+// const { default: mongoose } = require("mongoose"); // mongoose ro injori require nakon
 const createHttpError = require("http-errors");
 const { CategoryModel } = require("../../../models/categories");
 const {
   createCategorySchema,
 } = require("../../validators/admin/category.schema");
 const Controller = require("../controller");
+const mongoose = require("mongoose");
 
 class CategoryController extends Controller {
   async createCategory(req, res, next) {
@@ -28,19 +30,21 @@ class CategoryController extends Controller {
       next(error);
     }
   }
-  // step 74 :
+  // step 74 : $or iani k id khosh va parentesh barabare in id hast ro hazf kon
   async removeCategory(req, res, next) {
     try {
       const { id } = req.params;
       const category = await this.checkExistCategory(id);
-      const deleteResult = await CategoryModel.deleteOne({ _id: category._id });
+      const deleteResult = await CategoryModel.deleteMany({
+        $or: [{ _id: category._id }, { parent: category._id }],
+      });
       if (deleteResult.deletedCount == 0)
         throw createHttpError.InternalServerError("حذف دسته بندی انجاام نشد.");
       // 202 iani ba movafaghiat hazf shod  ========>  201 iani ba movafaghiat sakhte shod
       return res.status(202).json({
         data: {
           sttausCode: 202,
-          message: "حذف با موفقیت حذف شد",
+          message: "حذف دسته بندی با موفقیت حذف شد",
         },
         error: null,
       });
@@ -70,11 +74,11 @@ class CategoryController extends Controller {
         {
           $graphLookup: {
             from: "categories",
-            startWith: "$_id" , 
+            startWith: "$_id",
             connectFromField: "_id",
             connectToField: "parent",
-            maxDepth :5 ,
-            depthField : "depth" ,
+            maxDepth: 5,
+            depthField: "depth",
             as: "children",
           },
         },
@@ -82,13 +86,14 @@ class CategoryController extends Controller {
           $project: {
             __v: 0,
             "children.__v": 0,
-            // "children.parent": 0,
+            "children.parent": 0,
           },
-        },{
-          $match : {
-            parent : undefined
-          }
-        }
+        },
+        {
+          $match: {
+            parent: undefined,
+          },
+        },
       ]);
       return res.status(200).json({
         data: {
@@ -102,9 +107,39 @@ class CategoryController extends Controller {
     }
   }
 
-  getCategoryById(req, res, next) {
+  // step 79:  $match iani boro begard to categori ha bebin kodom id k dare dar mongoose shon match mishe ba id k to path url hast
+  async getCategoryById(req, res, next) {
     try {
+      const { id } = req.params;
+      const category = await CategoryModel.aggregate([
+        {
+          $match: { _id: new mongoose.Types.ObjectId(id) },
+        },
+        {
+          $lookup: {
+            from: "categories",
+            localField: "_id",
+            foreignField: "parent",
+            as: "children",
+          },
+        },
+        {
+          $project: {
+            __v: 0,
+            "children.__v": 0,
+            "children.parent": 0,
+          },
+        },
+      ]);
+
+      return res.status(200).json({
+        data: {
+          category,
+        },
+        error: null,
+      });
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
