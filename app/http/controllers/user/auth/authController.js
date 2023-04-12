@@ -107,8 +107,9 @@ class UserAuthController extends Controller {
       const refreshToken = await createRefreshToken(user._id);
 
       return res.json({
+        statusCode: 200,
+        isSuccess : true ,
         data: {
-          statusCode: 200,
           accessToken,
           refreshToken,
           message: "توکن با موفقیت ارسال شد",
@@ -130,8 +131,9 @@ class UserAuthController extends Controller {
       const accessToken = await CreateAccessToken(user._id);
       const newRefreshToken = await createRefreshToken(user._id);
       return res.json({
+        statusCode: 200,
+        isSuccess : true ,
         data: {
-          statusCode: 200,
           accessToken,
           refreshToken: newRefreshToken,
           message: "رفرش توکن و توکن جدید با موفقیت ساخته شد.",

@@ -11,6 +11,7 @@ const Controller = require("../controller");
 const mongoose = require("mongoose");
 
 class CategoryController extends Controller {
+  
   async createCategory(req, res, next) {
     try {
       await createCategorySchema.validateAsync(req.body);
@@ -21,8 +22,9 @@ class CategoryController extends Controller {
       if (!category)
         throw createHttpError.InternalServerError("خطای داخل سرور");
       return res.status(201).json({
+        statusCode: 201,
+        isSuccess : true ,
         data: {
-          statusCode: 201,
           message: "دسته بندی با موفقیت افزوده شد.",
         },
         error: null,
@@ -43,8 +45,9 @@ class CategoryController extends Controller {
         throw createHttpError.InternalServerError("حذف دسته بندی انجاام نشد.");
       // 202 iani ba movafaghiat hazf shod  ========>  201 iani ba movafaghiat sakhte shod
       return res.status(202).json({
+        sttausCode: 202,
+        isSuccess : true ,
         data: {
-          sttausCode: 202,
           message: "حذف دسته بندی با موفقیت حذف شد",
         },
         error: null,
@@ -74,8 +77,9 @@ class CategoryController extends Controller {
         );
       // 202 iani Accepted response
       return res.status(202).json({
+        statusCode: 200,
+        isSuccess : true ,
         data: {
-          statusCode: 200,
           message: "بروز رسانی با موفقیت انجام شد.",
         },
         error: null,
@@ -128,8 +132,9 @@ class CategoryController extends Controller {
       );
 
       return res.status(200).json({
+        statusCode: 200,
+        isSuccess : true ,
         data: {
-          statusCode: 200,
           categories,
         },
         error: null,
@@ -165,6 +170,8 @@ class CategoryController extends Controller {
       ]);
 
       return res.status(200).json({
+        statusCode: 200,
+        isSuccess : true ,
         data: {
           category,
         },
@@ -186,10 +193,12 @@ class CategoryController extends Controller {
         { __v: 0 }
       );
       return res.status(200).json({
+        statusCode: 200,
+        isSuccess : true ,
         data: {
-          statusCode: 200,
           parents,
         },
+        error : null
       });
     } catch (error) {
       next(error);
@@ -206,8 +215,9 @@ class CategoryController extends Controller {
         { __v: 0, parent: 0 }
       );
       return res.status(200).json({
+        statusCode: 200,
+        isSuccess : true ,
         data: {
-          statusCode: 200,
           children,
         },
         error: null,
@@ -224,8 +234,9 @@ class CategoryController extends Controller {
         { $match: {} }, // vaghti match khali bashe hamaro migire
       ]);
       return res.status(200).json({
+        statusCode: 200,
+        isSuccess : true ,
         data: {
-          statusCode: 200,
           categories,
         },
         error: null,

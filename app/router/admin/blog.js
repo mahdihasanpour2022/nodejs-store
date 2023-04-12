@@ -17,7 +17,6 @@ const router = require("express").Router();
  *          -   in: header
  *              name: accesstoken
  *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTMyNjY2NywiZXhwIjoxNjgxMzMwMjY3fQ.1Ovz_ZY0mZbKJ8GNvTtB-q8B-rHKNzV3QP1mUv6Z5eU
  *              type: string
  *              required: true
  *      responses:
@@ -53,7 +52,6 @@ router.get("/", AdminBlogController.getListOfBlogs);
  *          -   in: header
  *              name: accesstoken
  *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTMyNjY2NywiZXhwIjoxNjgxMzMwMjY3fQ.1Ovz_ZY0mZbKJ8GNvTtB-q8B-rHKNzV3QP1mUv6Z5eU
  *              type: string
  *              required: true
  *          -   in: formData
