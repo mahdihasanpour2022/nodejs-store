@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const CommentSchema = new mongoose.Schema({
   user : { type : mongoose.Types.ObjectId , ref : "users" , require : true},
   comment : {type : String , required : true},
-  createAt : {type : Date , default : new Date().now()},
+  createAt : {type : Date , default : new Date().getTime()},
   parent : {type : mongoose.Types.ObjectId },
 })
  
@@ -25,6 +25,7 @@ const Schema = new mongoose.Schema({
 },{timestamps : true , versionKey : false}); // timestamps true bashe createAt , updateAt ro moshakhass mikone  va versionKey false iani zakhire nakone versionesh ro 
 
 //model name must be capital name
+
 module.exports = {
   BlogModel: mongoose.model("blog", Schema),
 };
