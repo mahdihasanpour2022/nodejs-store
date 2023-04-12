@@ -13,9 +13,22 @@ const router = require("express").Router();
  *  get:
  *      tags: [blog(AdminPanel)]
  *      summary: get all blogs
+ *      parameters:
+ *          -   in: header
+ *              name: accesstoken
+ *              example: Bearer token
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTMyNjY2NywiZXhwIjoxNjgxMzMwMjY3fQ.1Ovz_ZY0mZbKJ8GNvTtB-q8B-rHKNzV3QP1mUv6Z5eU
+ *              type: string
+ *              required: true
  *      responses:
  *          200:
  *              description: success - get array of blogs
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
  *          500:
  *              description: internal server error
  */
@@ -24,7 +37,7 @@ const router = require("express").Router();
 
 router.get("/", AdminBlogController.getListOfBlogs);
 
-// step 96 :
+// step 96 : agar har masiri ro to parametersesh token ro require kone faghat vase login shodeha namaiesh mide
 
 /**
  * @swagger
@@ -37,6 +50,12 @@ router.get("/", AdminBlogController.getListOfBlogs);
  *           - multipart/form-data
  *           - application/x-www-form-data-urlencoded
  *      parameters:
+ *          -   in: header
+ *              name: accesstoken
+ *              example: Bearer token
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTMyNjY2NywiZXhwIjoxNjgxMzMwMjY3fQ.1Ovz_ZY0mZbKJ8GNvTtB-q8B-rHKNzV3QP1mUv6Z5eU
+ *              type: string
+ *              required: true
  *          -   in: formData
  *              name: title
  *              type: string

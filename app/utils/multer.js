@@ -65,7 +65,11 @@ function fileFilter(req , file , cb){
 
 // agar validation k dar blog.schema anjam mishe vase formate image error dad 
 //  va goft support nemishe baiad az zakhire shodanesh to in masir public ba in function fileFilter jelogiri konim
-const uploadFile = multer({ storage ,fileFilter}); // dar ES6 mishe benevisi faghat fileFilter 
+ // dar ES6 mishe benevisi faghat fileFilter
+ // limits size file ro taeen mikone
+//  const maxSize = 1*1000*1000; // har 1 mb = 1,000 kilo byte va har 1 kb = 1,000 b
+ const maxSize = 0.4*1000*1000; 
+const uploadFile = multer({ storage ,limits :{fileSize : maxSize} ,fileFilter}); 
 
 module.exports = {
   uploadFile

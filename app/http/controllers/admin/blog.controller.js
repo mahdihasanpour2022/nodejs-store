@@ -21,10 +21,21 @@ class BlogController extends Controller {
       // step 102 :  zakhirie blog dar db
       const { title, text, short_text, category, tags } = blogDateBody; // b joz image k az haminja migirim chon taghier jarde
       const image = req.body.image ;
-      const blog = await BlogModel.create({ title, text, short_text, category, tags , image });
+      // chon faghat login shode ha haghe sakhte blog daran pas inja author ro khode backend id user mizare
+      // console.log("req.user:",req.user);
+      const auther = req.user._id ;
+      const blog = await BlogModel.create({ title, text, short_text, category, tags , image ,auther });
 
       // hala javab vase frontEND mifrestim
-      return res.json({blog}); // agar to { } nabashe mige "message": "Cannot convert object to primitive value"
+      return res.status(201).json({
+        data : {
+          statusCode : 201 ,
+          message : "بلاگ با موفقیت ایجاد شد.", 
+          result : [] ,
+          singleResult : {blog} 
+        },error : null
+
+      }); // agar to { } nabashe mige "message": "Cannot convert object to primitive value"
     } catch (error) {
       deleteFileInPublic(req.body.image) ; // in vase ine k agar b error khordim , to public image sakhte shode ro hazf kone
       next(error);
@@ -43,7 +54,8 @@ class BlogController extends Controller {
       return res.status(200).json({
         data: {
           statusCode: 200,
-          blogs: [],
+          result : [] ,
+          singleResult : {}
         },
         error: null,
       });
