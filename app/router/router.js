@@ -4,6 +4,7 @@ const { HomeRoutes } = require("./api/index");
 const { UserAuthRoutes } = require("./user/auth");
 const { DeveloperRoutes } = require("./developer.routes");
 const { adminRoutes } = require("./admin/admin.routes");
+const { verifyAccessToken, checkRole } = require("../http/middlewares/verifyAccessToken");
 
 // const redisClient = require("../utils/init_redis");
 //step 49 : faghat vase inke test konim bebinim b redis motasel mishe ya na
@@ -46,7 +47,8 @@ router.use("/user", UserAuthRoutes);
 router.use("/developer", DeveloperRoutes);
 
 //// step 63 : hala agara dar swagger por koni mavaredesho dar mongodb compass mishine
-router.use("/admin", adminRoutes);
+// aval check mikonim bebinim accesstoken dare ya na bad rolesho check mikonim k masalan agar user bod b in ghesmate admin dastresi nadashte bashe 
+router.use("/admin",verifyAccessToken ,checkRole("ADMIN"),adminRoutes);
 
 // step 10 :
 router.use("/", HomeRoutes);

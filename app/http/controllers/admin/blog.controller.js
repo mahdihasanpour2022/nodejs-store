@@ -61,7 +61,7 @@ class BlogController extends Controller {
       return res.status(200).json({
         data: {
           statusCode: 200,
-          message: "بلاگ مورد نظر یافت شد.",
+          message: "بلاگ با موفقیت یافت شد.",
           blog,
         },
         error: null,
