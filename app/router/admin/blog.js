@@ -4,6 +4,41 @@ const { uploadFile } = require("../../utils/multer");
 const { stringToArray } = require("../../http/middlewares/stringToArray");
 const router = require("express").Router();
 
+// step 112 :
+
+/**
+ * @swagger
+ * tag: blog(AdminPanel)
+ * /admin/blogs/{id}:
+ *  delete:
+ *      tags: [blog(AdminPanel)]
+ *      summary: delete blog by id 
+ *      parameters:
+ *          -   in: header
+ *              name: accesstoken
+ *              example: Bearer token
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3NzMzNywiZXhwIjoxNjgxMzgwOTM3fQ.89aecZueYuqbHaIPxhZf7IyBs28mtnEBXDT0sCpK1Ew
+ *              type: string
+ *              required: true
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *              required: true
+ *      responses:
+ *          200:
+ *              description: success - get array of blogs
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
+// step 111 :
+ router.delete("/:id" , AdminBlogController.deleteBlogById)
+
 // step 109 :
 
 /**
@@ -17,7 +52,7 @@ const router = require("express").Router();
  *          -   in: header
  *              name: accesstoken
  *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3MjY2MSwiZXhwIjoxNjgxMzc2MjYxfQ.WxwoAiRX9KypicQfkEqiFJPJ-ifrJOLw2I4MNzWmC3s
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3NzMzNywiZXhwIjoxNjgxMzgwOTM3fQ.89aecZueYuqbHaIPxhZf7IyBs28mtnEBXDT0sCpK1Ew
  *              type: string
  *              required: true
  *          -   in: path
@@ -56,6 +91,7 @@ router.get("/:id" , AdminBlogController.getOneBlogById );
  *          -   in: header
  *              name: accesstoken
  *              example: Bearer token
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3NzMzNywiZXhwIjoxNjgxMzgwOTM3fQ.89aecZueYuqbHaIPxhZf7IyBs28mtnEBXDT0sCpK1Ew
  *              type: string
  *              required: true
  *          -   in: formData
@@ -114,7 +150,7 @@ router.post("/create",uploadFile.single("image") ,stringToArray("tags"),AdminBlo
  *          -   in: header
  *              name: accesstoken
  *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3MjY2MSwiZXhwIjoxNjgxMzc2MjYxfQ.WxwoAiRX9KypicQfkEqiFJPJ-ifrJOLw2I4MNzWmC3s
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3NzMzNywiZXhwIjoxNjgxMzgwOTM3fQ.89aecZueYuqbHaIPxhZf7IyBs28mtnEBXDT0sCpK1Ew
  *              type: string
  *              required: true
  *      responses:
