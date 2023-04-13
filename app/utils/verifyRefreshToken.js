@@ -16,8 +16,9 @@ function verifyRefreshToken(refreshtoken) {
       if (!user) reject(createHttpError.Unauthorized("حساب کاربری یافت نشد"));
 
       // step 52 : aval baiad bgirim refresh tokeni k to redis zakhire shode va moghaiese konim ba refresh tokeni k to 
-      const redisRefreshToken = await redisClient.get(String(user?._id));
       // const redisRefreshToken = await redisClient.get(String(user?._id));
+      const redisRefreshToken = await redisClient.get(String(user?._id || "key_default"));
+      if(!redisRefreshToken) reject( createHttpError.Unauthorized("ورود مجدد به حساب کابری نشد.") );
       if( refreshtoken === redisRefreshToken ) return resolve(mobile);
       reject( createHttpError.Unauthorized("ورود مجدد به حساب کابری انجام نشد.") );
     });

@@ -19,6 +19,11 @@ const Schema = new mongoose.Schema({
   discount: { type: Number, default: 0 },
   birthDay: { type: String },
   Roles: { type: [String], default: ["USER"] },
+},{
+  timestamps : true , 
+  toJSON : {
+    virtuals : true
+  }
 });
 
 //model name must be capital name
