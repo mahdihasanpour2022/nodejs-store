@@ -17,7 +17,7 @@ const router = require("express").Router();
  *          -   in: header
  *              name: accesstoken
  *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3NzMzNywiZXhwIjoxNjgxMzgwOTM3fQ.89aecZueYuqbHaIPxhZf7IyBs28mtnEBXDT0sCpK1Ew
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM5OTM3MSwiZXhwIjoxNjgxNDAyOTcxfQ.gz_69VfM8kgH1DuXqFGSjsb4_FHhdLn4LZuj2yJdFF8
  *              type: string
  *              required: true
  *          -   in: path
@@ -52,7 +52,7 @@ const router = require("express").Router();
  *          -   in: header
  *              name: accesstoken
  *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3NzMzNywiZXhwIjoxNjgxMzgwOTM3fQ.89aecZueYuqbHaIPxhZf7IyBs28mtnEBXDT0sCpK1Ew
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM5OTM3MSwiZXhwIjoxNjgxNDAyOTcxfQ.gz_69VfM8kgH1DuXqFGSjsb4_FHhdLn4LZuj2yJdFF8
  *              type: string
  *              required: true
  *          -   in: path
@@ -86,12 +86,11 @@ router.get("/:id" , AdminBlogController.getOneBlogById );
  *      summary: create blog document
  *      consumes:
  *           - multipart/form-data
- *           - application/x-www-form-data-urlencoded
  *      parameters:
  *          -   in: header
  *              name: accesstoken
  *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3NzMzNywiZXhwIjoxNjgxMzgwOTM3fQ.89aecZueYuqbHaIPxhZf7IyBs28mtnEBXDT0sCpK1Ew
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM5OTM3MSwiZXhwIjoxNjgxNDAyOTcxfQ.gz_69VfM8kgH1DuXqFGSjsb4_FHhdLn4LZuj2yJdFF8
  *              type: string
  *              required: true
  *          -   in: formData
@@ -136,6 +135,69 @@ router.get("/:id" , AdminBlogController.getOneBlogById );
 // step 95 :  // middleware k sakhtimo mizarim sare rahesh
 router.post("/create",uploadFile.single("image") ,stringToArray("tags"),AdminBlogController.createBlog);
 
+// step 115 :
+/**
+ * @swagger
+ * tag: blog(AdminPanel)
+ * /admin/blogs/update/{id}:
+ *  patch:
+ *      tags: [blog(AdminPanel)]
+ *      summary: update blog by tag
+ *      consumes:
+ *           - multipart/form-data
+ *      parameters:
+ *          -   in: header
+ *              name: accesstoken
+ *              example: Bearer token
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM5OTM3MSwiZXhwIjoxNjgxNDAyOTcxfQ.gz_69VfM8kgH1DuXqFGSjsb4_FHhdLn4LZuj2yJdFF8
+ *              type: string
+ *              required: true
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *              required: true
+ *          -   in: formData
+ *              name: title
+ *              type: string
+ *              required: false
+ *          -   in: formData
+ *              name: text
+ *              type: string
+ *              required: false
+ *          -   in: formData
+ *              name: short_text
+ *              type: string
+ *              required: false
+ *          -   in: formData
+ *              name: image
+ *              type: file
+ *              required: false
+ *          -   in: formData
+ *              name: category
+ *              description: enter category ID
+ *              type: string
+ *              required: false
+ *          -   in: formData
+ *              name: tags
+ *              example: .#tag1#tag2#tag3#tag4 || string || undefined
+ *              type: string
+ *              required: false
+ *      responses:
+ *          200:
+ *              description: success - blog created
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
+
+// step 114 :  // middleware k sakhtimo mizarim sare rahesh
+router.patch("/update/:id",uploadFile.single("image") ,stringToArray("tags"),AdminBlogController.updateBlogById);
+
 
 // step 93 :
 
@@ -150,7 +212,7 @@ router.post("/create",uploadFile.single("image") ,stringToArray("tags"),AdminBlo
  *          -   in: header
  *              name: accesstoken
  *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM3NzMzNywiZXhwIjoxNjgxMzgwOTM3fQ.89aecZueYuqbHaIPxhZf7IyBs28mtnEBXDT0sCpK1Ew
+ *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTM5OTM3MSwiZXhwIjoxNjgxNDAyOTcxfQ.gz_69VfM8kgH1DuXqFGSjsb4_FHhdLn4LZuj2yJdFF8
  *              type: string
  *              required: true
  *      responses:
@@ -169,9 +231,6 @@ router.post("/create",uploadFile.single("image") ,stringToArray("tags"),AdminBlo
 // step 92 :
 
 router.get("/", AdminBlogController.getListOfBlogs);
-
-
-
 
 module.exports = {
   BlogAdminApiRoutes: router,
