@@ -5,7 +5,9 @@ const Controller = require("../controller");
 const { deleteFileInPublic } = require("../../../utils/deleteFileInPublic");
 const { BlogModel } = require("../../../models/blogs");
 const createHttpError = require("http-errors");
+
 class BlogController extends Controller {
+
   // step 101 :
   async createBlog(req, res, next) {
     try {
@@ -50,6 +52,7 @@ class BlogController extends Controller {
       next(error);
     }
   }
+
   // step 107 :
   async getOneBlogById(req, res, next) {
     try {
@@ -141,53 +144,103 @@ class BlogController extends Controller {
       next(error);
     }
   }
-// step 110 : 
+
+  // step 110 :
   async deleteBlogById(req, res, next) {
     try {
-      const  {id} = req.params;
+      const { id } = req.params;
       // way 1 : faghat mizarimesh k check kone agar nabod error bede to const nemirizim
       // await this.findBlog(id);
       // const result = await BlogModel.deleteOne({_id : id});
       // way 2 :
-       const blog = await this.findBlog(id); 
-       const result = await BlogModel.deleteOne({_id : blog._id});
-       if(result.deletedCount == 0) throw createHttpError.InternalServerError("حذف بلاگ نا موفق است");
-       return res.status(202).json({
-         statusCode : 202 ,
-         isSuccess : true ,
-        data : {
-          message : "بلاگ با موفقیت حذف شد"
+      const blog = await this.findBlog(id);
+      const result = await BlogModel.deleteOne({ _id: blog._id });
+      if (result.deletedCount == 0)
+        throw createHttpError.InternalServerError("حذف بلاگ نا موفق است");
+      return res.status(202).json({
+        statusCode: 202,
+        isSuccess: true,
+        data: {
+          message: "بلاگ با موفقیت حذف شد",
         },
-        error : null
-       })
-      
+        error: null,
+      });
     } catch (error) {
       next(error);
     }
   }
-
+//step 113 :
   async updateBlogById(req, res, next) {
     try {
+      const { id } = req.params;
+      await this.findBlog(id); // k age dar db nabod error bede
+      // schema k sakhti nemikhad body ro validate kone chon require nistan
+      // const blogDateBody = await createBlogSchema.validateAsync(req.body);
+
+      //masiri k dar multer be req.body ezafe kardim b name fileUploadPath ro ba name image upload shode karbar ezafe mikonim
+      // replace baese hazfe // az adres mishe ye bar log bgir bdone replace va image ro bbin
+      // req.body.image = req.body.image.replace(/\\/g,"/")
+      if (req?.body?.fileUploadPath && req?.body?.filename) {
+        req.body.image = path
+          .join(req.body.fileUploadPath, req.body.filename)
+          .replace(/\\/g, "/");
+      }
+      const data = req.body; // chon require nistan parameter haie update momkene khali biad k delete mikonimesh k responsemon shologh nashe
+      // hala k ba createBlogSchema nemitonim validate konim khodemon validate mikonim inja
+      let nullishData = ["", " ", 0, "0", null, undefined];
+      // const auther = req.user._id;  // ino nazar chon dge author ya nevisandie blog ro avaz nemikonim
+      // b manzore ijade masire kamel
+      let blackListFields = [
+        "likes",
+        "dislikes",
+        "bookmarks",
+        "comments",
+        "author",
+      ]; // ma nabaiad bezarrim az front end masalan bookmarko ersal bshe
+      Object.keys(data).forEach((key) => {
+        // validation black list ma k age
+        if (blackListFields.includes(key)) delete data[key];
+        // validation string
+        if (typeof data[key] == "string") data[key] = data[key].trim(); // faselehasho hazf mikonim va dobare to khodesh zakhirash mikonim
+        // validation array
+        if (Array.isArray(data[key]) && Array.length > 0)
+          data[key] = data[key].map((item) => item.trim()); // age array bod itemhasho trim kone k fasele aval akharesh hazf bshe
+        if (nullishData.includes(data[key])) delete data[key];
+      });
+
+      // step 102 :  zakhirie blog dar db
+      // chon faghat login shode ha haghe sakhte blog daran pas inja author ro khode backend id user mizare
+      // console.log("req.user:",req.user);
+      const result = await BlogModel.updateOne({ _id: id }, { $set: data }); // $set iani in data ro bezar jaie ghabli update bshe
+      // hala javab vase frontEND mifrestim
+      if (result.modifiedCount == 0)
+        throw createHttpError.InternalServerError("آپدیت بلاگ نامو فق بود");
+      // agar update dorost ejra bshe modifiedCount bozorgtar az 0 mishe masaln 1
+      return res.status(200).json({
+        statusCode: 200,
+        isSuccess: true,
+        data: {
+          message: "بلاگ با موفقیت ایجاد شد.",
+        },
+        error: null,
+      }); // agar to { } nabashe mige "message": "Cannot convert object to primitive value"
     } catch (error) {
+      deleteFileInPublic(req?.body?.image ); // in vase ine k agar b error khordim , to public image sakhte shode ro hazf kone
       next(error);
     }
   }
 
-  async creaeteBlog(req, res, next) {
-    try {
-    } catch (error) {
-      next(error);
-    }
-  }
-
-   // step 106 :
-   async findBlog(id) {
+  // step 106 :
+  async findBlog(id) {
     // list path haie k hast ro log migirim aval bebinim chi dare
     // const paths = await BlogModel.findOne(query).getPopulatedPaths();
     // console.log(paths)
     const blog = await BlogModel.findById(id).populate([
-      { path: "category" , select : {title : 1} }, // select iani inaro to res neshon nade 
-      { path: "user" , select : ["mobile" , "first_name" , "last_name" , "user_name" ] },
+      { path: "category", select: { title: 1 } }, // select iani inaro to res neshon nade
+      {
+        path: "user",
+        select: ["mobile", "first_name", "last_name", "user_name"],
+      },
     ]); // populate ye query dare b name path k bahesh peida kone
     if (!blog) throw createHttpError.NotExtended("بلاگ یافته نشد.");
     delete blog.category.children; // hazfe children az to category k dar blog hast

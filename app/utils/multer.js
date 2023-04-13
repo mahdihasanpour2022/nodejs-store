@@ -35,17 +35,24 @@ function createRoute(req) {
 // agar mouse ror roie kalamie destination negah dari minevise chi mikhad hefz nakon
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const filePath = createRoute(req);
-    cb(null, filePath);
+    if (file?.originalname) {
+      const filePath = createRoute(req);
+      return cb(null, filePath);
+    }
+    cb(null, null);
+
   },
   filename: (req, file, cb) => {
-    // console.log(file)
-    // joda kardane type file
-    const ext = path.extname(file.originalname); // format mide
-    const fileName = String(new Date().getTime() + ext);
-    // ino to body zakhire mikonim k hamishe behesh dastresi dashte bashim
-    req.body.filename = fileName;
-    cb(null, fileName);
+    if (file?.originalname) {
+      // console.log(file)
+      // joda kardane type file
+      const ext = path.extname(file.originalname); // format mide
+      const fileName = String(new Date().getTime() + ext);
+      // ino to body zakhire mikonim k hamishe behesh dastresi dashte bashim
+      req.body.filename = fileName;
+      return cb(null, fileName);
+    }
+    cb(null, null);
   },
 });
 // step 103 :
