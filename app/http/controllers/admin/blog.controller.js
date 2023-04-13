@@ -4,6 +4,7 @@ const { createBlogSchema } = require("../../validators/admin/blog.schema");
 const Controller = require("../controller");
 const { deleteFileInPublic } = require("../../../utils/deleteFileInPublic");
 const { BlogModel } = require("../../../models/blogs");
+const createHttpError = require("http-errors");
 class BlogController extends Controller {
   // step 101 :
   async createBlog(req, res, next) {
@@ -49,13 +50,38 @@ class BlogController extends Controller {
       next(error);
     }
   }
-
+  // step 107 :
   async getOneBlogById(req, res, next) {
     try {
+      const { id } = req.params; // chon id ro dar path url dadim baiad ba req.params bgirim na req.body
+      const blog = await this.findBlog(id); // dge inja hatman javab dare chon findBlog agar peida nakarde bod return mikard pas nemikhad if(!blog) ro anjam bdi
+      return res.status(200).json({
+        data: {
+          statusCode: 200,
+          message: "بلاگ مورد نظر یافت شد.",
+          blog,
+        },
+        error: null,
+      });
     } catch (error) {
       next(error);
     }
   }
+
+  // step 106 :
+  async findBlog(id) {
+    // list path haie k hast ro log migirim aval bebinim chi dare
+    // const paths = await BlogModel.findOne(query).getPopulatedPaths();
+    // console.log(paths)
+    const blog = await BlogModel.findById(id).populate([
+      { path: "category" , select : {title : 1} }, // select iani inaro to res neshon nade 
+      { path: "user" , select : ["mobile" , "first_name" , "last_name" , "user_name" ] },
+    ]); // populate ye query dare b name path k bahesh peida kone
+    if (!blog) throw createHttpError.NotExtended("بلاگ یافته نشد.");
+    delete blog.category.children; // hazfe children az to category k dar blog hast
+    return blog; // agar bod pas return konash
+  }
+
   // step 90 :
   async getListOfBlogs(req, res, next) {
     try {
@@ -79,8 +105,8 @@ class BlogController extends Controller {
           $lookup: {
             from: "categories",
             foreignField: "_id", // iani dar db ghesmate categories bebin id kodom category ba id ba _id category k in ja dar blogs hast yekie begireshon biareshon bzar b onvane as inja
-            localField: "category", 
-            as: "category", 
+            localField: "category",
+            as: "category",
           },
         },
         {

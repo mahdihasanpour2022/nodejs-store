@@ -61,7 +61,7 @@ function fileFilter(req, file, cb) {
 }
 
 
-// step 104 : 
+// step 105 : 
 // agar validation k dar blog.schema anjam mishe vase formate image error dad
 //  va goft support nemishe baiad az zakhire shodanesh to in masir public ba in function fileFilter jelogiri konim
 // dar ES6 mishe benevisi faghat fileFilter
