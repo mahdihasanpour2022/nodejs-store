@@ -4,6 +4,43 @@ const { uploadFile } = require("../../utils/multer");
 const { stringToArray } = require("../../http/middlewares/stringToArray");
 const router = require("express").Router();
 
+// step 122 :
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Blog:
+ *              type: object
+ *              required:
+ *                  -   title
+ *                  -   text
+ *                  -   short_text
+ *                  -   image
+ *                  -   category
+ *                  -   tags
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: the title of blog
+ *                  text:
+ *                      type: string
+ *                      description: the text of blog
+ *                  short_text:
+ *                      type: string
+ *                      description: the summary of text of blog
+ *                  image:
+ *                      type: file
+ *                      description: index pictures of blogs
+ *                  category:
+ *                      type: string
+ *                      description: the id of Category for foreignField in blog
+ *                  tags:
+ *                      type: string
+ *                      description: the list of tags for example ( tag1#tag2)
+ */
+
+
 
 // step 96 : agar har masiri ro to parametersesh token ro require kone faghat vase login shodeha namaiesh mide
 
@@ -11,55 +48,26 @@ const router = require("express").Router();
  * @swagger
  * tag: blog(AdminPanel)
  * /admin/blogs/create:
- *  post:
- *      tags: [blog(AdminPanel)]
- *      summary: create blog document
- *      consumes:
- *           - multipart/form-data
- *      parameters:
- *          -   in: header
- *              name: accesstoken
- *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTQwNDYxMiwiZXhwIjoxNjgxNDA4MjEyfQ.gB9Q9N-c_-OgMYqqW5K5pOOwWkRJksHHHlBXkVXaw-A
- *              type: string
+ *      post:
+ *          tags: [blog(AdminPanel)]
+ *          summary: create blog document
+ *          requestBody:
  *              required: true
- *          -   in: formData
- *              name: title
- *              type: string
- *              required: true
- *          -   in: formData
- *              name: text
- *              type: string
- *              required: true
- *          -   in: formData
- *              name: short_text
- *              type: string
- *              required: true
- *          -   in: formData
- *              name: image
- *              type: file
- *              required: true
- *          -   in: formData
- *              name: category
- *              description: enter category ID
- *              type: string
- *              required: true
- *          -   in: formData
- *              name: tags
- *              example: .#tag1#tag2#tag3#tag4 || string || undefined
- *              type: string
- *              required: false
- *      responses:
- *          200:
- *              description: success - blog created
- *          400:
- *              description: Bad Request
- *          401:
- *              description: unauthorized
- *          404:
- *              description: not Found
- *          500:
- *              description: internal server error
+ *              content:
+ *                  multipart/form-data:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Blog'
+ *          responses:
+ *              200:
+ *                  description: success - blog created
+ *              400:
+ *                  description: Bad Request
+ *              401:
+ *                  description: unauthorized
+ *              404:
+ *                  description: not Found
+ *              500:
+ *                  description: internal server error
 */
 
 // step 95 :  // middleware k sakhtimo mizarim sare rahesh
@@ -76,12 +84,6 @@ router.post("/create",uploadFile.single("image") ,stringToArray("tags"),AdminBlo
  *      consumes:
  *           - multipart/form-data
  *      parameters:
- *          -   in: header
- *              name: accesstoken
- *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTQwNDYxMiwiZXhwIjoxNjgxNDA4MjEyfQ.gB9Q9N-c_-OgMYqqW5K5pOOwWkRJksHHHlBXkVXaw-A
- *              type: string
- *              required: true
  *          -   in: path
  *              name: id
  *              type: string
@@ -137,13 +139,6 @@ router.patch("/update/:id",uploadFile.single("image") ,stringToArray("tags"),Adm
  *  get:
  *      tags: [blog(AdminPanel)]
  *      summary: get all blogs
- *      parameters:
- *          -   in: header
- *              name: accesstoken
- *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTQwNDYxMiwiZXhwIjoxNjgxNDA4MjEyfQ.gB9Q9N-c_-OgMYqqW5K5pOOwWkRJksHHHlBXkVXaw-A
- *              type: string
- *              required: true
  *      responses:
  *          200:
  *              description: success - get array of blogs
@@ -173,12 +168,6 @@ router.get("/", AdminBlogController.getListOfBlogs);
  *      tags: [blog(AdminPanel)]
  *      summary: get blog by id and populate with this field
  *      parameters:
- *          -   in: header
- *              name: accesstoken
- *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTQwNDYxMiwiZXhwIjoxNjgxNDA4MjEyfQ.gB9Q9N-c_-OgMYqqW5K5pOOwWkRJksHHHlBXkVXaw-A
- *              type: string
- *              required: true
  *          -   in: path
  *              name: id
  *              type: string
@@ -209,12 +198,6 @@ router.get("/:id" , AdminBlogController.getOneBlogById );
  *      tags: [blog(AdminPanel)]
  *      summary: delete blog by id 
  *      parameters:
- *          -   in: header
- *              name: accesstoken
- *              example: Bearer token
- *              value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTIxNzEwMTcwMCIsImlhdCI6MTY4MTQwNDYxMiwiZXhwIjoxNjgxNDA4MjEyfQ.gB9Q9N-c_-OgMYqqW5K5pOOwWkRJksHHHlBXkVXaw-A
- *              type: string
- *              required: true
  *          -   in: path
  *              name: id
  *              type: string

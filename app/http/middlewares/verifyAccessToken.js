@@ -13,7 +13,11 @@ function getToken(headers) {
   // va baiad Bearer dashte bashe iani frontend kar befreste
   // const token = headers?.accessToken?.split(" ")?.[1];
   // console.log(req.headers) // inja table gereftam famidam k accesstoken ba t kochike
-  const [Bearer, token] = headers?.accesstoken?.split(" ") || [];
+
+  // const [Bearer, token] = headers?.accesstoken?.split(" ") || [];
+  // step 121 :
+  const [Bearer, token] = headers?.authorization?.split(" ") || [];
+
   // if (token && ['Bearer','Bearer'].includes(Bearer?.toLowerCase())) {
   if (!!token && !!(Bearer?.toLowerCase() === "bearer")) return token;
   throw createHttpError.Unauthorized(
