@@ -68,20 +68,6 @@ class BlogController extends Controller {
     }
   }
 
-  // step 106 :
-  async findBlog(id) {
-    // list path haie k hast ro log migirim aval bebinim chi dare
-    // const paths = await BlogModel.findOne(query).getPopulatedPaths();
-    // console.log(paths)
-    const blog = await BlogModel.findById(id).populate([
-      { path: "category" , select : {title : 1} }, // select iani inaro to res neshon nade 
-      { path: "user" , select : ["mobile" , "first_name" , "last_name" , "user_name" ] },
-    ]); // populate ye query dare b name path k bahesh peida kone
-    if (!blog) throw createHttpError.NotExtended("بلاگ یافته نشد.");
-    delete blog.category.children; // hazfe children az to category k dar blog hast
-    return blog; // agar bod pas return konash
-  }
-
   // step 90 :
   async getListOfBlogs(req, res, next) {
     try {
@@ -155,9 +141,26 @@ class BlogController extends Controller {
       next(error);
     }
   }
-
-  async deleteById(req, res, next) {
+// step 110 : 
+  async deleteBlogById(req, res, next) {
     try {
+      const  {id} = req.params;
+      // way 1 : faghat mizarimesh k check kone agar nabod error bede to const nemirizim
+      // await this.findBlog(id);
+      // const result = await BlogModel.deleteOne({_id : id});
+      // way 2 :
+       const blog = await this.findBlog(id); 
+       const result = await BlogModel.deleteOne({_id : blog._id});
+       if(result.deletedCount == 0) throw createHttpError.InternalServerError("حذف بلاگ نا موفق است");
+       return res.status(202).json({
+         statusCode : 202 ,
+         isSuccess : true ,
+        data : {
+          message : "بلاگ با موفقیت حذف شد"
+        },
+        error : null
+       })
+      
     } catch (error) {
       next(error);
     }
@@ -175,6 +178,20 @@ class BlogController extends Controller {
     } catch (error) {
       next(error);
     }
+  }
+
+   // step 106 :
+   async findBlog(id) {
+    // list path haie k hast ro log migirim aval bebinim chi dare
+    // const paths = await BlogModel.findOne(query).getPopulatedPaths();
+    // console.log(paths)
+    const blog = await BlogModel.findById(id).populate([
+      { path: "category" , select : {title : 1} }, // select iani inaro to res neshon nade 
+      { path: "user" , select : ["mobile" , "first_name" , "last_name" , "user_name" ] },
+    ]); // populate ye query dare b name path k bahesh peida kone
+    if (!blog) throw createHttpError.NotExtended("بلاگ یافته نشد.");
+    delete blog.category.children; // hazfe children az to category k dar blog hast
+    return blog; // agar bod pas return konash
   }
 }
 
