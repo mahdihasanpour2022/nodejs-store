@@ -47,6 +47,7 @@ module.exports = class Application {
       swaggerUIExp.setup(
         swaggerJSDoc({
           swaggerDefinition: {
+            openapi : "3.0.0",// step 116 :
             info: {
               title: "first store node.js",
               version: "6.2.8",
@@ -62,9 +63,20 @@ module.exports = class Application {
                 url: "http://localhost:3000",
               },
             ],
+            components : { //step 120 : ezafe kardane dokmie authorizations dar balaie swagger baraie accesstoken  
+                securitySchemes :{
+                  BearerAuth : {
+                    type : "http",
+                    scheme : "bearer",
+                    bearerFormat : "JWT",
+                  }
+                }
+            },
+            security : [{BearerAuth : [] }]
           },
-          apis: ["./app/router/*/*.js"],
-        })
+          apis: ["./app/router/*/*.js"],// step 117 :
+        }),
+        {explorer : true}
       )
     );
   }
