@@ -16,9 +16,9 @@ const createBlogSchema = Joi.object({
 });
 
 // step 98 :
-const updateCategorySchema = Joi.object({title: Joi.string().min(3).max(30).error(createHttpError.BadRequest("عنوان دسته بندی صحیح نیست"))});
+const updateBlogSchema = Joi.object({title: Joi.string().min(3).max(30).error(createHttpError.BadRequest("عنوان دسته بندی صحیح نیست"))});
 
 module.exports = {
   createBlogSchema,
-  // updateBlogSchema
+  updateBlogSchema
 };

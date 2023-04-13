@@ -8,7 +8,7 @@ const {CategoryController} = require("../../http/controllers/admin/category.cont
  * @swagger
  *  components:
  *      schemas:
- *          Category:
+ *          CreateCategory:
  *              type: object
  *              required:
  *                  -   title
@@ -19,6 +19,14 @@ const {CategoryController} = require("../../http/controllers/admin/category.cont
  *                  parent:
  *                      type: string
  *                      description: the parent of Category
+ *          UpdateCategory:
+ *              type: object
+ *              required:
+ *                  -   title
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: the title of Category
  */
 
 
@@ -37,10 +45,10 @@ const {CategoryController} = require("../../http/controllers/admin/category.cont
  *          content:
  *              application/x-www-form-urlencoded:
  *                  schema:
- *                      $ref: '#/components/schemas/Category'
+ *                      $ref: '#/components/schemas/CreateCategory'
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/Category'
+ *                      $ref: '#/components/schemas/CreateCategory'
  *      responses:
  *          201:
  *              description: success
@@ -211,17 +219,13 @@ router.get("/list-of-all", CategoryController.getAllCategoriesWithoutPopulate);
  *          content:
  *              application/x-www-form-urlencoded:
  *                  schema:
- *                      $ref: '#/components/schemas/Category'
+ *                      $ref: '#/components/schemas/UpdateCategory'
  *              application/json:
  *                  schema:
- *                      $ref: '#/components/schemas/Category'
+ *                      $ref: '#/components/schemas/UpdateCategory'
  *      parameters:
  *          -   in: path
  *              name: id
- *              type: string
- *              required: true
- *          -   in: formData
- *              name: title
  *              type: string
  *              required: true
  *      responses:
