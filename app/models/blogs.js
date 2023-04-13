@@ -1,13 +1,7 @@
 // step 11 :
 // const { default: mongoose } = require("mongoose");
 const mongoose = require("mongoose");
-
-const CommentSchema = new mongoose.Schema({
-  user: { type: mongoose.Types.ObjectId, ref: "user", require: true },
-  comment: { type: String, required: true },
-  createAt: { type: Date, default: new Date().getTime() },
-  parent: { type: mongoose.Types.ObjectId },
-});
+const { CommentSchema } = require("./public.schema");
 
 // in mavared 3 dasete mishan :
 // daste 1 : mavaredi k require hast va front end baiad befreste
