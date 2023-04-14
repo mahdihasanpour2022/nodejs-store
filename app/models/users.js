@@ -19,6 +19,7 @@ const Schema = new mongoose.Schema({
   discount: { type: Number, default: 0 },
   birthDay: { type: String },
   Roles: { type: [String], default: ["USER"] },
+  courses : {type :  [mongoose.Types.ObjectId],ref :"course" , default : []}, // وقتی بخوای لیست شاگرد های دوره رو بگیری
 },{
   timestamps : true , 
   toJSON : {

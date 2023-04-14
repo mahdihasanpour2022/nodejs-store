@@ -38,7 +38,7 @@ const {CategoryController} = require("../../http/controllers/admin/category.cont
  * tag: category(AdminPanel)
  * /admin/category/create:
  *  post:
- *      summary: craete new category title
+ *      summary: craete new category 
  *      tags: [category(AdminPanel)]
  *      requestBody:
  *          required: true
@@ -271,5 +271,5 @@ router.get("/:id", CategoryController.getCategoryById);
 
 // hamishe esme router ha pascal bashe
 module.exports = {
-  CategoryRoutes: router,
+  Category_AdminApiRoutes: router,
 };
