@@ -5,6 +5,7 @@ const fs = require("fs");
 const createHttpError = require("http-errors");
 
 function createRoute(req) {
+  // console.log("req.body:::",req.body)
   // ijade zaman
   const date = new Date();
   const Year = date.getFullYear().toString();
@@ -35,14 +36,16 @@ function createRoute(req) {
 // agar mouse ror roie kalamie destination negah dari minevise chi mikhad hefz nakon
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    // console.log("distination :",req.body)
     if (file?.originalname) {
       const filePath = createRoute(req);
       return cb(null, filePath);
     }
     cb(null, null);
-
+    
   },
   filename: (req, file, cb) => {
+    // console.log("filename :",req.body)
     if (file?.originalname) {
       // console.log(file)
       // joda kardane type file

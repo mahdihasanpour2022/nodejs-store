@@ -1,11 +1,11 @@
 // step 13 :
 const { default: mongoose } = require("mongoose");
 const { CommentSchema } = require("./public.schema");
-
+// یه چیزایی مثل وزن و طول  و ارتفاع رو فرانت داره میده که ما در سند پروداکت اسکیما داریم اعتبار سنجیش میکنیم اما اینجا نیست
 const Schema = new mongoose.Schema({
   title: { type: String, require: true },
-  short_text: { type: String, require: true },
   text: { type: String, require: true },
+  short_text: { type: String, require: true },
   images: { type: [String], require: true },
   tags: { type: [String], default: [] },
   category: { type: mongoose.Types.ObjectId,ref : "category" , require: true },
@@ -23,10 +23,10 @@ const Schema = new mongoose.Schema({
     type: Object,
     default: {
       madeIn: "",
-      width: "",
-      height: "",
-      length: "",
-      wigth: "",
+      width: 0,
+      height: 0,
+      length: 0,
+      wigth: 0,
       colors: [],
       model: []
     },
