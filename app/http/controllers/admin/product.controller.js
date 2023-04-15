@@ -6,6 +6,8 @@ const { deleteFileInPublic } = require("../../../utils/deleteFileInPublic");
 const { path } = require("path");
 const Controller = require("../controller");
 const { listOfImagesFromReq } = require("../../../utils/listOfImagesFromReq");
+const { ObjectValidator } = require("../../validators/public.validator");
+const createHttpError = require("http-errors");
 
 //  همه مواردیکه در مدل میسازی رو در روت پروداکت باید از فرانت بگیری که اینجا تو بادی باشه که بدی به پروداکت اسکیما که اعتبار سنجی کنه و تو بتونی با خیال راحت در دیتا بیس ذخیره کنی  و همچنینی در ریسپانس خودت بفرستی واسه بک اند
 
@@ -35,6 +37,8 @@ class ProductController extends Controller {
         weight,
       } = productBody;
       const supplier = req.user._id;
+
+
       // باید اگر فرانت نفریتاد مقدارشو براش دیفالت 0 بزاریم اما اگر نه مقدار داشت همون مقداررو در نظر بگیره
       // let features = {} , type = "physical" ; // اضافه کردن به یه آبجکت 
       let features = {} ; 
@@ -123,6 +127,17 @@ res.status(200).json({
       next(error);
     }
   }
+
+  //  step 137 :  common function for find product in db
+  async findProduct(productID){
+  // chon az in mikhaim dar baghie function haie bala k try catch daran estefade konim pas dge vasash try nemizarim chon try to try mishe
+
+    const {id} = await ObjectValidator.validateAsync({id : productID}) ; // chon ObjectValidator az noie async hast pas moghie call kardanesh migim await
+    const product = await ProductModel.findById(id) ; // ID RO TO {} nade
+    if(!product) throw createHttpError.NotFound("محصولی با این آیدی یافت نشد"); // har moghe dar db gashti peida nakard baiad not found bdi
+    return product ; // در غیر اینصورت پروداکتی که پیدا کردی رو ریترن کن
+  }
+
 }
 
 module.exports = {
