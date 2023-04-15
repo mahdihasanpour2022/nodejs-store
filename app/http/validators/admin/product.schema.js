@@ -3,14 +3,14 @@
 const Joi = require("@hapi/joi");
 const createHttpError = require("http-errors");
 const { MONGO_ID_PATTERN } = require("../../../utils/constants");
-
+// b jaie regex mitoni benevisi pattern ama regex behtare
 const createProductSchema = Joi.object({
   title: Joi.string().min(3).max(30).error(createHttpError.BadRequest("عنوان ارسال شده صحیح نیست")),
   text: Joi.string().error(createHttpError.BadRequest("متن ارسال شده صحیح نیست")),
   short_text : Joi.string().error(createHttpError.BadRequest("خلاصه متن ارسال شده صحیح نیست")),
 
   tags : Joi.array().min(0).max(20).error(createHttpError.BadRequest("برچسب نمیتواند بیش از 20 ایتم باشد")) ,
-  category : Joi.string().pattern(MONGO_ID_PATTERN).error(createHttpError.BadRequest("دسته بندی مورد نظر یافت نشد")) ,
+  category : Joi.string().regex(MONGO_ID_PATTERN).error(createHttpError.BadRequest("دسته بندی مورد نظر یافت نشد")) ,
 
   price : Joi.number().error(createHttpError.BadRequest("قیمت وارد شده صحیح نیست")) ,
   count : Joi.number().error(createHttpError.BadRequest("تعداد وارد شده صحیح نیست")) ,
@@ -21,7 +21,9 @@ const createProductSchema = Joi.object({
   length : Joi.number().allow( null , 0 , "" , " ", "0" ).empty().error(createHttpError.BadRequest("طول وارد شده صحیح نیست")),
   weight : Joi.number().allow( null , 0 , "" , " ", "0" ).empty().error(createHttpError.BadRequest("وزن وارد شده صحیح نیست")),
 
-  filename: Joi.string().pattern(/(\.png|\.jpg|\.webp|\.jpeg|\.gif|\.jfif)$/).error(createHttpError.BadRequest("فرمت تصویر ارسال شده صحیح نیست")),
+  type : Joi.string().regex(/(virtual|physical)/i), // flag g baese error mishe nazar
+
+  filename: Joi.string().regex(/(\.png|\.jpg|\.webp|\.jpeg|\.gif|\.jfif)$/).error(createHttpError.BadRequest("فرمت تصویر ارسال شده صحیح نیست")),
   fileUploadPath : Joi.allow(),
 });
 
