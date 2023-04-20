@@ -14,6 +14,7 @@ const createHttpError = require("http-errors");
 //  همه مواردیکه در مدل میسازی رو در روت پروداکت باید از فرانت بگیری که اینجا تو بادی باشه که بدی به پروداکت اسکیما که اعتبار سنجی کنه و تو بتونی با خیال راحت در دیتا بیس ذخیره کنی  و همچنینی در ریسپانس خودت بفرستی واسه بک اند
 
 class ProductController extends Controller {
+  
   async createProduct(req, res, next) {
     try {
       // console.log("req.file :",req.file); // یه عکس فرستاده باشه میره تو
@@ -99,14 +100,28 @@ class ProductController extends Controller {
     }
   }
 
-  deleteProduct(req, res, next) {
+  // step 139 :
+ async deleteProduct(req, res, next) {
     try {
+      const { id } = req.params;
+      const product = await this.findProductByID(id);
+      // بعد از پیدا کردن این پروداکت باید از دیتا بیس حذف کنیم
+      const removeProductResult = await ProductModel.deleteOne({_id : product._id}); // hatman await bzar kolan vase kar kardan ba db
+      if( removeProductResult.deletedCount == 0 ) throw createHttpError.InternalServerError("حذف محصول نا موفق انجام شد")
+
+      return res.status(200).json({
+        statusCode: 200,
+        isSuccess: true,
+        message :"حذف محصول با موفقیت انجام شد.",
+        data: {},
+        error: null,
+      });
     } catch (error) {
       next(error);
     }
   }
 
-  // step: 136 :
+  // step 136 :
   async getOneProduct(req, res, next) {
     try {
       const { id } = req.params;

@@ -115,6 +115,38 @@ router.post(
 // router.get("/", ProductController);
 // router.get("/", ProductController);
 
+// step 141 :
+
+/**
+ * 
+ * @swagger
+ * /admin/products/remove/{id}:
+ *  delete:
+ *      tags: [ product(AdminPanel) ]
+ *      summary: delete all products
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *              descripion: productId of product
+ *              required: true
+ *      responses:
+ *          200:
+ *              description: success
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
+
+
+// step 140 :
+router.delete("/remove/:id" , ProductController.deleteProduct);
+
 //step 135 : requestBody  vase get nazar vase post patch ,...  faghat bzar
 
 /**
@@ -147,7 +179,7 @@ router.get("/all", ProductController.getAllProducts)
  * /admin/products/{id}:
  *  get:
  *      tags: [ product(AdminPanel) ]
- *      summary: get all products
+ *      summary: get one products
  *      description: find product by ID 
  *      parameters:
  *          -   in: path
