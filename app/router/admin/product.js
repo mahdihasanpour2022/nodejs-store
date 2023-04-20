@@ -149,12 +149,20 @@ router.delete("/remove/:id" , ProductController.deleteProduct);
 
 //step 135 : requestBody  vase get nazar vase post patch ,...  faghat bzar
 
+// step 145 : اضافه کردن پارامتر سرچ بر اساس  متن (تکست)در کویری درخواستی که سواگر یا فرانت میخواد برای ما(بک اند) بفرسته
+
+
 /**
  * @swagger
  * /admin/products/all:
  *  get:
  *      tags: [ product(AdminPanel) ]
  *      summary: get all products
+ *      parameters:
+ *          -   in: query
+ *              name: search
+ *              type: string
+ *              description: write entire word for search in title , text , short_text (product)
  *      responses:
  *          200:
  *              description: success
