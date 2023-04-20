@@ -2,5 +2,5 @@
 const Application = require("./app/server");
 
 // step 5 : create server instance hamishe 3000 bzar kolan to hame projeha
-// new Application( 3000,  "mongodb://127.0.0.1:27017/storeDB");
-new Application( 3000,  "mongodb://localhost:27017/storeDB");
+new Application( 3000,  "mongodb://127.0.0.1:27017/storeDB");
+// new Application( 3000,  "mongodb://localhost:27017/storeDB");

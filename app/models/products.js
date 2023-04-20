@@ -19,14 +19,12 @@ const Schema = new mongoose.Schema({
   type: { type: String, require: true }, // vrtual - phisicak product
   format: { type: String },
   supplier: { type: mongoose.Types.ObjectId, require: true },
-  feature: {
-    type: Object,
-    default: {
+  feature: {type: Object, default: {
       madeIn: "",
-      width: 0,
-      height: 0,
-      length: 0,
-      wigth: 0,
+      width: "",
+      height: "",
+      length: "",
+      wigth: "",
       colors: [],
       model: []
     },
