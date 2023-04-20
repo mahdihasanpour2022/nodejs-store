@@ -2,7 +2,7 @@
 const { default: mongoose } = require("mongoose");
 const { CommentSchema } = require("./public.schema");
 // یه چیزایی مثل وزن و طول  و ارتفاع رو فرانت داره میده که ما در سند پروداکت اسکیما داریم اعتبار سنجیش میکنیم اما اینجا نیست
-const Schema = new mongoose.Schema({
+const ProductSchema = new mongoose.Schema({
   title: { type: String, require: true },
   text: { type: String, require: true },
   short_text: { type: String, require: true },
@@ -33,5 +33,5 @@ const Schema = new mongoose.Schema({
 
 //model name must be capital name
 module.exports = {
-  ProductModel: mongoose.model("product", Schema),
+  ProductModel: mongoose.model("product", ProductSchema),
 };

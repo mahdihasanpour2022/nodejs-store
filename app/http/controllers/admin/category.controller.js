@@ -9,6 +9,7 @@ const {
 } = require("../../validators/admin/category.schema");
 const Controller = require("../controller");
 const mongoose = require("mongoose");
+const {StatusCodes} = require("http-status-codes");
 
 class CategoryController extends Controller {
   
@@ -21,8 +22,8 @@ class CategoryController extends Controller {
       const category = await CategoryModel.create({ title, parent });
       if (!category)
         throw createHttpError.InternalServerError("خطای داخل سرور");
-      return res.status(201).json({
-        statusCode: 201,
+      return res.status(StatusCodes.CREATED).json({
+        statusCode: StatusCodes.CREATED,
         isSuccess : true ,
         message: "دسته بندی با موفقیت افزوده شد.",
         data: {
@@ -45,8 +46,8 @@ class CategoryController extends Controller {
       if (deleteResult.deletedCount == 0)
         throw createHttpError.InternalServerError("حذف دسته بندی انجاام نشد.");
       // 202 iani ba movafaghiat hazf shod  ========>  201 iani ba movafaghiat sakhte shod
-      return res.status(202).json({
-        sttausCode: 202,
+      return res.status(StatusCodes.OK).json({
+        sttausCode: StatusCodes.OK,
         isSuccess : true ,
         message: "حذف دسته بندی با موفقیت حذف شد",
         data: {},
@@ -76,8 +77,8 @@ class CategoryController extends Controller {
           "بروز رسانی و آپدیت دسته بندی انجام نشد."
         );
       // 202 iani Accepted response
-      return res.status(202).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess : true ,
         message: "بروز رسانی با موفقیت انجام شد.",
         data: {},
@@ -130,8 +131,8 @@ class CategoryController extends Controller {
         { __v: 0 }
       );
 
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess : true ,
         data: {
           categories,
@@ -168,8 +169,8 @@ class CategoryController extends Controller {
         },
       ]);
 
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess : true ,
         data: {
           category,
@@ -191,8 +192,8 @@ class CategoryController extends Controller {
         { parent: undefined },
         { __v: 0 }
       );
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess : true ,
         data: {
           parents,
@@ -213,8 +214,8 @@ class CategoryController extends Controller {
         { parent },
         { __v: 0, parent: 0 }
       );
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess : true ,
         data: {
           children,
@@ -232,8 +233,8 @@ class CategoryController extends Controller {
       const categories = await CategoryModel.aggregate([
         { $match: {} }, // vaghti match khali bashe hamaro migire
       ]);
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess : true ,
         data: {
           categories,

@@ -1,16 +1,18 @@
 // step 125 : add controller for product
 // tartibe sakht ine => schema model => controller => router
 const { ProductModel } = require("../../../models/products");
-const {
-  createProductSchema,
-} = require("../../validators/admin/product.schema");
+const {createProductSchema} = require("../../validators/admin/product.schema");
 const { deleteFileInPublic } = require("../../../utils/deleteFileInPublic");
 const { path } = require("path");
 const Controller = require("../controller");
 const { listOfImagesFromReq } = require("../../../utils/listOfImagesFromReq");
 const { ObjectValidator } = require("../../validators/public.validator");
 const createHttpError = require("http-errors");
-
+// step 142 : yarn add http-status-codes @types/http-status-codes // هر پکیجی نصب میکنی تایپشم نصب کن 
+// بجای اینکه هارد کد بنویسی تو ریسپانس که الان 200 یا 404 و ... هست میای و از این پکیج استفاده میکنی واضح تره
+// تو این سایت در موردش بخون ==> https://www.npmjs.com/package/http-status-codes
+// 201 = CREATE - 200 = OK
+const {StatusCodes} = require("http-status-codes");
 //  همه مواردیکه در مدل میسازی رو در روت پروداکت باید از فرانت بگیری که اینجا تو بادی باشه که بدی به پروداکت اسکیما که اعتبار سنجی کنه و تو بتونی با خیال راحت در دیتا بیس ذخیره کنی  و همچنینی در ریسپانس خودت بفرستی واسه بک اند
 
 class ProductController extends Controller {
@@ -78,8 +80,8 @@ class ProductController extends Controller {
       });
       // console.log("product : ", product);
       // ارسال رسپانس به فرانت
-      return res.status(201).json({
-        statusCode: 201,
+      return res.status(StatusCodes.CREATED).json({
+        statusCode: StatusCodes.CREATED ,
         isSuccess: true,
         message: "ثبت محصول با موفقیت انجام شد.",
         data: {
@@ -109,8 +111,8 @@ class ProductController extends Controller {
       const removeProductResult = await ProductModel.deleteOne({_id : product._id}); // hatman await bzar kolan vase kar kardan ba db
       if( removeProductResult.deletedCount == 0 ) throw createHttpError.InternalServerError("حذف محصول نا موفق انجام شد")
 
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess: true,
         message :"حذف محصول با موفقیت انجام شد.",
         data: {},
@@ -126,8 +128,8 @@ class ProductController extends Controller {
     try {
       const { id } = req.params;
       const product = await this.findProductByID(id);
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess: true,
         data: {
           product,
@@ -143,8 +145,8 @@ class ProductController extends Controller {
   async getAllProducts(req, res, next) {
     try {
       const products = await ProductModel.find({});
-      res.status(200).json({
-        statusCode: 200,
+      res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess: true,
         message: "لیست محصولات با موفقیت  گرفته شد",
         data: {

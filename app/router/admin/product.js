@@ -143,7 +143,7 @@ router.post(
  *              description: internal server error
  */
 
-
+// step 141 : yarn add @types/hapi__joi  and yarn add @types/http-errors
 // step 140 :
 router.delete("/remove/:id" , ProductController.deleteProduct);
 
