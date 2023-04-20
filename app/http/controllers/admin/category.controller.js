@@ -26,6 +26,7 @@ class CategoryController extends Controller {
         isSuccess : true ,
         message: "دسته بندی با موفقیت افزوده شد.",
         data: {
+          category
         },
         error: null,
       });
