@@ -31,6 +31,16 @@ const ProductSchema = new mongoose.Schema({
   },
 });
 
+// step 143 : 
+// ایندکس گذاری باعث سریعتر پیدا شدن مورد جستجو شده میشود چون پارامتر های کمتری دارد
+// برای گرفتن همه محصولات اگر متنی سرچ کرد ما در تایتل و تکست و خلاصه تسکت میگردیم اگر بود برمیگردونیم اگر نه همه رو بر میگردونیم
+// in iani boro to title va bar assase "text" jostejo konesh
+ProductSchema.index({
+  title: "text",
+  text: "text",
+  short_text: "text",
+})
+
 //model name must be capital name
 module.exports = {
   ProductModel: mongoose.model("product", ProductSchema),
