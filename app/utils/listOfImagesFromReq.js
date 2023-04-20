@@ -6,7 +6,7 @@ function listOfImagesFromReq(files, fileUploadPath) {
   // چک میکنیم اگر در ارایه بیش از یه ایتم بود این کار ها رو بکنه در غیر اینصورت یه ارایه خالی ریترن کنه
   if (files?.length > 0) {
     // ادرس کامل رو به عکس میدیم ک هبه محل ذخیره سازی اون اشاره داره
-    console.log("files:", files);
+    // console.log("files:", files);
     return files
       .map((file) => path.join(fileUploadPath, file.filename))
       .map((item) => item.replace(/\\/g, "/"));

@@ -5,7 +5,7 @@ const createHttpError = require("http-errors");
 const { MONGO_ID_PATTERN } = require("../../../utils/constants");
 // b jaie regex mitoni benevisi pattern ama regex behtare
 const createProductSchema = Joi.object({
-  title: Joi.string().min(3).max(30).error(createHttpError.BadRequest("عنوان ارسال شده صحیح نیست")),
+  title: Joi.string().min(3).max(30).error(createHttpError.BadRequest("عنوان ارسال شده باید بین 3 تا 30 کرکتر باشد")),
   text: Joi.string().error(createHttpError.BadRequest("متن ارسال شده صحیح نیست")),
   short_text : Joi.string().error(createHttpError.BadRequest("خلاصه متن ارسال شده صحیح نیست")),
 

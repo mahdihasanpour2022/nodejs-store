@@ -11,6 +11,7 @@ const router = require("express").Router();
 //  اگر در پراپرتی ها مثلا تگ رو در مدل اسکیما بصورت تایپ ارایه گذاشتی اینجا در پراپرتی تگ ها هم تایپش رو باید بزاری ارایه
 
 // banary = یعنی همون فایل که برای عکس چون حداکثر 10 تا عکس رو میتونه در قالب آرایه ارسال کنه واسه محصولش
+
 /**
  * @swagger
  *  components:
@@ -60,15 +61,19 @@ const router = require("express").Router();
  *                  width:
  *                      type: number
  *                      description: the width of product packet
+ *                      example: 0
  *                  height:
  *                      type: number
  *                      description: the height of product packet
+ *                      example: 0
  *                  length:
  *                      type: number
  *                      description: the length of product packet
+ *                      example: 0
  *                  weight:
  *                      type: number
  *                      description: the weight of product packet
+ *                      example: 0
  */
 
 //step 130 : وقتی میخوای فرم ارسال کنی چند تا پراپرتی تو فرمته و فایل مثل عکس همراهشه پس کانتنت رو بزار مالتیپارت فرم دیتا
@@ -134,6 +139,36 @@ router.post(
 
 //step 134 :
 router.get("/all", ProductController.getAllProducts) 
+
+// step 138 :
+
+/**
+ * @swagger
+ * /admin/products/{id}:
+ *  get:
+ *      tags: [ product(AdminPanel) ]
+ *      summary: get all products
+ *      description: find product by ID 
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *              required: true
+ *      responses:
+ *          200:
+ *              description: success
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
+
+// step: 137 :
+router.get("/:id" , ProductController.getOneProduct)
 
 
 

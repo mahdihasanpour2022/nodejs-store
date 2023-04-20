@@ -24,8 +24,8 @@ class CategoryController extends Controller {
       return res.status(201).json({
         statusCode: 201,
         isSuccess : true ,
+        message: "دسته بندی با موفقیت افزوده شد.",
         data: {
-          message: "دسته بندی با موفقیت افزوده شد.",
         },
         error: null,
       });
@@ -47,9 +47,8 @@ class CategoryController extends Controller {
       return res.status(202).json({
         sttausCode: 202,
         isSuccess : true ,
-        data: {
-          message: "حذف دسته بندی با موفقیت حذف شد",
-        },
+        message: "حذف دسته بندی با موفقیت حذف شد",
+        data: {},
         error: null,
       });
     } catch (error) {
@@ -79,9 +78,8 @@ class CategoryController extends Controller {
       return res.status(202).json({
         statusCode: 200,
         isSuccess : true ,
-        data: {
-          message: "بروز رسانی با موفقیت انجام شد.",
-        },
+        message: "بروز رسانی با موفقیت انجام شد.",
+        data: {},
         error: null,
       });
     } catch (error) {

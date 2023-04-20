@@ -41,8 +41,8 @@ class BlogController extends Controller {
       return res.status(201).json({
         statusCode: 201,
         isSuccess: true,
+        message: "بلاگ با موفقیت ایجاد شد.",
         data: {
-          message: "بلاگ با موفقیت ایجاد شد.",
           blog,
         },
         error: null,
@@ -59,9 +59,10 @@ class BlogController extends Controller {
       const { id } = req.params; // chon id ro dar path url dadim baiad ba req.params bgirim na req.body
       const blog = await this.findBlog(id); // dge inja hatman javab dare chon findBlog agar peida nakarde bod return mikard pas nemikhad if(!blog) ro anjam bdi
       return res.status(200).json({
+        statusCode: 200,
+        isSuccess : true ,
+        message: "بلاگ با موفقیت یافت شد.",
         data: {
-          statusCode: 200,
-          message: "بلاگ با موفقیت یافت شد.",
           blog,
         },
         error: null,
@@ -160,9 +161,8 @@ class BlogController extends Controller {
       return res.status(202).json({
         statusCode: 202,
         isSuccess: true,
-        data: {
-          message: "بلاگ با موفقیت حذف شد",
-        },
+        message: "بلاگ با موفقیت حذف شد",
+        data: {},
         error: null,
       });
     } catch (error) {
