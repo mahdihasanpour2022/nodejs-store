@@ -5,6 +5,7 @@ const Controller = require("../controller");
 const { deleteFileInPublic } = require("../../../utils/deleteFileInPublic");
 const { BlogModel } = require("../../../models/blogs");
 const createHttpError = require("http-errors");
+const {StatusCodes} = require("http-status-codes");
 
 class BlogController extends Controller {
 
@@ -38,8 +39,8 @@ class BlogController extends Controller {
       });
 
       // hala javab vase frontEND mifrestim
-      return res.status(201).json({
-        statusCode: 201,
+      return res.status(StatusCodes.CREATED).json({
+        statusCode: StatusCodes.CREATED,
         isSuccess: true,
         message: "بلاگ با موفقیت ایجاد شد.",
         data: {
@@ -58,8 +59,8 @@ class BlogController extends Controller {
     try {
       const { id } = req.params; // chon id ro dar path url dadim baiad ba req.params bgirim na req.body
       const blog = await this.findBlog(id); // dge inja hatman javab dare chon findBlog agar peida nakarde bod return mikard pas nemikhad if(!blog) ro anjam bdi
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess : true ,
         message: "بلاگ با موفقیت یافت شد.",
         data: {
@@ -126,8 +127,8 @@ class BlogController extends Controller {
         // },
         // },
       ]);
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess: true,
         data: {
           blogs,
@@ -158,8 +159,8 @@ class BlogController extends Controller {
       const result = await BlogModel.deleteOne({ _id: blog._id });
       if (result.deletedCount == 0)
         throw createHttpError.InternalServerError("حذف بلاگ نا موفق است");
-      return res.status(202).json({
-        statusCode: 202,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess: true,
         message: "بلاگ با موفقیت حذف شد",
         data: {},
@@ -216,8 +217,8 @@ class BlogController extends Controller {
       if (result.modifiedCount == 0)
         throw createHttpError.InternalServerError("آپدیت بلاگ نامو فق بود");
       // agar update dorost ejra bshe modifiedCount bozorgtar az 0 mishe masaln 1
-      return res.status(200).json({
-        statusCode: 200,
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
         isSuccess: true,
         data: {
           message: "بلاگ با موفقیت ایجاد شد.",
