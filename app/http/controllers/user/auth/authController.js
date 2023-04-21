@@ -4,9 +4,7 @@ const { UserModel } = require("../../../../models/users");
 const {  ROLES } = require("../../../../utils/constants");
 const { CreateAccessToken } = require("../../../../utils/createAccessToken");
 const { createRefreshToken } = require("../../../../utils/createRefreshToken");
-const {
-  randomNumberGenerator,
-} = require("../../../../utils/randomNumberGenerator");
+const {randomNumberGenerator} = require("../../../../utils/randomNumberGenerator");
 const { verifyRefreshToken } = require("../../../../utils/verifyRefreshToken");
 
 const {
@@ -14,6 +12,7 @@ const {
   checkOtpSchema,
 } = require("../../../validators/user/auth.schema");
 const Controller = require("../../controller");
+const { ghasedakSensSMS } = require("../../../../utils/ghasedakSendSMS.JS");
 
 class UserAuthController extends Controller {
   // inja miad req.body ro migire badesh check mikone bebine ghablan kasi ba in mobile hast dar db agar nabod yeki jadid bsaze  agar bod update user
@@ -27,6 +26,7 @@ class UserAuthController extends Controller {
       const { mobile } = req.body;
       // step 26 : create otp
       const code = randomNumberGenerator();
+     if(mobile && code) ghasedakSensSMS(mobile,code)
       const result = await this.saveUser(mobile, code);
       // if(!result) throw createHttpError.BadRequest("ورود شما ناموفق بود") //...or
       if (!result) throw createHttpError.Unauthorized("ورود شما ناموفق بود");
@@ -53,12 +53,12 @@ class UserAuthController extends Controller {
     const result = await this.checkExistUser(mobile);
 
     if (result) {
-      return await this.updateUser(mobile, { otp });
+      return await this.updateUser( mobile , { otp } );
     }
     return !!(await UserModel.create({
-      mobile,
-      otp,
-      Roles: [ROLES.USER],
+      mobile ,
+      otp ,
+      Roles: [ ROLES.USER ] ,
     }));
   }
 
