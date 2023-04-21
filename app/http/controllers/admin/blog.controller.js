@@ -204,7 +204,7 @@ class BlogController extends Controller {
         // validation string
         if (typeof data[key] == "string") data[key] = data[key].trim(); // faselehasho hazf mikonim va dobare to khodesh zakhirash mikonim
         // validation array
-        if (Array.isArray(data[key]) && Array.length > 0)
+        if (Array.isArray(data[key]) && data[key].length > 0)
           data[key] = data[key].map((item) => item.trim()); // age array bod itemhasho trim kone k fasele aval akharesh hazf bshe
         if (nullishData.includes(data[key])) delete data[key];
       });
