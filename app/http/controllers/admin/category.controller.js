@@ -9,10 +9,9 @@ const {
 } = require("../../validators/admin/category.schema");
 const Controller = require("../controller");
 const mongoose = require("mongoose");
-const {StatusCodes} = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 
 class CategoryController extends Controller {
-  
   async createCategory(req, res, next) {
     try {
       await createCategorySchema.validateAsync(req.body);
@@ -24,10 +23,10 @@ class CategoryController extends Controller {
         throw createHttpError.InternalServerError("خطای داخل سرور");
       return res.status(StatusCodes.CREATED).json({
         statusCode: StatusCodes.CREATED,
-        isSuccess : true ,
+        isSuccess: true,
         message: "دسته بندی با موفقیت افزوده شد.",
         data: {
-          category
+          category,
         },
         error: null,
       });
@@ -48,7 +47,7 @@ class CategoryController extends Controller {
       // 202 iani ba movafaghiat hazf shod  ========>  201 iani ba movafaghiat sakhte shod
       return res.status(StatusCodes.OK).json({
         sttausCode: StatusCodes.OK,
-        isSuccess : true ,
+        isSuccess: true,
         message: "حذف دسته بندی با موفقیت حذف شد",
         data: {},
         error: null,
@@ -69,7 +68,7 @@ class CategoryController extends Controller {
       await updateCategorySchema.validateAsync(req.body);
       const resultOfUpdate = await CategoryModel.updateOne(
         { _id: id },
-        { $set: {title} } // agar $set : {in mohtviat baiad dar obj bashe } vagarna in error ro mide : Invalid atomic update value for $set. Expected an object, received string
+        { $set: { title } } // agar $set : {in mohtviat baiad dar obj bashe } vagarna in error ro mide : Invalid atomic update value for $set. Expected an object, received string
       );
       //  agar update shode bashe => === nazar
       if (resultOfUpdate.modifiedCount == 0)
@@ -79,7 +78,7 @@ class CategoryController extends Controller {
       // 202 iani Accepted response
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
-        isSuccess : true ,
+        isSuccess: true,
         message: "بروز رسانی با موفقیت انجام شد.",
         data: {},
         error: null,
@@ -133,7 +132,7 @@ class CategoryController extends Controller {
 
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
-        isSuccess : true ,
+        isSuccess: true,
         data: {
           categories,
         },
@@ -171,7 +170,7 @@ class CategoryController extends Controller {
 
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
-        isSuccess : true ,
+        isSuccess: true,
         data: {
           category,
         },
@@ -194,11 +193,11 @@ class CategoryController extends Controller {
       );
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
-        isSuccess : true ,
+        isSuccess: true,
         data: {
           parents,
         },
-        error : null
+        error: null,
       });
     } catch (error) {
       next(error);
@@ -216,7 +215,7 @@ class CategoryController extends Controller {
       );
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
-        isSuccess : true ,
+        isSuccess: true,
         data: {
           children,
         },
@@ -235,7 +234,7 @@ class CategoryController extends Controller {
       ]);
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
-        isSuccess : true ,
+        isSuccess: true,
         data: {
           categories,
         },
