@@ -74,7 +74,7 @@ module.exports = class Application {
             },
             security : [{BearerAuth : [] }]
           },
-          apis: ["./app/router/*/*.js"],// step 117 :
+          apis: ["./app/router/**/*.js"],// step 117 : برو تو پوشه روتر و هر فایلی که با فرمت جی اس دارای سواگر بود به ما نشون بده در 
         }),
         {explorer : true}
       )
