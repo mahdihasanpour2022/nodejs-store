@@ -33,6 +33,7 @@ const CourseSchema = new mongoose.Schema({
     default: "free" /* free ,cash , special */,
     require: true,
   }, // free - pro
+  status : {type : String , default : "notStarted" /*notStarted , completed , holding*/},
   time: { type: String, default: "00:00:00" },
   chapters: { type: [ChapterSchema], default: [] },
   taecher: { type: mongoose.Types.ObjectId, ref: "user", require: true },
