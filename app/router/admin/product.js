@@ -12,17 +12,16 @@ const router = require("express").Router();
 
 // banary = یعنی همون فایل که برای عکس چون حداکثر 10 تا عکس رو میتونه در قالب آرایه ارسال کنه واسه محصولش
 
+
 /**
  * @swagger
  *  components:
  *      schemas:
- *          ProductTypes:
- *              type: array
- *              items: 
- *                  type: string
- *                  enum:
- *                      -   physical
- *                      -   virtual
+ *          Product_Types:
+ *              type: string
+ *              enum:
+ *                  -   physical
+ *                  -   virtual
  */
 
 /**
@@ -40,6 +39,7 @@ const router = require("express").Router();
  *                  -   category
  *                  -   count
  *                  -   discount
+ *                  -   type
  *              properties:
  *                  title:
  *                      type: string
@@ -65,6 +65,8 @@ const router = require("express").Router();
  *                  discount:
  *                      type: number
  *                      description: discount of product
+ *                  type:
+ *                      $ref: '#/components/schemas/Product_Types'
  *                  images:
  *                      type: array
  *                      description: images of product
@@ -87,8 +89,6 @@ const router = require("express").Router();
  *                      type: number
  *                      description: the weight of product packet
  *                      example: 0
- *                  type:
- *                      $ref: '#/components/schemas/ProductTypes'
  */
 
 // step 151 : این واسه ادیت پروداکته که چند تا از فیلدهاش مثل ساخت محصول الزامی (ریکوایر) نباشه
