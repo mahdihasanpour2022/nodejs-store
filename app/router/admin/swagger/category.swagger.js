@@ -1,3 +1,5 @@
+// step 176 : مثل قدم 174 و 175 که برای پروداکت دیفاینیشن یعنی الگوی ریسپانس برای فرانت نوشتی برای این هم بنویس کافیه تو پوشه مدل ببینی هر کتگوری چه آپشن هایی داره و بنویسی
+
 // step 119 : // shema hato ijad mikoni aval name schema bad type esh bad onaie k required hast  va b hamin tartib
 // faghat vase patch va post ma schema minevisim
 
@@ -47,6 +49,10 @@
  *      responses:
  *          201:
  *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -69,6 +75,10 @@
  *      responses:
  *          200:
  *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -91,6 +101,10 @@
  *      responses:
  *          200:
  *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -117,6 +131,10 @@
  *      responses:
  *          200:
  *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -144,6 +162,10 @@
  *      responses:
  *          202:
  *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -166,6 +188,10 @@
  *      responses:
  *          200:
  *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -202,6 +228,16 @@
  *      responses:
  *          200:
  *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
  *          500:
  *              description: internal server error
  */
@@ -223,6 +259,10 @@
  *      responses:
  *          200:
  *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:

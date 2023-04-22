@@ -52,7 +52,7 @@ class CourseController extends Controller {
       } = req.body;
 
       const image = path.join(fileUploadPath, filename).replace(/\\/g, "/");
-      const taecher = req.user._id; // req ham body dare ham req.user ham req.file ham req.files
+      const teacher = req.user._id; // req ham body dare ham req.user ham req.file ham req.files
       //اگر دوره رو رایگان در نظر گرفت معلم و پس نباید براش قیمت بزاره
       if (Number(price) > 0 && type === "free")
         throw createHttpError.BadRequest(
@@ -71,7 +71,7 @@ class CourseController extends Controller {
         image,
         category,
         status: "notStarted",
-        taecher,
+        teacher,
       });
       if (!course?._id)
         throw createHttpError.InternalServerError("ایجاد دوره ناموفق بود."); // اگر دوره در دیتا بیس صحیح ثبت بشه پس یک ایدی میده بهش دیتابیسی که ما با اون چک میکنیم ببینیم واقعا ثبت شده یا نه

@@ -52,6 +52,10 @@
  *          responses:
  *              200:
  *                  description: success - blog created
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/PublicDefinetion'
  *              400:
  *                  description: Bad Request
  *              401:
@@ -106,6 +110,10 @@
  *      responses:
  *          200:
  *              description: success - blog created
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -128,6 +136,10 @@
  *      responses:
  *          200:
  *              description: success - get array of blogs
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -157,6 +169,10 @@
  *      responses:
  *          200:
  *              description: success - get array of blogs
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -184,6 +200,10 @@
  *      responses:
  *          200:
  *              description: success - get array of blogs
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:

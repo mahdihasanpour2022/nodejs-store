@@ -36,7 +36,7 @@ const CourseSchema = new mongoose.Schema({
   status : {type : String , default : "notStarted" /*notStarted , completed , holding*/},
   time: { type: String, default: "00:00:00" },
   chapters: { type: [ChapterSchema], default: [] },
-  taecher: { type: mongoose.Types.ObjectId, ref: "user", require: true },
+  teacher: { type: mongoose.Types.ObjectId, ref: "user", require: true },
   students: { type: [mongoose.Types.ObjectId], default: [], ref: "user" }, //برای اینکه لیست خریداران دوره آموزشیمونو بگیریم اینو میزاریم
 });
 
