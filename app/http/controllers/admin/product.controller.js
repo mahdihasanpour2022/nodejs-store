@@ -55,6 +55,7 @@ class ProductController extends Controller {
         count,
         discount,
         price,
+        type
       } = productBody;
       const supplier = req.user._id;
 

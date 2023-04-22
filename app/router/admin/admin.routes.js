@@ -12,10 +12,10 @@ const router = require("express").Router();
  * tags:
  *  -    name: admin-panel
  *       description : actions for admins (add , remove , edit , ...)
- *  -    name: course(AdminPanel)
- *       description : management course routes
  *  -    name: category(AdminPanel)
  *       description : all method for category section
+ *  -    name: course(AdminPanel)
+ *       description : management course routes
  *  -    name: product(AdminPanel)
  *       description : management Product routes
  *  -    name: blog(AdminPanel)

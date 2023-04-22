@@ -16,7 +16,7 @@ const ProductSchema = new mongoose.Schema({
   price: { type: Number, default: 0  },
   discount: { type: Number, default: 0 },
   count: { type: Number },
-  type: { type: String, require: true }, // vrtual - phisicak product
+  type: { type: String, require: true }, // vrtual - phisical product
   format: { type: String },
   supplier: { type: mongoose.Types.ObjectId, require: true },
   feature: {type: Object, default: {

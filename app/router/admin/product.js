@@ -12,6 +12,18 @@ const router = require("express").Router();
 
 // banary = یعنی همون فایل که برای عکس چون حداکثر 10 تا عکس رو میتونه در قالب آرایه ارسال کنه واسه محصولش
 
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Product_Types:
+ *              type: string
+ *              enum:
+ *                  -   physical
+ *                  -   virtual
+ */
+
 /**
  * @swagger
  *  components:
@@ -27,6 +39,7 @@ const router = require("express").Router();
  *                  -   category
  *                  -   count
  *                  -   discount
+ *                  -   type
  *              properties:
  *                  title:
  *                      type: string
@@ -52,6 +65,8 @@ const router = require("express").Router();
  *                  discount:
  *                      type: number
  *                      description: discount of product
+ *                  type:
+ *                      $ref: '#/components/schemas/Product_Types'
  *                  images:
  *                      type: array
  *                      description: images of product
