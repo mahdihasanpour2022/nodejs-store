@@ -18,6 +18,9 @@
  *                  example: "message for this response ..."
  *              data:
  *                  type: object
+ *              error:
+ *                  type: string
+ *                  example: null
 */
 
 
@@ -105,9 +108,12 @@
  *                  properties:
  *                      course:
  *                          type: object
+ *              error:
+ *                  type: string
+ *                  example: null
 */
 
-// step 164 :
+// step 164 : ba requestBody migi k dar body che chizaie front baiad bar asase in form CreateCourse_Definetion bde
 
 /**
  * @swagger
@@ -141,6 +147,7 @@
 
 
 // step 169 : cearete defination for all courses
+// الگوی ریسپانسی که به فرانت میدیم رو اینجا مثلا برای حالت موفقیت آمیز بودن مینویسیم
 // یه نمونه ریسپانس در سواگر برای فرانت میزاره که بفهمه جواب این اندپوینت چجوری خواهد امد از بک اند ما
 // اینو باید مطابق ریسپانسی که در گرفتن همه دوره ها گذاشتی درست کنی مثل یه ارایه پر از آبجکت
 
@@ -208,6 +215,7 @@
  *                                  type:
  *                                      type: string
  *                                      example: type of course
+
  */
 
 // step 157 : create route swagger for course
@@ -327,6 +335,91 @@
  *                  application/json:
  *                      schema:
  *                          $ref: '#/definitions/GetCourseByID_Definetion'
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
+
+
+//step 179 :
+//این سه قدم 179 و 180 و 181 رو با دقت ببینی میفهمی چجوری باید سواگر بنویسی کلا همین سه قدم برای هر روت تکرار میشه
+
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Create_Chapter:
+ *              type: object
+ *              required:
+ *                  -   id
+ *                  -   title
+ *              properties:
+ *                  id:
+ *                      type: string
+ *                      description: this chapter add to course with this id
+ *                  title:
+ *                      type: string
+ *                      description: chapter 1
+ *                  text:
+ *                      type: string
+ *                      description: write text here ...
+ */
+
+
+// step 180 :
+
+/**
+ * @swagger
+ *  definitions:
+ *      CreateChapter_Definetion:
+ *          type: object
+ *          properties:
+ *              statusCode: 
+ *                  type: integer
+ *                  example: 20x
+ *              isSuccess: 
+ *                  type: boolean
+ *                  example: true
+ *              message: 
+ *                  type: string
+ *                  example: "فصل با موفقیت به دوره اضافه شد"
+ *              data:
+ *                  type: object
+ *              error:
+ *                  type: string
+ *                  example: null
+*/
+
+// step 181 :
+
+/**
+ * @swagger
+ * /admin/courses/create-chapter:
+ *  put:
+ *      tags: [ course(AdminPanel) ]
+ *      summary: craete new chapter
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/x-www-form-urlencoded:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Create_Chapter'
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Create_Chapter'
+ *      responses:
+ *          200:
+ *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/CreateChapter_Definetion'
  *          400:
  *              description: Bad Request
  *          401:
