@@ -464,7 +464,7 @@
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/definitions/Public_Product_Definetion'
+ *                          $ref: '#/definitions/PublicDefinetion'
  *          400:
  *              description: Bad Request
  *          401:

@@ -1,10 +1,15 @@
-// step 152 : courses route 
+// step 152 : courses route
 const {
   CourseController,
 } = require("../../http/controllers/admin/course.controller");
 const router = require("express").Router();
 const { stringToArray } = require("../../http/middlewares/stringToArray");
 const { uploadFile } = require("../../utils/multer");
+
+
+//step 178 :
+router.put("/create-chapter", CourseController.createChapter)
+
 
 // step 162 :
 router.post(

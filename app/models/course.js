@@ -12,7 +12,7 @@ const EpisodesSchema = new mongoose.Schema({
 const ChapterSchema = new mongoose.Schema({
   title: { type: String, require: true },
   text: { type: String, default: "" },
-  episode: { type: [EpisodesSchema], default: [] },
+  episodes: { type: [EpisodesSchema], default: [] },
 });
 
 const CourseSchema = new mongoose.Schema({
