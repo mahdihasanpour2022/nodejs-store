@@ -1,10 +1,12 @@
 // step 152 : courses route
-const { CourseController } = require("../../http/controllers/admin/course.controller");
+const {
+  CourseController,
+} = require("../../http/controllers/admin/course.controller");
 const router = require("express").Router();
 const { stringToArray } = require("../../http/middlewares/stringToArray");
 const { uploadFile } = require("../../utils/multer");
 
-// step 163 : 
+// step 163 :
 
 /**
  * @swagger
@@ -91,18 +93,16 @@ const { uploadFile } = require("../../utils/multer");
  *              description: internal server error
  */
 
-
 // step 162 :
 router.post(
   "/create",
-  uploadFile.single("image") , // 10 iani maxCount iani hadeaksar 10 ta ax mitone upload kone
+  uploadFile.single("image"), // 10 iani maxCount iani hadeaksar 10 ta ax mitone upload kone
   stringToArray("tags"),
   CourseController.createCourse
 );
 
-// step 157 : create route swagger for course 
+// step 157 : create route swagger for course
 // step 159 : create parameters for seraching
-
 
 /**
  * @swagger
@@ -128,19 +128,39 @@ router.post(
  *              description: internal server error
  */
 
-
 // step 156 :
-router.get("/all" , CourseController.getAllCourses ); // get all courses
+router.get("/all", CourseController.getAllCourses); // get all courses
 
+// step 168 :
 
+/**
+ * @swagger
+ * /admin/courses/{id}:
+ *  get:
+ *      tags: [ course(AdminPanel) ]
+ *      summary: get one course
+ *      description: find course by ID
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              type: string
+ *              required: true
+ *      responses:
+ *          200:
+ *              description: success
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
 
-// router.get(); // get a courses
-// router.post(); // create new courses
-// router.put(); // create new chapter
-// router.put(); // create new episode
-// router.delete(); // remove a course
-// router.patch(); // edit a course
+// step 167 :
+router.get("/:id", CourseController.getCourseByID);
 
-module.exports = { 
-  Course_AdminApiRoutes: router
- };
+module.exports = {
+  Course_AdminApiRoutes: router,
+};
