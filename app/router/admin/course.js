@@ -4,7 +4,8 @@ const { CourseController } = require("../../http/controllers/admin/course.contro
 const router = require("express").Router();
 
 
-// step 157 :
+// step 157 : create route swagger for course
+// step 159 : create parameters for seraching
 
 
 /**
@@ -13,6 +14,11 @@ const router = require("express").Router();
  *  get:
  *      tags: [ course(AdminPanel) ]
  *      summary: get all courses
+ *      parameters:
+ *          -   in: query
+ *              name: search
+ *              type: string
+ *              description: write entire word for search in title , text , short_text (course)
  *      responses:
  *          200:
  *              description: success
