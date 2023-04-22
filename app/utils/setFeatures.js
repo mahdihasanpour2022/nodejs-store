@@ -2,10 +2,8 @@
 function setFeatures (body){
 const {width,height,length,weight,colors} = body;
   // باید اگر فرانت نفریتاد مقدارشو براش دیفالت 0 بزاریم اما اگر نه مقدار داشت همون مقداررو در نظر بگیره
-  // let features = {} , type = "physical" ; // اضافه کردن به یه آبجکت
       let features = {};
       features.colors = colors ;
-      let type = "physical"; // پیش فرض نوع محص.ل فیزیکی است اما اگر طول و عرض نده کاربر یعنی مجازی میزاریم
       if ( !isNaN(width) || !isNaN(height) || !isNaN(length) || !isNaN(weight)) {
         // اگر یکی از این ویژگی ها رو وارد کرده باشه یعنی کالا فیزیکیه در غیر اینصورت مجازیه
         if (!width) features.width = 0;
@@ -16,8 +14,6 @@ const {width,height,length,weight,colors} = body;
         else features.length = length;
         if (!weight) features.weight = 0;
         else features.weight = weight;
-      } else {
-        type = "virtual";
       }
       return features;
     };

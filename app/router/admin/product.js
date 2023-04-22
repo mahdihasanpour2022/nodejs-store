@@ -16,6 +16,19 @@ const router = require("express").Router();
  * @swagger
  *  components:
  *      schemas:
+ *          ProductTypes:
+ *              type: array
+ *              items: 
+ *                  type: string
+ *                  enum:
+ *                      -   physical
+ *                      -   virtual
+ */
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
  *          Product:
  *              type: object
  *              required:
@@ -74,6 +87,8 @@ const router = require("express").Router();
  *                      type: number
  *                      description: the weight of product packet
  *                      example: 0
+ *                  type:
+ *                      $ref: '#/components/schemas/ProductTypes'
  */
 
 // step 151 : این واسه ادیت پروداکته که چند تا از فیلدهاش مثل ساخت محصول الزامی (ریکوایر) نباشه
