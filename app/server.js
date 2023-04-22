@@ -91,7 +91,7 @@ module.exports = class Application {
   connectTOMongoDB() {
     const mongoose = require("mongoose");
     mongoose.set("strictQuery", true);
-    mongoose.connect(this.#DB_URI);
+    mongoose.connect(this.#DB_URI , {authSource : "admin"});
     console.log("connect to mongoDB (successfully)");
     // mongoose.connect(this.#DB_URI, (error) => {
     //   if (!error) return console.log("connect to mongoDB");

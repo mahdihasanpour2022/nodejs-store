@@ -30,7 +30,7 @@ const CourseSchema = new mongoose.Schema({
   discount: { type: Number, default: 0 },
   type: { type: String,default : "free" /* free ,cash , special */, require: true }, // free - pro
   time: { type: String  , default : "00:00:00"},
-  chapter : {type : [ChapterSchema]  , default : [] },
+  chapters : {type : [ChapterSchema]  , default : [] },
   taecher: { type: mongoose.Types.ObjectId,ref :"user" , require: true },
   students : {type : [mongoose.Types.ObjectId] , default : [] , ref : "user"} , //برای اینکه لیست خریداران دوره آموزشیمونو بگیریم اینو میزاریم 
 
