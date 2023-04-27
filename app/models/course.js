@@ -21,7 +21,7 @@ const CourseSchema = new mongoose.Schema({
   text: { type: String, require: true },
   image: { type: String, require: true },
   tags: { type: [String], default: [] },
-  category: { type: mongoose.Types.ObjectId, ref: "category", require: true },
+  category: { type: mongoose.Types.ObjectId, ref: "category", require: true }, // ref iani az ro model category negah kone
   comments: { type: [CommentSchema], default: [] },
   likes: { type: [mongoose.Types.ObjectId], default: [] },
   dislikes: { type: [mongoose.Types.ObjectId], default: [] },

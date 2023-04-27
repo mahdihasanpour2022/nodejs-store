@@ -23,6 +23,7 @@ const Schema = new mongoose.Schema(
 
 // step 80 :
 // dakhele populate ham daghighan hamon mavaredi k dar step 70 dar look up gozashtimo mizarim chon poshte sahnie populate hamon lookaup hast
+// in iani har jaie dar proje populate roie categori zadim bia va ye chizi b name children dorost kon va in etelaat ro tosh bzar 
 Schema.virtual("children", {
   ref: "category",
   localField: "_id",
@@ -35,7 +36,7 @@ Schema.virtual("children", {
 // select iani __v ro neshon nade
 
 function autoPopulate(next) {
-  this.populate([{ path: "children", select: { __v: 0 } }]);
+  this.populate([{ path: "children", select: { __v: 0 , id : 0 } }]); // in iani har ja roie category populate zade shod children hasho neshon bede
   next();
 }
 Schema.pre("findOne", autoPopulate).pre("find", autoPopulate);

@@ -1,13 +1,14 @@
 const createHttpError = require("http-errors");
 const { CourseModel } = require("../../../../models/course");
-const { createCourseSchema } = require("../../../validators/admin/course.schema");
+const {
+  createCourseSchema,
+} = require("../../../validators/admin/course.schema");
 const Controller = require("../../controller");
 const { StatusCodes } = require("http-status-codes");
 const path = require("path");
 const { default: mongoose } = require("mongoose");
 
 class CourseController extends Controller {
-  
   // step 155 :
   async getAllCourses(req, res, next) {
     try {
@@ -15,12 +16,28 @@ class CourseController extends Controller {
       let courses; // baiad let bashe k betonim  meghdardehi konim
       // در صورتیکه یه متنی وارد کرده باشه میره تو دیتا بیس بر اساس اون جستجو میکنه
       if (search)
-        courses = await CourseModel.find({ $text: { $search: search } }).sort({
-          _id: -1,
-        });
+        courses = await CourseModel.find({ $text: { $search: search } })
+          .populate([
+            // { path: "category", select: { children: 0, parent: 0 } }, // dar category model goftim har ja roie category populate zadim dar proje bia va children ro bsaz va dar children etelaati ro bede hala miaim populate mizanim ama migim parent va children ro nade
+            {path : "category" , select : {title : 1 }},//in iani faghat title ro neshon bede
+            {
+              path: "teacher",
+              select: { first_name: 1, last_name: 1, mobile: 1, email: 1 },
+            },
+          ])
+          .sort({ _id: -1 });
       // sort ba id -1 iani akharin record aval neshon dade mishe
       // در غیر اینصورت
-      else courses = await CourseModel.find({}).sort({ _id: -1 });
+      else
+        courses = await CourseModel.find({})
+          .populate([
+            { path: "category", select: { title: 1 } }, // dar category model goftim har ja roie category populate zadim dar proje bia va children ro bsaz va dar children etelaati ro bede hala miaim populate mizanim ama migim parent va children ro nade
+            {
+              path: "teacher",
+              select: { first_name: 1, last_name: 1, mobile: 1, email: 1 },
+            },
+          ])
+          .sort({ _id: -1 });
       return res.status(StatusCodes.OK).json({
         isSuccess: true,
         statusCode: StatusCodes.OK,
@@ -114,16 +131,15 @@ class CourseController extends Controller {
 
   // step 165 : az try va catch nemitoni estefade kone chon masalan req ya next ro b onvane argoman nagerefte
   async findCourseByID(courseID) {
-   
-      // باید چک کنه مانگوس ببینه ایدی که یوزر وارد کرده مطابق الگوی ایدی های ذخیره شده در دیتابیس هست یا خیر
-      if(!mongoose.isValidObjectId(courseID) ) throw createHttpError.BadRequest("شناسه دوره ارسال شده صحیح نمی باشد. ");
-      const course = await CourseModel.findById({ _id: courseID });
-      if (!course)
-        throw createHttpError.InternalServerError(
-          "دوره ای با اسن شناسه (ایدی) پیدا نشد."
-        );
-      return course;
-   
+    // باید چک کنه مانگوس ببینه ایدی که یوزر وارد کرده مطابق الگوی ایدی های ذخیره شده در دیتابیس هست یا خیر
+    if (!mongoose.isValidObjectId(courseID))
+      throw createHttpError.BadRequest("شناسه دوره ارسال شده صحیح نمی باشد. ");
+    const course = await CourseModel.findById({ _id: courseID });
+    if (!course)
+      throw createHttpError.InternalServerError(
+        "دوره ای با اسن شناسه (ایدی) پیدا نشد."
+      );
+    return course;
   }
 }
 
