@@ -1,0 +1,82 @@
+const {
+  createEpisodeSchema,
+} = require("../../../validators/admin/episode.schema");
+const Controller = require("../../controller");
+const {default: getVideoDurationInSeconds} = require("get-video-duration"); // hatman ba default varedesh kon gheire in kar nemikone
+const path = require("path");
+const { getTime } = require("../../../../utils/getTime");
+const {CourseModel} = require("../../../../models/course");
+const createHttpError = require("http-errors");
+const { StatusCodes } = require("http-status-codes");
+
+
+// step 204 : create episode controller
+class EpisodeController extends Controller {
+  async createEpisode(req, res, next) {
+    try {
+      // باید اعتبار سنجی کنه جویی هپی مقادیری رو که فرانت فرستاده
+      //این ها مواردی هست که اپیزود اسکیما که در پوشه ولیدیشن هست داره برای ما بر میگردونه
+      const {
+        title,
+        text,
+        type,
+        courseID,
+        chapterID,
+        filename,
+        fileUploadPath,
+      } = await createEpisodeSchema.validateAsync(req.body); // برای متدهایی که در کنترلر چپتر  گذاشته عرفان یوسفی یادش رفته اسکیما برای ولیدیشن قرار بده
+
+      console.log("fileUploadPath :",fileUploadPath)
+
+      // step 211 : yarn add get-video-duration
+      const videoAddress = path
+        .join(fileUploadPath, filename)
+        .replace(/\\/g, "/");
+      // console.log("videoAddress : ", videoAddress); // mishe masalan in uploads/blogs/2023/3/27/1682625934018.mp4
+
+      // in local
+      const videoURL = `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${videoAddress}`;
+      // in liara1
+      // const videoURL = `${}/${videoAddress}`; // nemidonam
+      // console.log("videoURL : ", videoURL); // mishe masalan in  http://localhost:3000/uploads/blogs/2023/3/27/1682625934018.mp4
+
+      // tabdil video b time video bar hasbe sanie
+      const seconds = await getVideoDurationInSeconds(videoURL); // in packaje az noie async hast pas await mikhad
+      // console.log("seconds : ", seconds); // mishe masalan in 201.16
+// step 212 :
+      const time = getTime(seconds);
+      // console.log("time : ", time); // masalan ishe "00:03:21"
+      const episode = {
+        title,
+        text,
+        type,
+        time,
+        videoAddress
+      };
+      // ذخیره در دیتابیس
+      const createEpisodeResult = await CourseModel.updateOne({_id : courseID ,"chapters._id" : chapterID },{ // boro to db va bebin id kodom course barabare in courseID hast va boro tosh bebin to chaptere on course kodom objecte chapter idish barabare in chapteID hast va in karharo bokon
+        $push :{
+          "chapters.$.episodes": episode , // in chapters.$episodes  iani neshon dahandie on chapterie k peida shode k episodo be array episodes dakhelesh ezafe konim iani dar db injorie course>chapters>chapter>episodes be db negah koni motevajeh mishi
+                }
+      });
+      if(createEpisodeResult.modifiedCount == 0) throw new createHttpError.InternalServerError("اضافه شدن اپیزود(ویدئو) به فصل دوره ناموفق بود")
+// حالا که در دیتابیس نشسته دیتامون پس به فرانت ریسپانس جواب رو میدیم
+
+      return res.status(StatusCodes.CREATED).json({
+        statusCode: StatusCodes.CREATED,
+        isSuccess: true,
+        message: "اپیزود با موفقیت به فصل دوره اضافه شد.",
+        data: {
+          episode // میتونی دیتا رو هم خالی بفرستی کلا فقط برای درخواست های گت ما در دیتا باید نتیجه بدیم
+        },
+        error: null,
+      });
+    } catch (error) {
+      console.log("error:",error)
+      next(error);
+    }
+  }
+}
+module.exports = {
+  EpisodeController: new EpisodeController(),
+};

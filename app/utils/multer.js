@@ -77,13 +77,36 @@ function fileFilter(req, file, cb) {
 // dar ES6 mishe benevisi faghat fileFilter
 // limits size file ro taeen mikone k db por nashe
 //or ...  const maxSize = 1*1000*1000; // har 1 mb = 1,000 kilo byte va har 1 kb = 1,000 b
-const maxSize = 0.4 * 1000 * 1000;
+const pictureMaxSize = 0.4 * 1000 * 1000;
+// in makhsose file hast
 const uploadFile = multer({
   storage,
-  limits: { fileSize: maxSize },
+  limits: { fileSize: pictureMaxSize },
   fileFilter,
+});
+
+
+// step 213 : morede estefade az episode controller
+function videoFilter(req, file, cb) {
+  // dar file agar console.log bgiri mibini k mimetype hast pas list mimetype mojazemono midim k agar to ina bod zakhire bshe
+  const ext = path.extname(file.originalname); // formate file ro mide
+  const mimetype = [".mp4", ".mpg", ".mov", ".mkv", ".avi"];
+  if (mimetype.includes(ext)) {
+    return cb(null, true); // in true iani bale hich moshkeli nadare
+  }
+  // dar gheir insorat agar formate to req.body.filename chizi gheire ina bod error bde
+  return cb(createHttpError.BadRequest("فرمت ارسال شده ویدئو صحیح نیست."));
+};
+// step 214 :
+// in makhsose video hast
+const videoMaxSize = 300 * 1000 * 1000; // ta 300Mb mojaz b upload ast
+const uploadVideo = multer({
+  storage,
+  limits: { fileSize: videoMaxSize },
+  videoFilter,
 });
 
 module.exports = {
   uploadFile,
+  uploadVideo
 };
