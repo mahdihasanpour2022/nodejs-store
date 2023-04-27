@@ -2,12 +2,12 @@
 
 // const { default: mongoose } = require("mongoose"); // mongoose ro injori require nakon
 const createHttpError = require("http-errors");
-const { CategoryModel } = require("../../../models/categories");
+const { CategoryModel } = require("../../../../models/categories");
 const {
   createCategorySchema,
   updateCategorySchema,
-} = require("../../validators/admin/category.schema");
-const Controller = require("../controller");
+} = require("../../../validators/admin/category.schema");
+const Controller = require("../../controller");
 const mongoose = require("mongoose");
 const { StatusCodes } = require("http-status-codes");
 
