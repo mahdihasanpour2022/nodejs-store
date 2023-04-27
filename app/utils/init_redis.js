@@ -1,6 +1,10 @@
 // step 48 : yarn add redis
 const redisDB = require("redis");
+
+// ===================> local
 const redisClient = redisDB.createClient();
+// ===================> liara1
+// const redisClient = redisDB.createClient({url : process.env.REDIS_PRIVATE_DATABASE_URL });
 
 redisClient.connect();
 redisClient.on('connect' , ()=>  console.log('connect to redis'));

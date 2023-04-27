@@ -51,16 +51,17 @@ module.exports = class Application {
             info: {
               title: "first store node.js",
               version: "6.2.8",
-              description: "اولین تجربه فروشگاهی من دربک اند",
+              description: "اولین تجربه بک اند",
               contact: {
-                name: "mahdi hasanpour",
-                url: "https://hasanpour.com",
+                name: "mahdi_hasanpour",
+                url: "https://mahdihasanpour.ir",
                 email: "mahdihasanpour2022@gmail.com",
               },
             },
             servers: [
               {
-                url: "http://localhost:3000",
+                url: "http://localhost:3000/",
+                // url: "https://nodejs-store.iran.liara.run/",
               },
             ],
             components : { //step 120 : ezafe kardane dokmie authorizations dar balaie swagger baraie accesstoken  
@@ -84,14 +85,16 @@ module.exports = class Application {
     const http = require("http");
     http.createServer(this.#app).listen(this.#PORT, () => {
       console.log(
-        "server runed at http://localhost:" + this.#PORT + " (successfully)"
+        // "server runed at http://localhost:" + this.#PORT + " (successfully)" //  laira1
+        "server runed successfully" , // local
       );
     });
   }
   connectTOMongoDB() {
     const mongoose = require("mongoose");
     mongoose.set("strictQuery", true);
-    mongoose.connect(this.#DB_URI , {authSource : "admin"});
+    mongoose.connect(this.#DB_URI);
+    // mongoose.connect(this.#DB_URI , {authSource : "admin"});
     console.log("connect to mongoDB (successfully)");
     // mongoose.connect(this.#DB_URI, (error) => {
     //   if (!error) return console.log("connect to mongoDB");

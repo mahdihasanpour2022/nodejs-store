@@ -27,8 +27,8 @@ class UserAuthController extends Controller {
       // step 26 : create otp
       const code = randomNumberGenerator();
       //step 25-1 : send sms otp
-    //  if(mobile && code) ghasedakSensSMS(mobile,code) // ----------------------------------------------------------------------> اگر خواستی ای ام اس بفرسته از کامنت درش بیار
-      const result = await this.saveUser(mobile, code);
+     if(mobile && code) ghasedakSensSMS(mobile,code) ;
+const result = await this.saveUser(mobile, code);
       // if(!result) throw createHttpError.BadRequest("ورود شما ناموفق بود") //...or
       if (!result) throw createHttpError.Unauthorized("ورود شما ناموفق بود");
       return res.status(200).send({
