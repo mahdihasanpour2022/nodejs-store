@@ -1,5 +1,5 @@
 // step 91 :
-const {AdminBlogController} = require("../../http/controllers/admin/blog.controller");
+const {AdminBlogController} = require("../../http/controllers/admin/blog/blog.controller");
 const { uploadFile } = require("../../utils/multer");
 const { stringToArray } = require("../../http/middlewares/stringToArray");
 const router = require("express").Router();

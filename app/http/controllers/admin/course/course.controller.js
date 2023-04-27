@@ -1,7 +1,7 @@
 const createHttpError = require("http-errors");
-const { CourseModel } = require("../../../models/course");
-const { createCourseSchema } = require("../../validators/admin/course.schema");
-const Controller = require("../controller");
+const { CourseModel } = require("../../../../models/course");
+const { createCourseSchema } = require("../../../validators/admin/course.schema");
+const Controller = require("../../controller");
 const { StatusCodes } = require("http-status-codes");
 const path = require("path");
 const { default: mongoose } = require("mongoose");

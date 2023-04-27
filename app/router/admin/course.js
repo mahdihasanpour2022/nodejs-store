@@ -1,7 +1,7 @@
 // step 152 : courses route
 const {
   CourseController,
-} = require("../../http/controllers/admin/course.controller");
+} = require("../../http/controllers/admin/course/course.controller");
 const router = require("express").Router();
 const { stringToArray } = require("../../http/middlewares/stringToArray");
 const { uploadFile } = require("../../utils/multer");

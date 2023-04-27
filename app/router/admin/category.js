@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const {
   CategoryController,
-} = require("../../http/controllers/admin/category.controller");
+} = require("../../http/controllers/admin/category/category.controller");
 
 // step 59 :
 router.post("/create", CategoryController.createCategory);

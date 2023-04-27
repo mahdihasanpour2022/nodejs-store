@@ -1,9 +1,9 @@
 // step 89 : create controller for blog
 const path = require("path");
-const { createBlogSchema } = require("../../validators/admin/blog.schema");
-const Controller = require("../controller");
-const { deleteFileInPublic } = require("../../../utils/deleteFileInPublic");
-const { BlogModel } = require("../../../models/blogs");
+const { createBlogSchema } = require("../../../validators/admin/blog.schema");
+const Controller = require("../../controller");
+const { deleteFileInPublic } = require("../../../../utils/deleteFileInPublic");
+const { BlogModel } = require("../../../../models/blogs");
 const createHttpError = require("http-errors");
 const {StatusCodes} = require("http-status-codes");
 
