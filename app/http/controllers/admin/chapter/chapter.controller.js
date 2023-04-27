@@ -48,6 +48,7 @@ class ChapterController extends Controller {
   }
 
   // step 188 :
+  // ترتیب کار کلا این شکلیه که اینجا متد رو در کنترلر مینویسییم و بعد در روت مربوطه اش وارد میکنیم و بعد سواگرش رو مینویسیم
   async getAllChaptersOfCourse(req, res, next) {
     try {
       const {courseID} = req.params;
@@ -65,6 +66,14 @@ class ChapterController extends Controller {
       console.log(error);
       next(error);
     }
+  }
+
+  // step 193 : 
+  async findOneChapter(id){
+    // google kon how can i find nested document in mongodb => k bebini baraie gashtan dakhele ye obj dar db che kar kardan baghie
+    const chapter = await CourseModel.findOne({ "chapters._id" : id} , {"chapters.$": 1 }); // vaghti to obj midi id ro iani dar db bere to dele course bagarde va tosh bebin kodom chapter idiash barabare hamin id hast va dar edamash chapters.$ iani boro tosh begard donbale chapters
+if(!chapter) throw createHttpError.NotFound("فصلی با این شناسه ایدی وجود ندارد.")
+return chapter; 
   }
 
   // step 189 :
