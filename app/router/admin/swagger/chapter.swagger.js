@@ -51,7 +51,7 @@
  *                  example: null
 */
 
-// step 183 :
+// step 183 : b jaie summaary bia va description benevis giatare
 
 /**
  * @swagger
@@ -59,6 +59,7 @@
  *  put:
  *      tags: [ chapter(AdminPanel) ]
  *      summary: craete new chapter
+ *      description: میتوانید برای دوره مورد نظرتان یک فصل ایجاد کنید
  *      requestBody:
  *          required: true
  *          content:
@@ -163,7 +164,7 @@
 
 // ------------------------------------------------------------------  delete one chapter by id swagger
 
-// step 196 :
+// step 196 : inja data ro mitoni ye obj khali bedi iani {}
 
 
 /**
@@ -210,7 +211,7 @@
  *              name: chapterID
  *              type: string
  *              required: true
- *              description: write chapterID like (6443d56a793404199ddb0e39)
+ *              description: write chapterID 
  *      responses:
  *          200:
  *              description: success
@@ -218,6 +219,97 @@
  *                  application/json:
  *                      schema:
  *                          $ref: '#/definitions/DeleteOneChapter_Definetion'
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
+
+
+// ------------------------------------------------------------------  update one chapter by id swagger
+
+
+// step 200 :
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Update_Chapter:
+ *              type: object
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: chapter 1
+ *                  text:
+ *                      type: string
+ *                      description: write text here ...
+ */
+
+// step 201 :inja data ro lozomi nadare k bargardoni mitoni data ro ye obj khali bdi iani {}
+
+
+/**
+ * @swagger
+ *  definitions:
+ *      UpdateOneChapter_Definetion:
+ *          type: object
+ *          properties:
+ *              statusCode: 
+ *                  type: integer
+ *                  example: 201
+ *              isSuccess: 
+ *                  type: boolean
+ *                  example: true
+ *              message: 
+ *                  type: string
+ *                  example: "فصل با موفقیت به دوره اضافه شد"
+ *              data:
+ *                  type: object
+ *                  example: {}
+ *              error:
+ *                  type: string
+ *                  example: null
+*/
+
+// step 202 : 
+// vaghti dar requestBody dar content har doie application/x-www-form-urlencoded mizari iani mesle form bashe designesh va application/json iani mesle ye json iani array ya obj betoni ersal koni
+// kolan vaghti dar body dari mifresti chizio dar requestBody swagger har doie inha ro bzar albate faghat application/json bzari ok tare amma har dosho bzari behtare
+
+
+/**
+ * @swagger
+ * /admin/chapters/edit/{chapterID}:
+ *  patch:
+ *      tags: [ chapter(AdminPanel) ]
+ *      summary: edit one chapter in course
+ *      description: ادیت یک فصل از دوره را میتولنید اینجا انجام دهید
+ *      parameters:
+ *          -   in: path
+ *              name: chapterID
+ *              type: string
+ *              required: true
+ *              description: write chapterID
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/x-www-form-urlencoded:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Update_Chapter'
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Update_Chapter'
+ *      responses:
+ *          200:
+ *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/UpdateOneChapter_Definetion'
  *          400:
  *              description: Bad Request
  *          401:

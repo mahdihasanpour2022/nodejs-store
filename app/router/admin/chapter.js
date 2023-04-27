@@ -11,6 +11,9 @@ router.get("/all/:courseID" , ChapterController.getAllChaptersOfCourse);
 // step 195 : doroste dare hazf mishe ama chon dar course hast pas dare course taghiere peyda mikone pas patch hast
 router.patch("/delete/:chapterID" , ChapterController.deleteOneChapterById)
 
+// step 199 :
+router.patch("/edit/:chapterID", ChapterController.editChapterById)
+
 module.exports = {
     Chapter_AdminApiRoutes: router
 }
