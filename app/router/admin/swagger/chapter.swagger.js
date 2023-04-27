@@ -159,3 +159,71 @@
  *          500:
  *              description: internal server error
  */
+
+
+// ------------------------------------------------------------------  delete one chapter by id swagger
+
+// step 196 :
+
+
+/**
+ * @swagger
+ *  definitions:
+ *      DeleteOneChapter_Definetion:
+ *          type: object
+ *          properties:
+ *              statusCode: 
+ *                  type: integer
+ *                  example: 200
+ *              isSuccess: 
+ *                  type: boolean
+ *                  example: true
+ *              message: 
+ *                  type: string
+ *                  example: "فصل مربوطه با موفقیت حذف شد"
+ *              data:
+ *                  type: object
+ *                  properties:
+ *                      course:
+ *                          type: object
+ *                          properties:
+ *                              _id:
+ *                                  type: string
+ *                              chapters:
+ *                                  type: array
+ *                                  example: [{title : "",text: "" , id : "" ,episodes : [{}] }]
+ *              error:
+ *                  type: string
+ *                  example: null
+*/
+
+// step 197 :
+
+/**
+ * @swagger
+ * /admin/chapters/delete/{chapterID}:
+ *  patch:
+ *      tags: [ chapter(AdminPanel) ]
+ *      summary: delete one chapter in course
+ *      parameters:
+ *          -   in: path
+ *              name: chapterID
+ *              type: string
+ *              required: true
+ *              description: write chapterID like (6443d56a793404199ddb0e39)
+ *      responses:
+ *          200:
+ *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/DeleteOneChapter_Definetion'
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */

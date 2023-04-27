@@ -31,7 +31,7 @@ class ChapterController extends Controller {
         { $push: { chapters: { title, text, episodes: [] } } }
       ); // $push mizare to array push koni hamon mavardie k dar chapter course schema model gharar shode az karbar bgiri
       if (saveChapterResult.modifiedCount == 0)
-        throw createHttpError.InternalServerError(
+        throw new createHttpError.InternalServerError(
           "اضافه شدن فصل به دوره نا موفق بود."
         );
       return res.status(StatusCodes.CREATED).json({
@@ -51,8 +51,8 @@ class ChapterController extends Controller {
   // ترتیب کار کلا این شکلیه که اینجا متد رو در کنترلر مینویسییم و بعد در روت مربوطه اش وارد میکنیم و بعد سواگرش رو مینویسیم
   async getAllChaptersOfCourse(req, res, next) {
     try {
-      const {courseID} = req.params;
-      const course = await this.findChaptersOfCourse(courseID);
+      const { courseID } = req.params;
+      const course = await this.findAllChaptersOfCourse(courseID);
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
         isSuccess: true,
@@ -68,24 +68,68 @@ class ChapterController extends Controller {
     }
   }
 
-  // step 193 : 
-  async findOneChapter(id){
-    // google kon how can i find nested document in mongodb => k bebini baraie gashtan dakhele ye obj dar db che kar kardan baghie
-    const chapter = await CourseModel.findOne({ "chapters._id" : id} , {"chapters.$": 1 }); // vaghti to obj midi id ro iani dar db bere to dele course bagarde va tosh bebin kodom chapter idiash barabare hamin id hast va dar edamash chapters.$ iani boro tosh begard donbale chapters
-if(!chapter) throw createHttpError.NotFound("فصلی با این شناسه ایدی وجود ندارد.")
-return chapter; 
+  //وبی آموزش حذف چپتر اینه که مثل حالت معمولی که ما یک محصول یا یک دوره رو با استفاده از دیلت وان  حذف میکردیم نیست یکم متفاوته پس دقت کن به روش پول یا پوش
+
+  // step 194 :
+  async deleteOneChapterById(req, res, next) {
+    try {
+      const { chapterID } = req.params;
+      const chapter = await this.findOneChapter(chapterID);
+      console.log("chapter : ", chapter);
+      const deleteChapterResult = await CourseModel.updateOne(
+        // deleteOne nazari chon kolan dore pak mishe b jash updteOne bzar
+        { "chapters._id": chapterID },
+        {
+          $pull: {
+            chapters: {
+              _id: chapterID,
+            },
+          },
+        } // iani boro chpteri ba in id ro az array chapter dar in course pull kon hazf mishe
+      );
+      if (deleteChapterResult.modifiedCount == 0)
+        throw new createHttpError.InternalServerError("حذف فصل ناموفق بود.");
+      // در غیر اینصورت اگر در دیتابیس حذف شد حالا نتیجه رو بعنوان ریسپانس به فرانت برگردون
+      res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
+        isSuccess: true,
+        message: "فصل با موفقیت حذف شد.",
+        data: {
+          chapter,
+        },
+        error: null,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 
   // step 189 :
-  async findChaptersOfCourse(courseID) {
-
-    const chapters = await CourseModel.findOne({ _id: courseID },{ chapters: 1 , title : 1}); // in iani faghat chapters va title ro b ma bede
+  async findAllChaptersOfCourse(courseID) {
+    const chapters = await CourseModel.findOne(
+      { _id: courseID },
+      { chapters: 1, title: 1 }
+    ); // in iani faghat chapters va title ro b ma bede
     // در صورتیکه دوره چپتری تداشته باشه یه ارایه خالی بر میگردونه پس باید بگیم اگر خالی بود ، همون خالیه رو بر نگردونه ارور بده که چپتری برای این دوره وجود نداره
     if (!chapters)
-      throw createHttpError.NotFound("دوره ای با این ایدی (شناسه) یافت نشد");
+      throw new createHttpError.NotFound(
+        "دوره ای با این ایدی (شناسه) یافت نشد"
+      );
     // در غیر اینصورت دوره رو ریترن کنه
     return chapters;
+  }
 
+  // step 193 :
+  async findOneChapter(chapterID) {
+    // google kon how can i find nested document in mongodb => k bebini baraie gashtan dakhele ye obj dar db che kar kardan baghie
+
+    const chapter = await CourseModel.findOne(
+      { "chapters._id": chapterID }, // ina mohemme
+      { "chapters.$": 1 }
+    ); // vaghti to obj midi id ro iani dar db bere to dele course bagarde va tosh bebin kodom chapter idiash barabare hamin id hast va dar edamash chapters.$ iani boro tosh begard donbale chapters
+    if (!chapter)
+      throw new createHttpError.NotFound("فصلی با این شناسه ایدی وجود ندارد.");
+    return chapter;
   }
 }
 
