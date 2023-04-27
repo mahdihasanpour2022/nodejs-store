@@ -60,7 +60,10 @@ module.exports = class Application {
             },
             servers: [
               {
+                // step 184 : deply on liara
+                // =========> local
                 url: "http://localhost:3000/",
+                // =========> liara
                 // url: "https://nodejs-store.iran.liara.run/",
               },
             ],

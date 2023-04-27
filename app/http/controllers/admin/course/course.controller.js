@@ -112,9 +112,9 @@ class CourseController extends Controller {
     }
   }
 
-  // step 165 :
+  // step 165 : az try va catch nemitoni estefade kone chon masalan req ya next ro b onvane argoman nagerefte
   async findCourseByID(courseID) {
-    // try {
+   
       // باید چک کنه مانگوس ببینه ایدی که یوزر وارد کرده مطابق الگوی ایدی های ذخیره شده در دیتابیس هست یا خیر
       if(!mongoose.isValidObjectId(courseID) ) throw createHttpError.BadRequest("شناسه دوره ارسال شده صحیح نمی باشد. ");
       const course = await CourseModel.findById({ _id: courseID });
@@ -123,12 +123,11 @@ class CourseController extends Controller {
           "دوره ای با اسن شناسه (ایدی) پیدا نشد."
         );
       return course;
-    // } catch (error) {
-    //   next(error);
-    // }
+   
   }
 }
 
 module.exports = {
+  // AbstractCourseController : CourseController, // چون کنترلر مربوط به چپتر زیر مجموعه این میخواهیم باشه پس از این کنترلر یک ابسترکت یا همان کلاس مفهومی یا کلاس انتزاعی تهیه میکنیم  ک در کلاس چپتر بتونه استاده بشه
   CourseController: new CourseController(),
 };

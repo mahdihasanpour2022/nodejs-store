@@ -70,7 +70,7 @@
  *          properties:
  *              statusCode: 
  *                  type: integer
- *                  example: 20x
+ *                  example: 201
  *              isSuccess: 
  *                  type: boolean
  *                  example: true
@@ -102,7 +102,7 @@
  *                  schema:
  *                      $ref: '#/components/schemas/Create_Course'
  *      responses:
- *          200:
+ *          201:
  *              description: success
  *              content:
  *                  application/json:
@@ -189,7 +189,6 @@
  *                                  type:
  *                                      type: string
  *                                      example: type of course
-
  */
 
 // step 157 : create route swagger for course
@@ -234,7 +233,7 @@
  *          properties:
  *              statusCode: 
  *                  type: integer
- *                  example: 20x
+ *                  example: 200
  *              isSuccess: 
  *                  type: boolean
  *                  example: true
