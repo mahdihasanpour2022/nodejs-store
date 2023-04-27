@@ -10,6 +10,10 @@ const { AllRoutes } = require("./router/router");
 //step 21: yarn add swagger-ui-express swagger-jsdoc
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUIExp = require("swagger-ui-express");
+// step 216 :
+// vaghti dar .env motaghaier tarif mikoni baraie inke dar har jaie proje ghabele shanasaie bashe configesh ro inja dar server gharar midi
+require("dotenv").config();
+
 // step 40 : cors error handling  => yarn add cors
 const Cors = require("cors");
 

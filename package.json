@@ -20,6 +20,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "get-video-duration": "^4.1.0",
     "ghasedak": "^0.2.1",
     "http-errors": "^2.0.0",
     "http-status-codes": "^2.2.0",

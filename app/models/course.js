@@ -2,11 +2,13 @@
 const { default: mongoose } = require("mongoose");
 const { CommentSchema } = require("./public.schema");
 
+// dataie k baraie episode baiad ersal beshe ina hast
 const EpisodesSchema = new mongoose.Schema({
   title: { type: String, require: true },
   text: { type: String, require: true },
-  type: { type: String, default: "free" },
+  type: { type: String, default: "unlock" }, // lock or unlock
   time: { type: String, require: true },
+  videoAddress : { type: String, require: true },
 });
 
 const ChapterSchema = new mongoose.Schema({
