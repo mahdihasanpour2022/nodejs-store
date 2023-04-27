@@ -1,0 +1,8 @@
+{
+    "platform": "node",
+    "app": "nodejs-store", 
+    "port": 3000,
+    "node": {
+      "version": "18"
+    }
+  }
