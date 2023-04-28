@@ -22,6 +22,10 @@ router.get("/:id", CourseController.getCourseByID);
 // // step 232 :
 router.patch("/edit/:courseID" ,uploadFile.single("image"), CourseController.updateCourseById); // in mitone b jaie courseID hamon id base ama agar gozashti courseID pas to controller hamino migiri va to swagger ham b hamin nam baiad ersal koni
 
+
+// step 239:
+router.delete("/delete/:courseID" , CourseController.deleteCourse)
+
 module.exports = {
   Course_AdminApiRoutes: router,
 };

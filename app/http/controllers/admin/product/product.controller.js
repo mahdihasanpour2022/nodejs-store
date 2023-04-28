@@ -142,11 +142,8 @@ class ProductController extends Controller {
       const { id } = req.params;
       const product = await this.findProductByID(id);
       // بعد از پیدا کردن این پروداکت باید از دیتا بیس حذف کنیم
-      const removeProductResult = await ProductModel.deleteOne({
-        _id: product._id,
-      }); // hatman await bzar kolan vase kar kardan ba db
-      if (removeProductResult.deletedCount == 0)
-        throw createHttpError.InternalServerError("حذف محصول نا موفق انجام شد");
+      const removeProductResult = await ProductModel.deleteOne({_id: product._id}); // hatman await bzar kolan vase kar kardan ba db
+      if (removeProductResult.deletedCount == 0) throw createHttpError.InternalServerError("حذف محصول نا موفق انجام شد");
 
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,

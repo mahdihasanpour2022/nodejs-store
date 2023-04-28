@@ -1,6 +1,7 @@
 // step 124 :
 const { default: mongoose } = require("mongoose");
 const { CommentSchema } = require("./public.schema");
+const {calculateCourseTotalTime} = require("../utils/calculateCourseTotalTime");
 
 // dataie k baraie episode baiad ersal beshe ina hast
 const EpisodesSchema = new mongoose.Schema(
@@ -49,7 +50,7 @@ const CourseSchema = new mongoose.Schema(
       type: String,
       default: "notStarted" /*notStarted , completed , holding*/,
     },
-    time: { type: String, default: "00:00:00" },
+    // time: { type: String, default: "00:00:00" },
     chapters: { type: [ChapterSchema], default: [] },
     teacher: { type: mongoose.Types.ObjectId, ref: "user", require: true },
     students: { type: [mongoose.Types.ObjectId], default: [], ref: "user" }, //برای اینکه لیست خریداران دوره آموزشیمونو بگیریم اینو میزاریم
@@ -65,6 +66,11 @@ CourseSchema.index({ title: "text", text: "text", short_text: "text" });
 //vase  liara1 taghieresh bede
 CourseSchema.virtual("imageURL").get(function () {
   return `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${this.image}`;
+});
+
+// step 237 : محاسبه مجموع تایم اپیزود های درون چپتر های دوره
+CourseSchema.virtual("totalTime").get(function () {
+  return calculateCourseTotalTime(this.chapters || []);
 });
 
 //model name must be capital name

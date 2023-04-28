@@ -46,7 +46,6 @@
  *                      description: tags of courses
  *                  category:
  *                      type: string
- *                      example: 6443bb7f4103b12b7c977865
  *                      description: the id of Category for foreignField in course
  *                  price:
  *                      type: number
@@ -394,6 +393,7 @@
 
 
 // step 235 : courseID kalamie monasebtarie nesbat b id goyatare faghat dar route va course controller ham hamino baiad bedi va begiri
+
 /**
  * @swagger
  * /admin/courses/edit/{courseID}:
@@ -429,3 +429,64 @@
  *              description: internal server error
  */
 
+// ------------------------------------------------------------------  delete course swagger
+
+
+// step 240 : DeleteCourse_Definetion
+
+
+/**
+ * @swagger
+ *  definitions:
+ *      DeleteCourse_Definetion:
+ *          type: object
+ *          properties:
+ *              statusCode: 
+ *                  type: integer
+ *                  example: 200
+ *              isSuccess: 
+ *                  type: boolean
+ *                  example: true
+ *              message: 
+ *                  type: string
+ *                  example: "دوره با موفقیت حذف شد"
+ *              data:
+ *                  type: object
+ *                  properties:
+ *                      course:
+ *                          type: object
+ *              error:
+ *                  type: string
+ *                  example: null
+*/
+
+// step 241 :
+
+/**
+ * @swagger
+ * /admin/courses/delete/{courseID}:
+ *  delete:
+ *      tags: [ course(AdminPanel) ]
+ *      summary: delete course
+ *      parameters:
+ *          -   in: path
+ *              name: courseID
+ *              type: string
+ *              required: true
+ *              description: write courseID
+ *      responses:
+ *          200:
+ *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/DeleteCourse_Definetion'
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
