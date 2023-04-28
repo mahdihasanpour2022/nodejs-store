@@ -8,7 +8,7 @@ const { CommentSchema } = require("./public.schema");
 // daste 2 : mavaredi k require hast vali backend baiad bede mesle author k bebine login karde id user ro az req bardare va bde b author
 // daste 3 : onaie k default dare iani mitone front ya swager to parameters bgire va befrestateshon vagarna hamin meghdare defaultesh ersal mishe
 
-const Schema = new mongoose.Schema(
+const BlogSchema = new mongoose.Schema(
   {
     auther: { type: mongoose.Types.ObjectId, ref: "user", require: true },
     title: { type: String, require: true },
@@ -30,20 +30,26 @@ const Schema = new mongoose.Schema(
     },
   }
 ); // timestamps true bashe createAt , updateAt ro moshakhass mikone  va versionKey false iani zakhire nakone versionesh ro
-Schema.virtual("user", {
+BlogSchema.virtual("user", {
   ref: "user",
   localField: "_id",
   foreignField: "author",
 });
-Schema.virtual("category_detail", {
+BlogSchema.virtual("category_detail", {
   // name foreignField nabaiad ba name virtual yeki bashe pas ino mizarim category_detail
   ref: "category",
   localField: "_id",
   foreignField: "category",
 });
 
+// step 228 :روی هر اسکیمایی خواستین ویرچوال بزنید باید در جی سلانش ویرچوال رو فعال کنید.
+// ye imageURL dar har course bzar va boro to .env va in 2 ta motaghaiere ro ezafe mikonim b ebtedaie image k dar har course hast
+//vase  liara1 taghieresh bede
+BlogSchema.virtual("imageURL").get(function () {
+  return `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${this.image}`; // this eshare b hamin blogschema dare
+});
 //model name must be capital name
 
 module.exports = {
-  BlogModel: mongoose.model("blog", Schema),
+  BlogModel: mongoose.model("blog", BlogSchema),
 };
