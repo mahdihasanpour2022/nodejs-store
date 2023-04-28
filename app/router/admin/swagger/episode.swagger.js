@@ -22,19 +22,16 @@
  *                  courseID:
  *                      type: string
  *                      description: the course id 
- *                      example: 644a952a5ccd5db411358274
  *                  chapterID:
  *                      type: string
  *                      description: the chapter id 
- *                      example: 644aa84c1ba6a85da1717aeb
  *                  title:
  *                      type: string
  *                      description: the title of episode
- *                      example: episode title
+
  *                  text:
  *                      type: string
  *                      description: the text of episode
- *                      example: episode text
  *                  type:
  *                      type: string
  *                      description: the type of episode

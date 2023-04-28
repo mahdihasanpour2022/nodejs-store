@@ -166,6 +166,35 @@ class CourseController extends Controller {
     }
   }
 
+  // step 238:
+  async deleteCourse(req, res, next) {
+    try {
+      const { courseID } = copyObject(req.params);
+      const course = await this.findCourseByID(courseID); // halate validation dare
+
+      console.log("courseID:", courseID); // mishe in      644bc37cc0aa63a4f1a391f0
+      console.log("course._id:", course._id); // mishe in  new ObjectId("644bc37cc0aa63a4f1a391f0") // ایدی های دیتابیسی از این نوع استن این شکلین
+      //پس چون ایدی در دیتابیس از نوع ایدی مانگوسی است پس هیچ موقع مستقیم ایدی رو نده بلکه ابجکت با ان ایدی رو پیدا کن مثلا دوره هست اینجا و بعد بگو بره بگرده در دیتابیس که اگر ایدیش با ایدی این یکی بود حذف یا ادیت کنه
+      const deleteCourseResult = await CourseModel.deleteOne({
+        _id: course._id,
+      });
+      if (deleteCourseResult.modifiedCount == 0)
+        throw new createHttpError.InternalServerError("حذف دوره ناموفق بود");
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
+        isSuccess: true,
+        message: "دوره با موفقیت حذف شد",
+        data: {
+          // course, //  در مواقع حذف بهتره دیتا رو خالی در خروجی بفرستی
+        },
+        error: null,
+      });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
   // step 166 :
   async getCourseByID(req, res, next) {
     try {

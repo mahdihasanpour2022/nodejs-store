@@ -67,11 +67,13 @@ class EpisodeController extends Controller {
           },
         }
       );
-      if (createEpisodeResult.modifiedCount == 0)
+      if (!createEpisodeResult.modifiedCount)
         throw new createHttpError.InternalServerError(
           "اضافه شدن اپیزود(ویدئو) به فصل دوره ناموفق بود"
         );
       // حالا که در دیتابیس نشسته دیتامون پس به فرانت ریسپانس جواب رو میدیم
+
+      console.log("createEpisodeResult:", createEpisodeResult);
 
       return res.status(StatusCodes.CREATED).json({
         statusCode: StatusCodes.CREATED,
@@ -83,7 +85,7 @@ class EpisodeController extends Controller {
         error: null,
       });
     } catch (error) {
-      // console.log("error:", error);
+      console.log("error:", error);
       next(error);
     }
   }
@@ -172,7 +174,10 @@ class EpisodeController extends Controller {
       );
       // console.log("updateEpisodeResult : ",updateEpisodeResult);// هر موقع در دیتابیس عملیات شکست خورد اینجوری  پیگیری کن
 
-      if (!updateEpisodeResult.modifiedCount)throw new createHttpError.InternalServerError("ادیت اپیزود(ویدئو) ناموفق بود");
+      if (!updateEpisodeResult.modifiedCount)
+        throw new createHttpError.InternalServerError(
+          "ادیت اپیزود(ویدئو) ناموفق بود"
+        );
       // حالا که در دیتابیس نشسته دیتامون پس به فرانت ریسپانس جواب رو میدیم
 
       return res.status(StatusCodes.OK).json({
@@ -199,16 +204,15 @@ class EpisodeController extends Controller {
         "chapters.episodes.$": 1,
       }
     );
-    if (!course) throw new createHttpError.NotFound("دوره ای با این شناسه یافت نشد");
+    if (!course)
+      throw new createHttpError.NotFound("دوره ای با این شناسه یافت نشد");
     // console.log("course:",course)
     const episode = course?.chapters?.[0]?.episodes?.[0];
-    if (!episode)throw new createHttpError.NotFound("اپیزودی با این شناسه یافت نشد");
+    if (!episode)
+      throw new createHttpError.NotFound("اپیزودی با این شناسه یافت نشد");
     // console.log("episode:",episode)
     return copyObject(episode);
   }
-
-
-
 }
 module.exports = {
   EpisodeController: new EpisodeController(),
