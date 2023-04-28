@@ -33,6 +33,7 @@ module.exports = class Application {
     this.createRoutes();
     this.errorHandling();
   }
+
   configApplication() {
     //step 41 : use Cors in ##app to use in every where
     this.#app.use(Cors());
@@ -88,6 +89,7 @@ module.exports = class Application {
       )
     );
   }
+  
   createServer() {
     const http = require("http");
     http.createServer(this.#app).listen(this.#PORT, () => {
@@ -97,6 +99,7 @@ module.exports = class Application {
       );
     });
   }
+
   connectTOMongoDB() {
     const mongoose = require("mongoose");
     mongoose.set("strictQuery", true);
@@ -126,9 +129,11 @@ module.exports = class Application {
   initRedis() {
     require("./utils/init_redis");
   }
+
   createRoutes() {
     this.#app.use(AllRoutes);
   }
+
   errorHandling() {
     this.#app.use((req, res, next) => {
       // way 1 : with http-errors => packaje hhtp-errors errorha ro dar ghalebe namieshie standard neshon mide
@@ -156,4 +161,5 @@ module.exports = class Application {
       });
     });
   }
+
 };

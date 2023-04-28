@@ -64,7 +64,6 @@ CourseSchema.index({ title: "text", text: "text", short_text: "text" });
 // baraie req haie get ye imageURL dar har course bzar va boro to .env va in 2 ta motaghaiere ro ezafe mikonim b ebtedaie image k dar har course hast
 //vase  liara1 taghieresh bede
 CourseSchema.virtual("imageURL").get(function () {
-  console.log("---------->");
   return `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${this.image}`;
 });
 

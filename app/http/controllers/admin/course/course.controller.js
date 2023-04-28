@@ -7,51 +7,13 @@ const Controller = require("../../controller");
 const { StatusCodes } = require("http-status-codes");
 const path = require("path");
 const { default: mongoose } = require("mongoose");
+const { copyObject } = require("../../../../utils/copyObject");
+const {
+  deleteInvalidPropertyInObject,
+} = require("../../../../utils/deleteInvalidPropertyInObject");
+const { deleteFileInPublic } = require("../../../../utils/deleteFileInPublic");
 
 class CourseController extends Controller {
-  // step 155 :
-  async getAllCourses(req, res, next) {
-    try {
-      const { search } = req.query;
-      let courses; // baiad let bashe k betonim  meghdardehi konim
-      // در صورتیکه یه متنی وارد کرده باشه میره تو دیتا بیس بر اساس اون جستجو میکنه
-      if (search)
-        courses = await CourseModel.find({ $text: { $search: search } })
-          .populate([
-            // { path: "category", select: { children: 0, parent: 0 } }, // dar category model goftim har ja roie category populate zadim dar proje bia va children ro bsaz va dar children etelaati ro bede hala miaim populate mizanim ama migim parent va children ro nade
-            {path : "category" , select : {title : 1 }},//in iani faghat title ro neshon bede
-            {
-              path: "teacher",
-              select: { first_name: 1, last_name: 1, mobile: 1, email: 1 },
-            },
-          ])
-          .sort({ _id: -1 });
-      // sort ba id -1 iani akharin record aval neshon dade mishe
-      // در غیر اینصورت
-      else
-        courses = await CourseModel.find({})
-          .populate([
-            { path: "category", select: { title: 1 } }, // dar category model goftim har ja roie category populate zadim dar proje bia va children ro bsaz va dar children etelaati ro bede hala miaim populate mizanim ama migim parent va children ro nade
-            {
-              path: "teacher",
-              select: { first_name: 1, last_name: 1, mobile: 1, email: 1 },
-            },
-          ])
-          .sort({ _id: -1 });
-      return res.status(StatusCodes.OK).json({
-        isSuccess: true,
-        statusCode: StatusCodes.OK,
-        message: "لیست تمام دوره ها با موفقیت گرفته شد.",
-        data: {
-          courses,
-        },
-        error: null,
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
   // step 161 :
   async createCourse(req, res, next) {
     try {
@@ -106,6 +68,100 @@ class CourseController extends Controller {
       });
     } catch (error) {
       console.log(error);
+      next(error);
+    }
+  }
+
+  // step 155 :
+  async getAllCourses(req, res, next) {
+    try {
+      const { search } = req.query;
+      let courses; // baiad let bashe k betonim  meghdardehi konim
+      // در صورتیکه یه متنی وارد کرده باشه میره تو دیتا بیس بر اساس اون جستجو میکنه
+      if (search)
+        courses = await CourseModel.find({ $text: { $search: search } })
+          .populate([
+            // { path: "category", select: { children: 0, parent: 0 } }, // dar category model goftim har ja roie category populate zadim dar proje bia va children ro bsaz va dar children etelaati ro bede hala miaim populate mizanim ama migim parent va children ro nade
+            { path: "category", select: { title: 1 } }, //in iani faghat title ro neshon bede
+            {
+              path: "teacher",
+              select: { first_name: 1, last_name: 1, mobile: 1, email: 1 },
+            },
+          ])
+          .sort({ _id: -1 });
+      // sort ba id -1 iani akharin record aval neshon dade mishe
+      // در غیر اینصورت
+      else
+        courses = await CourseModel.find({})
+          .populate([
+            { path: "category", select: { title: 1 } }, // dar category model goftim har ja roie category populate zadim dar proje bia va children ro bsaz va dar children etelaati ro bede hala miaim populate mizanim ama migim parent va children ro nade
+            {
+              path: "teacher",
+              select: { first_name: 1, last_name: 1, mobile: 1, email: 1 },
+            },
+          ])
+          .sort({ _id: -1 });
+      return res.status(StatusCodes.OK).json({
+        isSuccess: true,
+        statusCode: StatusCodes.OK,
+        message: "لیست تمام دوره ها با موفقیت گرفته شد.",
+        data: {
+          courses,
+        },
+        error: null,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // step 231: اینو یادش رفته بود بزاره ته دوره یادش افتاد
+  async updateCourseById(req, res, next) {
+    try {
+      const { courseID } = req.params;
+      const { fileUploadPath, filename } = req.body; // axa to body ersal shode na req.file
+
+      const course = await this.findCourseByID(courseID);
+      const bodyData = copyObject(req.body); // chon tosh id dare baiad validate beshe
+
+      let blackList = [
+        "time",
+        "chapters",
+        "episodes",
+        "likes",
+        "dislikes",
+        "bookmarks",
+        "comments",
+        "fileUploadPath",
+        "filename",
+      ]; // mirim dar course model va to mavaredesh onaie k nemikhaim taghiere konar o inja vared mikonim
+      deleteInvalidPropertyInObject(bodyData, blackList);
+
+      if (req.file) {
+        // agar axi dar req.file hast baiad pak beshe chon axa dar req.body ro mikhaim beferestin dar db
+        bodyData.image = path.join(fileUploadPath, filename); // sakhte adrese kamel
+        deleteFileInPublic(course.image); // addreso az public shoro  mikone michasbone besh va agar ghablan bode hamchin chizi hazfesh mikone
+      }
+      const uypdateCourseResult = await CourseModel.updateOne(
+        { _id: courseID },
+        {
+          $set: bodyData, // baraie edit va update az $set use kon va chon bodyData obj hast pas dar {} nemizarimesh
+        }
+      );
+      if (!uypdateCourseResult.modifiedCount)
+        throw new createHttpError.InternalServerError("ادیت دوره ناموفق بود");
+      // console.log("uypdateCourseResult:", uypdateCourseResult);
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
+        isSuccess: true,
+        message: "دوره با موفقیت بروز رسانی شد",
+        data: {
+          course: bodyData,
+        },
+        error: null,
+      });
+    } catch (error) {
+      // console.log(error);
       next(error);
     }
   }
