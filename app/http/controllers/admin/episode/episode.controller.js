@@ -30,7 +30,7 @@ class EpisodeController extends Controller {
         fileUploadPath,
       } = await createEpisodeSchema.validateAsync(req.body); // برای متدهایی که در کنترلر چپتر  گذاشته عرفان یوسفی یادش رفته اسکیما برای ولیدیشن قرار بده
 
-      console.log("fileUploadPath :", fileUploadPath);
+      // console.log("fileUploadPath :", fileUploadPath);
 
       // step 211 : yarn add get-video-duration
       const videoAddress = path
@@ -83,7 +83,7 @@ class EpisodeController extends Controller {
         error: null,
       });
     } catch (error) {
-      console.log("error:", error);
+      // console.log("error:", error);
       next(error);
     }
   }
@@ -121,7 +121,7 @@ class EpisodeController extends Controller {
         error: null,
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }
@@ -133,7 +133,7 @@ class EpisodeController extends Controller {
       const { episodeID } = req.params;
       // console.log("episodeID:",episodeID)
       const episode = await this.findEpisodeInDB(episodeID); // har ja az function async estefade kardi baiad zamane call kardanesh await bzari
-      console.log("episode:", episode);
+      // console.log("episode:", episode);
       // const { fileUploadPath, filename } =await createEpisodeSchema.validateAsync(req.body);
       const { fileUploadPath, filename } = req.body;
 
@@ -185,7 +185,7 @@ class EpisodeController extends Controller {
         error: null,
       });
     } catch (error) {
-      console.log("error:", error);
+      // console.log("error:", error);
       next(error);
     }
   }
@@ -200,10 +200,10 @@ class EpisodeController extends Controller {
       }
     );
     if (!course) throw new createHttpError.NotFound("دوره ای با این شناسه یافت نشد");
-    console.log("course:",course)
+    // console.log("course:",course)
     const episode = course?.chapters?.[0]?.episodes?.[0];
     if (!episode)throw new createHttpError.NotFound("اپیزودی با این شناسه یافت نشد");
-    console.log("episode:",episode)
+    // console.log("episode:",episode)
     return copyObject(episode);
   }
 

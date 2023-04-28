@@ -175,7 +175,7 @@ class CategoryController extends Controller {
         error: null,
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }

@@ -323,4 +323,109 @@
  *              description: internal server error
  */
 
+// ------------------------------------------------------------------  update course swagger
+
+
+// step 233 : Update_Course schema
+
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Update_Course:
+ *              type: object
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: the title of course
+ *                  text:
+ *                      type: string
+ *                      description: the text of course
+ *                  short_text:
+ *                      type: string
+ *                      description: the summary of text of course
+ *                  tags:
+ *                      type: array
+ *                      description: tags of courses
+ *                  category:
+ *                      type: string
+ *                      example: 644ba37079911d8531bb0600
+ *                      description: the id of Category for foreignField in course
+ *                  price:
+ *                      type: number
+ *                      description: price of course
+ *                  discount:
+ *                      type: number
+ *                      description: discount of course (number)
+ *                  image:
+ *                      type: string
+ *                      format: binary
+ *                  type:
+ *                      $ref: '#/components/schemas/Course_Types'
+ */
+
+// step 234 : UpdateCourse_Definetion
+
+/**
+ * @swagger
+ *  definitions:
+ *      UpdateCourse_Definetion:
+ *          type: object
+ *          properties:
+ *              statusCode: 
+ *                  type: integer
+ *                  example: 200
+ *              isSuccess: 
+ *                  type: boolean
+ *                  example: true
+ *              message: 
+ *                  type: string
+ *                  example: "دوره با موفقیت ایجاد شد"
+ *              data:
+ *                  type: object
+ *                  properties:
+ *                      course:
+ *                          type: object
+ *              error:
+ *                  type: string
+ *                  example: null
+*/
+
+
+// step 235 : courseID kalamie monasebtarie nesbat b id goyatare faghat dar route va course controller ham hamino baiad bedi va begiri
+/**
+ * @swagger
+ * /admin/courses/edit/{courseID}:
+ *  patch:
+ *      tags: [ course(AdminPanel) ]
+ *      summary: update course
+ *      parameters:
+ *          -   in: path
+ *              name: courseID
+ *              type: string
+ *              required: true
+ *              description: write courseID
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Update_Course'
+ *      responses:
+ *          200:
+ *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/UpdateCourse_Definetion'
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
 
