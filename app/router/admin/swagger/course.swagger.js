@@ -1,4 +1,5 @@
 
+// ------------------------------------------------------------------  cerate course swagger
 
 // step 163 :
 
@@ -118,6 +119,7 @@
  *              description: internal server error
  */
 
+// ------------------------------------------------------------------  get all courses swagger
 
 
 // step 169 : cearete defination for all courses
@@ -150,45 +152,45 @@
  *                              properties:
  *                                  _id:
  *                                      type: string
- *                                      example: 6443d170f6421cf733c627d8
+ *                                      example: ""
  *                                  title:
  *                                      type: string
- *                                      example: "title of course"
+ *                                      example: ""
  *                                  text:
  *                                      type: string
- *                                      example: "text of course"
+ *                                      example: ""
  *                                  short_text:
  *                                      type: string
- *                                      example: "summary of course"
+ *                                      example: ""
  *                                  status:
  *                                      type: string
- *                                      example: status of course "notStarted | completed | holding"
+ *                                      example: "notStarted | completed | holding"
  *                                  time:
  *                                      type: integer
- *                                      example: 01:55:36
+ *                                      example: like this 01:55:36
  *                                  price:
  *                                      type: integer
- *                                      example: 250000
+ *                                      example: 0
  *                                  discount:
  *                                      type: integer
- *                                      example: 20
+ *                                      example: 0 
  *                                  teacher:
  *                                      type: string
- *                                      example: "poya yousefi"
+ *                                      example: ""
  *                                  category:
  *                                      type: string
- *                                      example: category id of course
+ *                                      example: ""
  *                                  tags:
  *                                      type: array
  *                                      items:
  *                                          type: string
- *                                          example: tags of course
+ *                                          example: ""
  *                                  image:
  *                                      type: string
- *                                      example: image of course
+ *                                      example: ""
  *                                  type:
  *                                      type: string
- *                                      example: type of course
+ *                                      example: ""
  */
 
 // step 157 : create route swagger for course
@@ -222,6 +224,9 @@
  *              description: internal server error
  * 
  */
+
+
+// ------------------------------------------------------------------  get one course by id swagger
 
 // step 172 : defination for get course by ID
 

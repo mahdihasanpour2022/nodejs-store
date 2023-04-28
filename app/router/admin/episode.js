@@ -7,7 +7,11 @@ const { uploadVideo } = require("../../utils/multer");
 router.post("/create" ,uploadVideo.single("video") ,EpisodeController.createEpisode)
 
  // step 218 : dar hazfe chapter az patch estefade kard ama dar hazfe episode az delete cheraaaaa????
-router.delete("/delete/:episodeID" , EpisodeController.deleteEpisode);
+router.delete("/delete/:episodeID" , EpisodeController.deleteEpisodeById);
+
+
+// step 222 :
+router.patch("/edit/:episodeID",uploadVideo.single("video"), EpisodeController.updateOneEpisodeById);
 
 module.exports = {
     Episode_AdminApiRoutes : router

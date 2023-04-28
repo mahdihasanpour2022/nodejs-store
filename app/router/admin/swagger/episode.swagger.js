@@ -154,7 +154,6 @@
  *              name: episodeID
  *              type: string
  *              required: true
- *              example: true
  *              description: write episodeID 
  *      responses:
  *          201:
@@ -174,4 +173,102 @@
  */
 
 
-// ------------------------------------------------------------------  delete episode swagger
+// ------------------------------------------------------------------  ediit(update) episode swagger
+
+// step 223 : 
+
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Update_episode:
+ *              type: object
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: the title of episode
+ *                      example: episode title
+ *                  text:
+ *                      type: string
+ *                      description: the text of episode
+ *                      example: episode text
+ *                  type:
+ *                      type: string
+ *                      description: the type of episode
+ *                      enum:
+ *                          -   lock
+ *                          -   unlock
+ *                  video:
+ *                      type: string
+ *                      description: the video of episode
+ *                      format: binary
+*/
+
+// step 224 :  
+
+
+/**
+ * @swagger
+ *  definitions:
+ *      UpdateEpisode_Definetion:
+ *          type: object
+ *          properties:
+ *              statusCode: 
+ *                  type: integer
+ *                  example: 200
+ *              isSuccess: 
+ *                  type: boolean
+ *                  example: true
+ *              message: 
+ *                  type: string
+ *                  example: "اپیزود با موفقیت ادیت شد"
+ *              data:
+ *                  type: object
+ *                  properties:
+ *                      episode:
+ *                          type: object
+ *                          example: {title: "",text: "",type: "",time: "",videoAddress: ""}
+ *              error:
+ *                  type: string
+ *                  example: null
+*/
+
+// step 225 :  
+
+/**
+ * @swagger
+ * /admin/episodes/edit/{episodeID}:
+ *  patch:
+ *      tags: [ episode(AdminPanel) ]
+ *      summary: update episode
+ *      description: از این قسمت اپیزود مربوط به فصل دوره را ویرایش نمایید
+ *      parameters:
+ *          -   in: path
+ *              name: episodeID
+ *              type: string
+ *              required: true
+ *              description: write episodeID
+ *              example: 644b9236f503b1cb33f621ae
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Update_episode'
+ *      responses:
+ *          200:
+ *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/UpdateEpisode_Definetion'
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
