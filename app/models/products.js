@@ -29,7 +29,7 @@ const ProductSchema = new mongoose.Schema({
       model: []
     },
   },
-});
+} , {toJSON : {virtuals : true}});// step 229 :روی هر اسکیمایی خواستین ویرچوال بزنید باید در جی سلانش ویرچوال رو فعال کنید.
 
 // step 143 : 
 // ایندکس گذاری باعث سریعتر پیدا شدن مورد جستجو شده میشود چون پارامتر های کمتری دارد
@@ -40,6 +40,17 @@ ProductSchema.index({
   text: "text",
   short_text: "text",
 })
+
+
+// step 230 : hala virtual mizanim
+// ye imageURL dar har course bzar va boro to .env va in 2 ta motaghaiere ro ezafe mikonim b ebtedaie image k dar har course hast
+ProductSchema.virtual("imagesURL").get(function(){
+  // this eshare b hamin product schema dare
+  // miaim ro hamie images k array hast map mizanim va b ebtedaie har image dar array images  BASE_URL va port ro ezafe kon
+  //vase  liara1 taghieresh bede
+  return this.images.map(image => `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${image}` )
+  
+});
 
 //model name must be capital name
 module.exports = {
