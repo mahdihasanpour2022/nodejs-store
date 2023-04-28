@@ -1,4 +1,3 @@
-const { uploadVideo } = require("../../utils/multer");
 const { Blog_AdminApiRoutes } = require("./blog");
 const { Category_AdminApiRoutes } = require("./category");
 const { Chapter_AdminApiRoutes } = require("./chapter");
@@ -24,8 +23,7 @@ router.use("/courses" , Course_AdminApiRoutes);
 router.use("/chapters" , Chapter_AdminApiRoutes );
 
 // step 207 :
-// step 215 : ezafe kardane uploadVideo va chon ye done video hast baiad bgim single 
-router.use("/episodes" ,uploadVideo.single("video") , Episode_AdminApiRoutes);
+router.use("/episodes" , Episode_AdminApiRoutes);
 
 module.exports = {
   adminRoutes: router,
