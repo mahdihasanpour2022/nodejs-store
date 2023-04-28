@@ -1,4 +1,4 @@
-// ------------------------------------------------------------------  Create Chapter swagger
+// ------------------------------------------------------------------  Create episode swagger
 
 //step 208 :
 //این سه قدم 179 و 180 و 181 رو با دقت ببینی میفهمی چجوری باید سواگر بنویسی کلا همین سه قدم برای هر روت تکرار میشه
@@ -77,7 +77,8 @@
  *                  example: null
 */
 
-//step 210  : b jaie summaary bia va description benevis giatare
+//step 210  :
+// b jaie summaary bia va description benevis giatare
 // id ro dar halate create har chizi dar parameters k male path hast nade dar body bede iani requestBody
 // agar dar body faghat string va array va number ,... dari dar requestBody dar content application/x-www-form-urlencoded va application/json ro bezar
 // ama agar dar body image ya file ya video dari dar requestBody dar content faghat multipart/form-data bezar
@@ -111,3 +112,66 @@
  *          500:
  *              description: internal server error
  */
+
+// ------------------------------------------------------------------  delete episode swagger
+
+// step 219 :
+
+/**
+ * @swagger
+ *  definitions:
+ *      DeleteOneEpisode_Definetion:
+ *          type: object
+ *          properties:
+ *              statusCode: 
+ *                  type: integer
+ *                  example: 200
+ *              isSuccess: 
+ *                  type: boolean
+ *                  example: true
+ *              message: 
+ *                  type: string
+ *                  example: "اپیزود با موفقیت از فصل دوره حذف شد"
+ *              data:
+ *                  type: object
+ *                  example: {}
+ *              error:
+ *                  type: string
+ *                  example: null
+*/
+
+// step 220 : vase delete chon body chizi gharar nist befresti requestBody nadare 
+
+/**
+ * @swagger
+ * /admin/episodes/delete/{episodeID}:
+ *  delete:
+ *      tags: [ episode(AdminPanel) ]
+ *      summary: delete one episode
+ *      description: میتوانید اپیزود مورد نظرتان را از فصل دوره حذف نمایید.
+ *      parameters:
+ *          -   in: path
+ *              name: episodeID
+ *              type: string
+ *              required: true
+ *              example: true
+ *              description: write episodeID 
+ *      responses:
+ *          201:
+ *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/DeleteOneEpisode_Definetion'
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ */
+
+
+// ------------------------------------------------------------------  delete episode swagger
