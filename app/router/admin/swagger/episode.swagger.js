@@ -28,7 +28,6 @@
  *                  title:
  *                      type: string
  *                      description: the title of episode
-
  *                  text:
  *                      type: string
  *                      description: the text of episode
@@ -170,7 +169,7 @@
  */
 
 
-// ------------------------------------------------------------------  ediit(update) episode swagger
+// ------------------------------------------------------------------  edit(update) episode swagger
 
 // step 223 : 
 
