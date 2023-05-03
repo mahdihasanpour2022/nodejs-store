@@ -3,12 +3,15 @@
 // step 154 : add course(AdminPanel)   here
 // step 180 : add chapter(AdminPanel)  here
 // step 203 : add episode(AdminPanel)  here => باعث میشه در سواگر تگی کلی بنام اپیزود برای ما اضافه بشه
+// step 247 : add user(AdminPanel)
 
 /**
  * @swagger
  * tags:
  *  -    name: admin-panel
  *       description : actions for admins (add , remove , edit , ...)
+ *  -    name: users(AdminPanel)
+ *       description : management user section
  *  -    name: category(AdminPanel)
  *       description : management category section
  *  -    name: course(AdminPanel)

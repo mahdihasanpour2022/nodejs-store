@@ -1,7 +1,7 @@
 // step 15 :
 const { default: mongoose } = require("mongoose");
 
-const Schema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   first_name: { type: String },
   last_name: { type: String },
   user_name: { type: String , lowerCase : true },
@@ -27,7 +27,12 @@ const Schema = new mongoose.Schema({
   }
 });
 
+// step 250 :  ایندکس گذاری میکنیم برای جستجوی راحت تر ک هفقط بره تو این موارد موجود در مدل رو بگرده
+// هر وقت در گرفتن لیست تمام کاربران یا محصولات یا هر چیزی خواستی بر اسا کلمه ای که فرانت در کوئری میفرسته سرچ کنی پس 
+UserSchema.index({first_name:"text",last_name:"text",user_name:"text",mobile:"text", email : "text"});// be line 13 sanade usercontroller negah kon onja ham ba "$text" dare dar db search mikone pas ma inja migim vaghti front kalamie ro dar query ferestad to bar asase in index ha boro dar db begard faghat
+
+
 //model name must be capital name
 module.exports = {
-  UserModel: mongoose.model("user", Schema),
+  UserModel: mongoose.model("user", UserSchema),
 };
