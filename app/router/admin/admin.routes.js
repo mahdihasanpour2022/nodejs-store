@@ -3,7 +3,9 @@ const { Category_AdminApiRoutes } = require("./category");
 const { Chapter_AdminApiRoutes } = require("./chapter");
 const { Course_AdminApiRoutes } = require("./course");
 const { Episode_AdminApiRoutes } = require("./episode");
+const { Permission_AdminApiRoutes } = require("./permission");
 const { Product_AdminApiRoutes } = require("./product");
+const { Role_AdminApiRoutes } = require("./role");
 const { User_AdminApiRoutes } = require("./user");
 
 const router = require("express").Router();
@@ -28,6 +30,12 @@ router.use("/episodes" , Episode_AdminApiRoutes);
 
 // step 246 :
 router.use("/users" , User_AdminApiRoutes )
+
+// step 265 :
+router.use("/roles", Role_AdminApiRoutes)
+
+// step 266 :
+router.use("/permissions", Permission_AdminApiRoutes)
 
 module.exports = {
   adminRoutes: router,
