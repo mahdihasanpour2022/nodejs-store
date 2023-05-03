@@ -431,9 +431,7 @@
 
 // ------------------------------------------------------------------  delete course swagger
 
-
 // step 240 : DeleteCourse_Definetion
-
 
 /**
  * @swagger

@@ -1,4 +1,5 @@
 
+// ------------------------------------------------------------------ Public_Product_Definetion
 
 // step 175 : defination for public Product
 
@@ -98,6 +99,7 @@
  *                                 type: integer
  */
 
+// ------------------------------------------------------------------  cerate product swagger
 
 //step 127 : نام اسکیما همیشه پاسکال باشه
 //  اگر در پراپرتی ها مثلا تگ رو در مدل اسکیما بصورت تایپ ارایه گذاشتی اینجا در پراپرتی تگ ها هم تایپش رو باید بزاری ارایه
@@ -183,63 +185,6 @@
  *                      example: 0
  */
 
-// step 151 : این واسه ادیت پروداکته که چند تا از فیلدهاش مثل ساخت محصول الزامی (ریکوایر) نباشه
-// اگر میخوای همه موارد قابل ادیت نباشه اونایی که نمیخوای قابل ادیت باشن رو از قسمت پراپرتیز بردار  
-
-/**
- * @swagger
- *  components:
- *      schemas:
- *          Edit_Product:
- *              type: object
- *              properties:
- *                  title:
- *                      type: string
- *                      description: the title of product
- *                  text:
- *                      type: string
- *                      description: the text of product
- *                  short_text:
- *                      type: string
- *                      description: the summary of text of product
- *                  tags:
- *                      type: array
- *                      description: tags of products
- *                  category:
- *                      type: string
- *                      description: the id of Category for foreignField in product
- *                  price:
- *                      type: number
- *                      description: price of product
- *                  count:
- *                      type: number
- *                      description: count of product
- *                  discount:
- *                      type: number
- *                      description: discount of product
- *                  images:
- *                      type: array
- *                      description: images of product
- *                      items:
- *                          type: string
- *                          format: binary
- *                  width:
- *                      type: number
- *                      description: the width of product packet
- *                      example: 0
- *                  height:
- *                      type: number
- *                      description: the height of product packet
- *                      example: 0
- *                  length:
- *                      type: number
- *                      description: the length of product packet
- *                      example: 0
- *                  weight:
- *                      type: number
- *                      description: the weight of product packet
- *                      example: 0
- */
 
 //step 130 : وقتی میخوای فرم ارسال کنی چند تا پراپرتی تو فرمته و فایل مثل عکس همراهشه پس کانتنت رو بزار مالتیپارت فرم دیتا
 
@@ -271,6 +216,9 @@
  *          500:
  *              description: internal server error
  */
+
+
+// ------------------------------------------------------------------  delete product swagger
 
 // step 141 :
 
@@ -304,6 +252,7 @@
  *              description: internal server error
  */
 
+// ------------------------------------------------------------------  Get All Products
 
 // step 174 : defination for get all Products
 
@@ -405,6 +354,7 @@
  *                                      type: integer
  */
 
+
 //step 135 : requestBody  vase get nazar vase post patch ,...  faghat bzar
 // step 145 : اضافه کردن پارامتر سرچ بر اساس  متن (تکست)در کویری درخواستی که سواگر یا فرانت میخواد برای ما(بک اند) بفرسته
 
@@ -437,6 +387,67 @@
  */
 
 
+// ------------------------------------------------------------------  edit product swagger
+
+// ------------------------------------------------------------------  edit product swagger
+
+// step 151 : این واسه ادیت پروداکته که چند تا از فیلدهاش مثل ساخت محصول الزامی (ریکوایر) نباشه
+// اگر میخوای همه موارد قابل ادیت نباشه اونایی که نمیخوای قابل ادیت باشن رو از قسمت پراپرتیز بردار  
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Edit_Product:
+ *              type: object
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: the title of product
+ *                  text:
+ *                      type: string
+ *                      description: the text of product
+ *                  short_text:
+ *                      type: string
+ *                      description: the summary of text of product
+ *                  tags:
+ *                      type: array
+ *                      description: tags of products
+ *                  category:
+ *                      type: string
+ *                      description: the id of Category for foreignField in product
+ *                  price:
+ *                      type: number
+ *                      description: price of product
+ *                  count:
+ *                      type: number
+ *                      description: count of product
+ *                  discount:
+ *                      type: number
+ *                      description: discount of product
+ *                  images:
+ *                      type: array
+ *                      description: images of product
+ *                      items:
+ *                          type: string
+ *                          format: binary
+ *                  width:
+ *                      type: number
+ *                      description: the width of product packet
+ *                      example: 0
+ *                  height:
+ *                      type: number
+ *                      description: the height of product packet
+ *                      example: 0
+ *                  length:
+ *                      type: number
+ *                      description: the length of product packet
+ *                      example: 0
+ *                  weight:
+ *                      type: number
+ *                      description: the weight of product packet
+ *                      example: 0
+ */
 
 // step 150 :
 
@@ -477,6 +488,7 @@
 
 // step 138 :
 
+// ------------------------------------------------------------------  get one product swagger
 
 /**
  * @swagger

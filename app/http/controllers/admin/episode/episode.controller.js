@@ -128,89 +128,65 @@ class EpisodeController extends Controller {
     }
   }
 
-  // step 221 :
   async updateOneEpisodeById(req, res, next) {
     try {
-      // const { id: episodeID } =await ObjectValidator.validateAsync({id: req.params.episodeID,});
       const { episodeID } = req.params;
-      // console.log("episodeID:",episodeID)
-      const episode = await this.findEpisodeInDB(episodeID); // har ja az function async estefade kardi baiad zamane call kardanesh await bzari
-      // console.log("episode:", episode);
-      // const { fileUploadPath, filename } =await createEpisodeSchema.validateAsync(req.body);
-      const { fileUploadPath, filename } = req.body;
-
+      const episode = await this.getOneEpisode(episodeID);
+      const { filename, fileUploadPath } = req.body;
       let blackListFields = ["_id"];
-      if (fileUploadPath && filename) {
-        req.body.videoAddress = path
-          .join(fileUploadPath, filename)
-          .replace(/\\/g, "/");
+      if (filename && fileUploadPath) {
+        const fileAddress = path.join(fileUploadPath, filename);
+        req.body.videoAddress = fileAddress.replace(/\\/g, "/");
         const videoURL = `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${req.body.videoAddress}`;
-        const seconds = await getVideoDurationInSeconds(videoURL); // in packaje az noie async hast pas await mikhad
-        req.body.time = getTime(seconds); // chon dar body time nafrestade frontend ma khodemon ezafe mikonim
+        const seconds = await getVideoDurationInSeconds(videoURL);
+        req.body.time = getTime(seconds);
+        blackListFields.push("filename");
         blackListFields.push("fileUploadPath");
-        blackListFields.push("filename"); // vaghti filename va fileUploadPath ro darim be ham joineshon mikonim va videoAddress ro misazim pas inaro mizarim to black list k ba function deleteInvalidPropertyInObject k line badi hast az req.body hazf beshe chon ezafe karie dge videoAddress hast dige
       } else {
-        // agar to req.body fileUploadPath va filename nabod pas time va videoAddress ham az re req body hazf kone
         blackListFields.push("time");
         blackListFields.push("videoAddress");
       }
-
       const data = req.body;
-      // console.log("newEpisode: ",newEpisode)
-      deleteInvalidPropertyInObject(data, blackListFields); // agar tosh _id dasht hazfesh kone
-      const newEpisode = { ...episode, ...data }; // har chi to data sakhte shodeie ma hast ro roie episode overwrite mikonim
-      // console.log("newEpisode:", newEpisode)
-      // ذخیره در دیتابیس
-      const updateEpisodeResult = await CourseModel.updateOne(
-        { "chapters.episodes._id": episodeID },
+      deleteInvalidPropertyInObject(data, blackListFields);
+      const newEpisode = {
+        ...episode,
+        ...data,
+      };
+      const editEpisodeResult = await CourseModel.updateOne(
         {
-          // boro to db va bebin id kodom course array chaptersesh daraie obj k tosh episodi ba in id dare
-          // har chizi to newEpisode sakhtim overwrite mikonim to episode
-          // in chapters.$episodes  iani neshon dahandie on chapterie k peida shode k episodo be array episodes dakhelesh edit konim iani dar db injorie course>chapters>chapter>episodes be db negah koni motevajeh mishi
+          "chapters.episodes._id": episodeID,
+        },
+        {
           $set: {
             "chapters.$.episodes": newEpisode,
           },
         }
       );
-      // console.log("updateEpisodeResult : ",updateEpisodeResult);// هر موقع در دیتابیس عملیات شکست خورد اینجوری  پیگیری کن
-
-      if (!updateEpisodeResult.modifiedCount)
+      if (!editEpisodeResult.modifiedCount)
         throw new createHttpError.InternalServerError(
-          "ادیت اپیزود(ویدئو) ناموفق بود"
+          "ویرایش اپیزود انجام نشد"
         );
-      // حالا که در دیتابیس نشسته دیتامون پس به فرانت ریسپانس جواب رو میدیم
-
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
-        isSuccess: true,
-        message: "اپیزود با موفقیت در فصل دوره ادیت شد.",
         data: {
-          episode: newEpisode, // میتونی دیتا رو هم خالی بفرستی کلا فقط برای درخواست های گت ما در دیتا باید نتیجه بدیم
+          message: "ویرایش اپیزود با موفقیت انجام شد",
         },
-        error: null,
       });
     } catch (error) {
-      // console.log("error:", error);
       next(error);
     }
   }
-
-  // step 217 :
-  async findEpisodeInDB(episodeID) {
+  async getOneEpisode(episodeID) {
     const course = await CourseModel.findOne(
       { "chapters.episodes._id": episodeID },
       {
-        // "chapters.$.episodes": 1, // $ hamishe baiad akhar bashe in ghalate
+        // "chapters.$.episodes": 1
         "chapters.episodes.$": 1,
       }
     );
-    if (!course)
-      throw new createHttpError.NotFound("دوره ای با این شناسه یافت نشد");
-    // console.log("course:",course)
-    const episode = course?.chapters?.[0]?.episodes?.[0];
-    if (!episode)
-      throw new createHttpError.NotFound("اپیزودی با این شناسه یافت نشد");
-    // console.log("episode:",episode)
+    if (!course) throw new createHttpError.NotFound("اپیزودی یافت نشد");
+    const episode = await course?.chapters?.[0]?.episodes?.[0];
+    if (!episode) throw new createHttpError.NotFound("اپیزودی یافت نشد");
     return copyObject(episode);
   }
 }
