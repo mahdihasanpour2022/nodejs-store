@@ -38,7 +38,7 @@ class UserController extends Controller {
   async editUserProfile(req, res, next) {
     try {
       // const {id} = req.params;
-      const editedData = req.body;
+      let editedData = req.body;
       const BlackList = [
         "mobile",
         "otp",
@@ -49,18 +49,29 @@ class UserController extends Controller {
       ]; //برای اینکه بگی چه چیزهایی رو نمیخوای در بادی اگر هم فرانت فرستاد نباشه باید در مدل یوزر ببینی و اوناییکه نمیخوای رو اینجا بنویسی
       deleteInvalidPropertyInObject(editedData, BlackList);
       const userID = req.user._id;
-      console.log("req.user :", req.user);
-      console.log("editedData :", editedData);
+      //   console.log("req.user :", req.user); // ino hatman bebin req to khodesh tamame data user login shodaro dare
+      //   console.log("editedData :", editedData);
+      //way 1
+      //   editedData.id = req.user._id;
+      //   editedData.mobile = req.user.mobile;
+      // or way 2
+      editedData = { ...editedData, id: req.user._id, mobile: req.user.mobile };
       // تغییر در دیتابیس
-      const updateUserProfileResult = await UserModel.updateOne({ _ID: userID }, { $set: editedData }); // on useri k _id barabare userID hast peyda kon badesh barash in chiza ro set kon
-       if(!updateUserProfileResult.modifiedCount) throw new createHttpError.InternalServerError("بروز رسانی پروفایل کاربر ناموفق بود")
+      const updateUserProfileResult = await UserModel.updateOne(
+        { _ID: userID },
+        { $set: editedData }
+      ); // on useri k _id barabare userID hast peyda kon badesh barash in chiza ro set kon
+      if (!updateUserProfileResult.modifiedCount)
+        throw new createHttpError.InternalServerError(
+          "بروز رسانی پروفایل کاربر ناموفق بود"
+        );
       // ارسال جواب به بک اند
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
         isSuccess: true,
         message: "پروفایل کاربر با موفقیت بروزرسانی شد",
         data: {
-            editedData,
+          user: editedData,
         },
         error: null,
       });

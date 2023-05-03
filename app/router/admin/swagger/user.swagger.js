@@ -78,7 +78,6 @@
  *                  first_name:
  *                      type: string
  *                      description: the firstname of user
- *                      example: mahdi
  *                  last_name:
  *                      type: string
  *                      description: hasanpour
@@ -87,7 +86,7 @@
  *                      description: mahdihasanpour
  *                  email:
  *                      type: string
- *                      description: mahdihasanpour2022@gmail.com
+ *                      example: mahdihasanpour2022@gmail.com
  */
 
 // step 254 :
