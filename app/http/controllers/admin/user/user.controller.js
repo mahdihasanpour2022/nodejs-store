@@ -2,6 +2,10 @@
 const Controller = require("../../controller");
 const { UserModel } = require("../../../../models/users");
 const { StatusCodes } = require("http-status-codes");
+const {
+  deleteInvalidPropertyInObject,
+} = require("../../../../utils/deleteInvalidPropertyInObject");
+const createHttpError = require("http-errors");
 
 class UserController extends Controller {
   // step 243 :
@@ -17,9 +21,46 @@ class UserController extends Controller {
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
         isSuccess: true,
-        message: "لیست همه ماربران با موفقیت گرفته شد",
+        message: "لیست همه کاربران با موفقیت گرفته شد",
         data: {
           users,
+        },
+        error: null,
+      });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  // step 251 : id ro dar params midim baraie edit va ba req.query va text search shode ro dar query midim va ba req.params
+  // ama inja user k login kone dar req.user datash hast ma b jaie req.query az hamon migirim
+  async editUserProfile(req, res, next) {
+    try {
+      // const {id} = req.params;
+      const editedData = req.body;
+      const BlackList = [
+        "mobile",
+        "otp",
+        "bills",
+        "discount",
+        "Roles",
+        "courses",
+      ]; //برای اینکه بگی چه چیزهایی رو نمیخوای در بادی اگر هم فرانت فرستاد نباشه باید در مدل یوزر ببینی و اوناییکه نمیخوای رو اینجا بنویسی
+      deleteInvalidPropertyInObject(editedData, BlackList);
+      const userID = req.user._id;
+      console.log("req.user :", req.user);
+      console.log("editedData :", editedData);
+      // تغییر در دیتابیس
+      const updateUserProfileResult = await UserModel.updateOne({ _ID: userID }, { $set: editedData }); // on useri k _id barabare userID hast peyda kon badesh barash in chiza ro set kon
+       if(!updateUserProfileResult.modifiedCount) throw new createHttpError.InternalServerError("بروز رسانی پروفایل کاربر ناموفق بود")
+      // ارسال جواب به بک اند
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
+        isSuccess: true,
+        message: "پروفایل کاربر با موفقیت بروزرسانی شد",
+        data: {
+            editedData,
         },
         error: null,
       });
