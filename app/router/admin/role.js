@@ -14,6 +14,8 @@ router.post("/create" ,stringToArray("permissions"), RoleController.createRole);
 // step 296 :
 router.delete("/delete/:field" , RoleController.deleteRole)
 
+// step 301 :
+router.patch("/edit/:roleID" ,stringToArray("permissions"), RoleController.editRoleByID)
 
 module.exports = {
     Role_AdminApiRoutes :router

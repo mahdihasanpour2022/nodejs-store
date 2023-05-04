@@ -7,9 +7,6 @@
  *      schemas:
  *          Create_role:
  *              type: object
- *              required:
- *                  -   title
- *                  -   description
  *              properties:
  *                  title:
  *                      type: string
@@ -25,9 +22,9 @@
  *                      description: the description of role
  *                  permissions:
  *                      type: array
- *                      example: []
- *                      description: the permissionsID for role
- */
+ *                      description: send permissionID
+*/
+
 
 // step 265 : Create_role_Definetion
 
@@ -61,6 +58,7 @@
  *                              permissions:
  *                                  type: array
  *                                  example: [] 
+ *              error:
  *                  type: string
  *                  example: null
 */
@@ -114,13 +112,19 @@
  *              properties:
  *                  title:
  *                      type: string
- *                      description: the title of role 
+ *                      description: the title of role
+ *                      enum:
+ *                          -   USER
+ *                          -   ADMIN
+ *                          -   WRITER
+ *                          -   TEACHER
+ *                          -   SUPPLIER
  *                  description:
  *                      type: string
  *                      description: the description of role 
  *                  permissions:
  *                      type: array
- *                      description: the description of role
+ *                      description: send permissionID
 */
 
 // step 268 : Update_role_Definetion
@@ -154,14 +158,14 @@
 
 /**
  * @swagger
- * /admin/roles/update/{id}:
+ * /admin/roles/edit/{roleID}:
  *  patch:
  *      tags: [ RBAC(AdminPanel) ]
  *      summary: update role
  *      description: از این بخش میتوانید نقش مورد نظر را ادیت نمایید
  *      parameters: 
  *          -   in: path 
- *              name: id 
+ *              name: roleID 
  *              type: string 
  *              required: true 
  *      requestBody:
@@ -338,3 +342,5 @@
  *          500:
  *              description: internal server error
  */
+
+

@@ -28,6 +28,7 @@ class PermissionController extends Controller {
   }
 
   // step 292 :
+  // دسترسی که بسازیم یه ایدی میده یعنی این دسترسی مثلا برای بلاگ هست و بعد که رول ساختیم در قسمت دسترسی رول این ایدی رو میدیم به رول که شخص با اون رول به این قسمت بلاگ دسترسی داشته باشه
   async createPermission(req, res, next) {
     try {
       const { title, description } = await createPermissionSchema.validateAsync(
