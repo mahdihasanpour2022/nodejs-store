@@ -1,3 +1,5 @@
+const { checkPermission } = require("../../http/middlewares/check_Permission");
+const { PERMISSIONS } = require("../../utils/constants");
 const { Blog_AdminApiRoutes } = require("./blog");
 const { Category_AdminApiRoutes } = require("./category");
 const { Chapter_AdminApiRoutes } = require("./chapter");
@@ -11,31 +13,32 @@ const { User_AdminApiRoutes } = require("./user");
 const router = require("express").Router();
 
 // step 129 :
-router.use("/products", Product_AdminApiRoutes);
+router.use("/products",checkPermission([PERMISSIONS.SUPPLIER,PERMISSIONS.CONTENT_MANAGER]), Product_AdminApiRoutes);
 
 // step 61 :
-router.use("/category", Category_AdminApiRoutes);
+router.use("/category",checkPermission([PERMISSIONS.CONTENT_MANAGER]), Category_AdminApiRoutes);
 
 //step 62 :inja bashe vase hame route haie admin bshe azash estefade kone va baraie hamie routes ha tag ijad kon
-router.use("/blogs", Blog_AdminApiRoutes);
+router.use("/blogs",checkPermission([PERMISSIONS.TEACHER]), Blog_AdminApiRoutes);
 
 // step 153 :
-router.use("/courses" , Course_AdminApiRoutes);
+router.use("/courses" ,checkPermission([PERMISSIONS.TEACHER]), Course_AdminApiRoutes);
 
 //step 179 :
-router.use("/chapters" , Chapter_AdminApiRoutes );
+router.use("/chapters" ,checkPermission([PERMISSIONS.TEACHER]), Chapter_AdminApiRoutes );
 
 // step 207 :
-router.use("/episodes" , Episode_AdminApiRoutes);
+router.use("/episodes" ,checkPermission([PERMISSIONS.TEACHER]), Episode_AdminApiRoutes);
 
 // step 246 :
-router.use("/users" , User_AdminApiRoutes )
+// step 306 :add checkPermission baraie mahdod kardane dastresi
+router.use("/users" ,checkPermission([PERMISSIONS.USER]), User_AdminApiRoutes )
 
 // step 265 :
-router.use("/roles", Role_AdminApiRoutes)
+router.use("/roles",checkPermission([PERMISSIONS.ADMIN]),Role_AdminApiRoutes)
 
 // step 266 :
-router.use("/permissions", Permission_AdminApiRoutes)
+router.use("/permissions",checkPermission([PERMISSIONS.ADMIN]), Permission_AdminApiRoutes)// فقط اونیکه دسترسی آل داره میتونه رل یا دسترسی ها رو ببینه
 
 module.exports = {
   adminRoutes: router,

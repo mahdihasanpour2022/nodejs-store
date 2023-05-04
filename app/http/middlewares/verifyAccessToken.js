@@ -52,23 +52,6 @@ function verifyAccessToken(req, res, next) {
   }
 }
 
-// ye closure ast k baiad bad az verify access token bashe iani agar ehraze hoviat shod hala rolesho bebinim chie
-function checkRole(role) {
-  return function (req, res, next) {
-    try {
-      const user = req.user;
-      // console.log("user :", user);
-      if (user.Roles.includes(role)) return next();
-      throw createHttpError.Forbidden(
-        "شما نمیتوانید به این سطح دسترسی داشته باشید "
-      ); // Forbidden iani hamon 403 iani mahdodiate dastrasi
-    } catch (error) {
-      next(error);
-    }
-  };
-}
-
 module.exports = {
-  verifyAccessToken,
-  checkRole,
+  verifyAccessToken
 };
