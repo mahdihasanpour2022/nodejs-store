@@ -1,21 +1,8 @@
 
 // ------------------------------------------------------------------ Create role swagger
 
-// step 263 : برای اینکه بفهمی در پراپرتی چی باید باشه برو به مدل رول و ببین کدوم الزامیه ریکوایر
+// step 263 va 264 : برای اینکه بفهمی در پراپرتی چی باید باشه برو به مدل رول و ببین کدوم الزامیه ریکوایر
 
-/**
- * @swagger
- *  components:
- *      schemas:
- *         Permissions_Types:
- *              type: string
- *              enum:
- *                  -   blog
- *                  -   course
- *                  -   product
- */
-
-// step 264 : 
 
 /**
  * @swagger
@@ -28,9 +15,10 @@
  *              properties:
  *                  title:
  *                      type: string
- *                      description: the title of role
+ *                      description: the title of role (write capital)
  *                  permissions:
- *                      $ref: '#/components/schemas/Permissions_Types'
+ *                      type: array
+ *                      description: the description of role
 */
 
 // step 265 : Create_role_Definetion
@@ -52,7 +40,13 @@
  *                  example: "نقش با موفقیت ایجاد شد"
  *              data:
  *                  type: object
- *                  example: {}
+ *                  properties:
+ *                      title:
+ *                          type: string
+ *                          example: ""
+ *                      permissions:
+ *                          type: array
+ *                          example: []
  *              error:
  *                  type: string
  *                  example: null
@@ -109,7 +103,8 @@
  *                      type: string
  *                      description: the title of role 
  *                  permissions:
- *                      $ref: '#/components/schemas/Permissions_Types'
+ *                      type: array
+ *                      description: the description of role
 */
 
 // step 268 : Update_role_Definetion

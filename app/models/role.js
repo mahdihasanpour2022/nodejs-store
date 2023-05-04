@@ -9,9 +9,10 @@ const { default: mongoose } = require("mongoose");
 // in new mohemme
 const RoleSchema = new mongoose.Schema(
   {
-    title: { type: String, unique: true }, // String  must be capital
-    permissions: {
-      type: [mongoose.Types.ObjectId],
+    // String  must be capital
+    title: { type: String, unique: true }, // یعنی اسم نقش یا رول اینه
+    permissions: { // و اجازه دسترسی به این بخش ها که در ارایه هست رو داره
+      type: [mongoose.Types.ObjectId], 
       ref: "permissions",
       default: [],
     },
