@@ -9,10 +9,20 @@
  *              type: object
  *              required:
  *                  -   title
+ *                  -   description
  *              properties:
  *                  title:
  *                      type: string
  *                      description: the title of role
+ *                      enum:
+ *                          -   USER
+ *                          -   ADMIN
+ *                          -   WRITER
+ *                          -   TEACHER
+ *                          -   SUPPLIER
+ *                  description:
+ *                      type: string
+ *                      description: the description of role
  *                  permissions:
  *                      type: array
  *                      example: []
@@ -43,6 +53,9 @@
  *                          type: object
  *                          properties: 
  *                              title:
+ *                                  type: string
+ *                                  example: ""
+ *                              description:
  *                                  type: string
  *                                  example: ""
  *                              permissions:
@@ -102,6 +115,9 @@
  *                  title:
  *                      type: string
  *                      description: the title of role 
+ *                  description:
+ *                      type: string
+ *                      description: the description of role 
  *                  permissions:
  *                      type: array
  *                      description: the description of role
@@ -203,6 +219,9 @@
  *                              title:
  *                                  type: string
  *                                  example: "" 
+ *                              description:
+ *                                  type: string
+ *                                  example: "" 
  *                              permissions:
  *                                  type: array
  *                                  items:
@@ -275,6 +294,9 @@
  *                          type: object
  *                          properties: 
  *                              title:
+ *                                  type: string
+ *                                  example: ""
+ *                              description:
  *                                  type: string
  *                                  example: ""
  *                              permissions:
