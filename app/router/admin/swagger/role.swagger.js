@@ -12,11 +12,10 @@
  *              type: object
  *              required:
  *                  -   title
- *                  -   permissions
  *              properties:
  *                  title:
  *                      type: string
- *                      description: the title of role (write capital)
+ *                      description: write CAPITAL
  *                  permissions:
  *                      type: array
  *                      description: the description of role
@@ -42,13 +41,15 @@
  *              data:
  *                  type: object
  *                  properties:
- *                      title:
- *                          type: string
- *                          example: ""
- *                      permissions:
- *                          type: array
- *                          example: []
- *              error:
+ *                      role:
+ *                          type: object
+ *                          properties: 
+ *                              title:
+ *                                  type: string
+ *                                  example: ""
+ *                              permissions:
+ *                                  type: array
+ *                                  example: [] 
  *                  type: string
  *                  example: null
 */
@@ -271,26 +272,36 @@
  *                  example: "نقش با موفقیت حذف شد"
  *              data:
  *                  type: object
- *                  example: {}
+ *                  properties:
+ *                      role:
+ *                          type: object
+ *                          properties: 
+ *                              title:
+ *                                  type: string
+ *                                  example: ""
+ *                              permissions:
+ *                                  type: array
+ *                                  example: [] 
  *              error:
  *                  type: string
  *                  example: null
 */
 
-// step 271 : delete request body nadare
+// step 271 : delete request body nadare va dar path field ersal mishe na id iani inja kameltar gozashte k front ham betone baraie hazf id bede ham text
 
 /**
  * @swagger
- * /admin/roles/delete/{id}:
+ * /admin/roles/delete/{field}:
  *  delete:
  *      tags: [ RBAC(AdminPanel) ]
  *      summary: delete role
  *      description: از این بخش میتوانید نقش مورد نظر را حذف نمایید
  *      parameters: 
  *          -   in: path 
- *              name: id 
+ *              name: field 
  *              type: string 
  *              required: true 
+ *              description: send id or title of role for delete that
  *      responses:
  *          200:
  *              description: success
