@@ -3,24 +3,27 @@
 
 const stringToArray = function (field) {
   return function (req, res, next) {
-    // console.log("req.body[field]",req.body[field])
+    console.log("req.body[field]:",req.body[field]); //64539cc30737584c1b39dabe,64539cd60737584c1b39dac2
     if (req.body[field]) {
       if (typeof req.body[field] == "string") {
         if (req.body[field].indexOf("#") >= 0) {
           req.body[field] = req.body[field]
-          .split("#")
-          .map((item) => item.trim());
+            .split("#")
+            .map((item) => item.trim());
         } //check kardane inke array hast ya na
         else if (req.body[field].indexOf(",") >= 0) {
-          req.body[field] = req.body[field]
-          .split("#")
-          .map((item) => item.trim());
+          req.body[field] = req.body[field].split(",").map((item) => item.trim());
         } // tag haie ersali az front ya swagger ro tabdil mikone b arraye => ["tag1","tag2" , ...]
-        else{ // in khato khodam ezafe kardam
-          req.body[field] = [req.body[field]]
+        else {
+          // in khato khodam ezafe kardam
+          req.body[field] = [req.body[field]];
         }
-      } else if ((req.body[field].constructor).toString().toLowerCase().indexOf("array") >= 0) {
+      } 
+      // در نهایت چه ارایه بود چه استرینگ بیاد و فواصل خالی ایتم های درون ارایه رو حذف کنه و بعد موارد تکراری در ارایه رو هم حذف کنه
+      if (Array.isArray(req.body[field])) {
+        // iani agar ayyay bod
         req.body[field] = req.body[field].map((item) => item.trim()); // trim hazfe faselie khali
+        req.body[field] = [...new Set(req.body[field])]; // baese hazfe mavarede tekrari mishe
       }
     } else {
       req.body[field] = [];

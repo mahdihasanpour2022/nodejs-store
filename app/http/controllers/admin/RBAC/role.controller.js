@@ -5,6 +5,10 @@ const { StatusCodes } = require("http-status-codes");
 const createHttpError = require("http-errors");
 const { createRoleSchema } = require("../../../validators/admin/RBAC.schema");
 const { default: mongoose } = require("mongoose");
+const { copyObject } = require("../../../../utils/copyObject");
+const {
+  deleteInvalidPropertyInObject,
+} = require("../../../../utils/deleteInvalidPropertyInObject");
 
 class RoleController extends Controller {
   // step 282 :
@@ -31,14 +35,15 @@ class RoleController extends Controller {
   // step 286 :
   async createRole(req, res, next) {
     try {
-      const { title, permissions } = await createRoleSchema.validateAsync(
+      console.log("-------->",req.body)
+      const { title, permissions  ,description } = await createRoleSchema.validateAsync(
         req.body
       ); // موارد درون  بادی باید ولیدیت بشن بعدش عنوان از داخلش بیاد بیرون
 
-      console.log("title, permissions :", title, permissions);
+      console.log("title, permissions :", title, permissions, description);
       await this.findRoleWithTitle(title); // بره در دیتابیس بگرده ببینه رولی با این عنوان وجود داره اگر داشت ارور بده و اینجا متوقف بشه ادامه نده بره خط های بعد
       // اگر در دیتابیس رولی با این عنوان نبود پس میریم برای ساختش در دیتابیس
-      const role = await RoleModel.create({ title, permissions });
+      const role = await RoleModel.create({ title, permissions , description});
       if (!role)
         throw new createHttpError.InternalServerError("ایجاد نقش ناموفق بود");
       return res.status(StatusCodes.CREATED).json({
@@ -82,6 +87,41 @@ class RoleController extends Controller {
         message: "نقش  با موفقیت حذف شد.",
         data: {
           role,
+        },
+        error: null,
+      });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
+  // step 300 :
+  async editRoleByID(req, res, next) {
+    try {
+      const { roleID } = req.params;
+      const bodyData = copyObject(req.body); // vase inke parse beshe json bede
+      const validateBodyData = deleteInvalidPropertyInObject(bodyData, []); // niazi blacklist nist hamin k field haie khali va falsy ro hazf kone kafie
+      const findedRole = await this.findRoleWithIdOrTitle(roleID);
+
+      console.log("roleID:", roleID);
+      console.log("findedRole._id:", findedRole._id);
+
+      // اگر در دیتابیس رولی با این عنوان بود پس میریم برای اصلاحش در دیتابیس
+      const updateRoleResult = await RoleModel.updateOne(
+        { _id: findedRole._id },
+        { $set: validateBodyData }
+      ); // chon validateBodyData khodesh obj hast dge {} nemikhad
+      if (!updateRoleResult)
+        throw new createHttpError.InternalServerError(
+          "بروزرسانی نقش ناموفق بود"
+        );
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
+        isSuccess: true,
+        message: "  نقش  با موفقیت بروزرسانی شد.",
+        data: {
+          findedRole,
         },
         error: null,
       });
