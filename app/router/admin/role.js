@@ -11,6 +11,9 @@ router.get("/all", RoleController.getAllRoles);
 // هر وقت در بادی یه ارایه داشتی باید از متد تبدیل استرینگ ها به ارایه استفاده کنی
 router.post("/create" ,stringToArray("permissions"), RoleController.createRole);
 
+// step 296 :
+router.delete("/delete/:field" , RoleController.deleteRole)
+
 module.exports = {
     Role_AdminApiRoutes :router
 }
