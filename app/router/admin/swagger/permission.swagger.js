@@ -267,14 +267,14 @@
 
 /**
  * @swagger
- * /admin/permissions/delete/{id}:
+ * /admin/permissions/delete/{permissionID}:
  *  delete:
  *      tags: [ RBAC(AdminPanel) ]
  *      summary: delete permission
  *      description: از این بخش میتوانید پرمیشن مورد نظر را حذف نمایید
  *      parameters: 
  *          -   in: path 
- *              name: id 
+ *              name: permissionID
  *              type: string 
  *              required: true 
  *      responses:

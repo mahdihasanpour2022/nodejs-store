@@ -1,8 +1,5 @@
-
 // ------------------------------------------------------------------ Create role swagger
-
 // step 263 va 264 : برای اینکه بفهمی در پراپرتی چی باید باشه برو به مدل رول و ببین کدوم الزامیه ریکوایر
-
 
 /**
  * @swagger
@@ -15,11 +12,12 @@
  *              properties:
  *                  title:
  *                      type: string
- *                      description: write CAPITAL
+ *                      description: the title of role
  *                  permissions:
  *                      type: array
- *                      description: the description of role
-*/
+ *                      example: []
+ *                      description: the permissionsID for role
+ */
 
 // step 265 : Create_role_Definetion
 

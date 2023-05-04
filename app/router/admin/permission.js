@@ -8,6 +8,9 @@ router.get( "/all", PermissionController.getAllPermissions );
 // step  293 :
 router.post("/create" , PermissionController.createPermission)
 
+ // step 299 :
+ router.delete("/delete/:permissionID",PermissionController.deletePermission )
+
 module.exports = {
     Permission_AdminApiRoutes : router
 }
