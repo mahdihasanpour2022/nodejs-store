@@ -12,6 +12,7 @@
  *              type: object
  *              required:
  *                  -   title
+ *                  -   permissions
  *              properties:
  *                  title:
  *                      type: string

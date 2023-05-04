@@ -59,7 +59,7 @@ class RoleController extends Controller {
     const findedRole = await RoleModel.findOne({ title: title });
     // اگر قبلا رولی با عنوان در دیتابیس ذخیره شده باشه نباید اجازه بده دوباره مشابهش ساخته بشه
     if (findedRole)
-      throw new createHttpError.NotFound(
+      throw new createHttpError.BadRequest(
         "نقش یا رول مورد نظر قبلا ثبت شده است"
       );
     return findedRole;
@@ -70,18 +70,3 @@ module.exports = {
   RoleController: new RoleController(),
 };
 
-// async an(req, res, next) {
-//     try {
-//         const roles = await RoleModel.find({});
-//         return res.status(StatusCodes.OK).json({
-//             statusCode: StatusCodes.OK,
-//         isSuccess: true,
-//         message: "گرفتن لیست نقش ها با موفقیت انجام شد.",
-//         data: {},
-//         error: null,
-//         })
-//     } catch (error) {
-//       console.log(error);
-//       next(error);
-//     }
-//   }

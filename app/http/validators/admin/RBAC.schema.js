@@ -8,6 +8,13 @@ const createRoleSchema = Joi.object({
   permissions: Joi.array().items(Joi.string().pattern(MONGO_ID_PATTERN)).error(new Error("سطوح دسترسی های ارسال شده (پرمیشن) صحیح نیست")) //  یعنی یه ارایه میاد که توش استرینگهاییه که از این قانون تبعیت میکنه
 });
 
+// step 290 :
+const createPermissionSchema = Joi.object({
+  title: Joi.string().min(3).max(30).error(new Error("عنوان سطح دسترسی (پرمیشن) صحیح نیست")),
+  description: Joi.string().min(0).max(100).error(new Error("توضیحات سطح دسترسی صحیح نیست")) //  یعنی یه ارایه میاد که توش استرینگهاییه که از این قانون تبعیت میکنه
+});
+
 module.exports = {
   createRoleSchema,
+  createPermissionSchema
 };
