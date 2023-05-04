@@ -80,6 +80,26 @@ class UserController extends Controller {
       next(error);
     }
   }
+
+// step 309 :
+async getUserProfile(req, res, next) {
+  try {
+    const user = req.user;
+    return res.status(StatusCodes.OK).json({
+      statusCode: StatusCodes.OK,
+      isSuccess: true,
+      message: "پروفایل کاربر با موفقیت گرفته شد",
+      data: {
+        user,
+      },
+      error: null,
+    });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+}
+
 }
 module.exports = {
   UserController: new UserController(),

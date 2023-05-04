@@ -12,8 +12,7 @@ const RoleSchema = new mongoose.Schema(
     // String  must be capital
     title: { type: String, unique: true }, // یعنی اسم نقش اینه
     description: { type: String, default: "" }, // یعنی توضیحات نقش اینه
-    permissions: { // و اجازه دسترسی به این بخش ها که در ارایه هست رو دارهtype: [mongoose.Types.ObjectId], ref: "permissions",default: [],
-    },
+    permissions: {type: [mongoose.Types.ObjectId], ref: "permissions",default: []}, // و اجازه دسترسی به این بخش ها که در ارایه هست رو داره
   },
   { toJSON: { virtuals: true } }
 ); // vase inke virtual kar kone dar toJSON baiad virtuals ro true bezarim

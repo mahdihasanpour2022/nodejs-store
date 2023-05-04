@@ -6,7 +6,9 @@ const createHttpError = require("http-errors");
 const { createRoleSchema } = require("../../../validators/admin/RBAC.schema");
 const { default: mongoose } = require("mongoose");
 const { copyObject } = require("../../../../utils/copyObject");
-const {deleteInvalidPropertyInObject} = require("../../../../utils/deleteInvalidPropertyInObject");
+const {
+  deleteInvalidPropertyInObject,
+} = require("../../../../utils/deleteInvalidPropertyInObject");
 
 class RoleController extends Controller {
   // step 282 :
@@ -14,9 +16,8 @@ class RoleController extends Controller {
     try {
       //بعد ازاینکه پیدا کردی بیا پاپیولیت کن روی مسیر پرمیشن ها
       // چون در مدل رول ها ما به پرمیشن ها رف پرمیشن دادیم اینجا میشه پاپیولیت بزنیما دقیقا باید همون کلمه باشه
-      const roles = await RoleModel.find({}).populate([
-        { path: "permissions" },
-      ]);
+      // const roles = await RoleModel.find({}).populate([{ path: "permissions" }]);
+      const roles = await RoleModel.find({});
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
         isSuccess: true,
@@ -25,7 +26,7 @@ class RoleController extends Controller {
         error: null,
       });
     } catch (error) {
-      console.log(error);
+      // console.log("error getAllRoles :", error);
       next(error);
     }
   }
@@ -34,20 +35,19 @@ class RoleController extends Controller {
   async createRole(req, res, next) {
     try {
       // console.log("req.body",req.body)
-      const { title, permissions  ,description } = await createRoleSchema.validateAsync(
-        req.body
-      ); // موارد درون  بادی باید ولیدیت بشن بعدش عنوان از داخلش بیاد بیرون
+      const { title, permissions, description } =
+        await createRoleSchema.validateAsync(req.body); // موارد درون  بادی باید ولیدیت بشن بعدش عنوان از داخلش بیاد بیرون
 
-      console.log("title, permissions :", title, permissions, description);
+      // console.log("title, permissions :", title, permissions, description);
       await this.findRoleWithTitle(title); // بره در دیتابیس بگرده ببینه رولی با این عنوان وجود داره اگر داشت ارور بده و اینجا متوقف بشه ادامه نده بره خط های بعد
       // اگر در دیتابیس رولی با این عنوان نبود پس میریم برای ساختش در دیتابیس
-      const role = await RoleModel.create({ title, permissions , description});
+      const role = await RoleModel.create({ title, permissions, description });
       if (!role)
         throw new createHttpError.InternalServerError("ایجاد نقش ناموفق بود");
       return res.status(StatusCodes.CREATED).json({
         statusCode: StatusCodes.CREATED,
         isSuccess: true,
-        message: "  نقش  با موفقیت ساخته شد.",
+        message: "نقش  با موفقیت ساخته شد",
         data: {
           role,
         },

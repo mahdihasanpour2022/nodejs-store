@@ -1,10 +1,10 @@
 // step 100 : closure iani function k function bname digari ro return kone
 //tabdil kardane string b array , iani string || null || undefined => [value] || [...values]
 
-const stringToArray = function (field) {
+const stringToArray = function (field ) {
   return function (req, res, next) {
-    console.log("req.body[field]:",req.body[field]); //64539cc30737584c1b39dabe,64539cd60737584c1b39dac2
     if (req.body[field]) {
+      // console.log("req.body[field]:",req.body[field]); //64539cc30737584c1b39dabe,64539cd60737584c1b39dac2
       if (typeof req.body[field] == "string") {
         if (req.body[field].indexOf("#") >= 0) {
           req.body[field] = req.body[field]
@@ -26,6 +26,7 @@ const stringToArray = function (field) {
         req.body[field] = [...new Set(req.body[field])]; // baese hazfe mavarede tekrari mishe
       }
     } else {
+      // console.log(" req.body[field]:  hichi nadare")
       req.body[field] = [];
     }
     next();
