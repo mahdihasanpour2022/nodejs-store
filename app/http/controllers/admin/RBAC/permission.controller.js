@@ -2,6 +2,8 @@
 const Controller = require("../../controller");
 const { PermissionModel } = require("../../../../models/permissions");
 const { StatusCodes } = require("http-status-codes");
+const { copyObject } = require("../../../../utils/copyObject");
+const {deleteInvalidPropertyInObject} = require("../../../../utils/deleteInvalidPropertyInObject");
 const {
   createPermissionSchema,
 } = require("../../../validators/admin/RBAC.schema");
@@ -66,7 +68,7 @@ class PermissionController extends Controller {
   }
 
   // step 298 :
-  async deletePermission(req, res, next) {
+  async deletePermissionByID(req, res, next) {
     try {
       const { permissionID } = req.params;
       const findedPermission = await this.findPermissionByID(permissionID);
@@ -93,6 +95,37 @@ class PermissionController extends Controller {
       next(error);
     }
   }
+
+  // step 302 :
+  async editPermissionByID(req, res, next) {
+    try {
+      const { permissionID } = req.params;
+       await this.findPermissionByID(permissionID);
+      const bodyData = copyObject(req.body); // vase inke parse beshe json bede
+      const validateBodyData = deleteInvalidPropertyInObject(bodyData, []); // niazi blacklist nist hamin k field haie khali va falsy ro hazf kone kafie
+
+      // اگر در دیتابیس دسترسی با این عنوان بود پس میریم برای اصلاحش در دیتابیس
+      const updatePermissionResult = await PermissionModel.updateOne(
+        { _id: permissionID },
+        { $set: validateBodyData }
+      ); // chon validateBodyData khodesh obj hast dge {} nemikhad
+      if (!updatePermissionResult)
+        throw new createHttpError.InternalServerError(
+          "بروزرسانی دسترسی ناموفق بود"
+        );
+      return res.status(StatusCodes.OK).json({
+        statusCode: StatusCodes.OK,
+        isSuccess: true,
+        message: "  سطح دسترسی  با موفقیت بروزرسانی شد.",
+        data: {}, //step 304 : در ادیت و حذف چون داره در دیتابیس تغییر اتفاق میفته دیتا رو حتما حتما خالی بر گردون چون اگر چیزی در دیتا بدی قدیمیه بدرد فرانت هم نمیخوره
+        error: null,
+      });
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+
   // step 297 :
   async findPermissionByID(permissionID) {
     const permission = await PermissionModel.findOne({ _id: permissionID });

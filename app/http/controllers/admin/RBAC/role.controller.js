@@ -6,9 +6,7 @@ const createHttpError = require("http-errors");
 const { createRoleSchema } = require("../../../validators/admin/RBAC.schema");
 const { default: mongoose } = require("mongoose");
 const { copyObject } = require("../../../../utils/copyObject");
-const {
-  deleteInvalidPropertyInObject,
-} = require("../../../../utils/deleteInvalidPropertyInObject");
+const {deleteInvalidPropertyInObject} = require("../../../../utils/deleteInvalidPropertyInObject");
 
 class RoleController extends Controller {
   // step 282 :
@@ -35,7 +33,7 @@ class RoleController extends Controller {
   // step 286 :
   async createRole(req, res, next) {
     try {
-      console.log("-------->",req.body)
+      // console.log("req.body",req.body)
       const { title, permissions  ,description } = await createRoleSchema.validateAsync(
         req.body
       ); // موارد درون  بادی باید ولیدیت بشن بعدش عنوان از داخلش بیاد بیرون
@@ -100,16 +98,16 @@ class RoleController extends Controller {
   async editRoleByID(req, res, next) {
     try {
       const { roleID } = req.params;
+      const findedRole = await this.findRoleWithIdOrTitle(roleID);
       const bodyData = copyObject(req.body); // vase inke parse beshe json bede
       const validateBodyData = deleteInvalidPropertyInObject(bodyData, []); // niazi blacklist nist hamin k field haie khali va falsy ro hazf kone kafie
-      const findedRole = await this.findRoleWithIdOrTitle(roleID);
 
-      console.log("roleID:", roleID);
-      console.log("findedRole._id:", findedRole._id);
+      // console.log("roleID:", roleID); //6453ba46d1fe823c0c1adb04
+      // console.log("findedRole._id:", findedRole._id); //new ObjectId("6453ba46d1fe823c0c1adb04")
 
       // اگر در دیتابیس رولی با این عنوان بود پس میریم برای اصلاحش در دیتابیس
       const updateRoleResult = await RoleModel.updateOne(
-        { _id: findedRole._id },
+        { _id: findedRole._id }, //inam mishe test kardam doroste { _id:roleID }
         { $set: validateBodyData }
       ); // chon validateBodyData khodesh obj hast dge {} nemikhad
       if (!updateRoleResult)
@@ -121,7 +119,7 @@ class RoleController extends Controller {
         isSuccess: true,
         message: "  نقش  با موفقیت بروزرسانی شد.",
         data: {
-          findedRole,
+          findedRole, //  در ادیت و حذف چون داره در دیتابیس تغییر اتفاق میفته دیتا رو حتما حتما خالی بر گردون چون این چیزی که داری در دیتا میدی قدیمیه بدرد فرانت هم نمیخوره
         },
         error: null,
       });

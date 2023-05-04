@@ -134,14 +134,14 @@
 
 /**
  * @swagger
- * /admin/permissions/update/{id}:
+ * /admin/permissions/edit/{permissionID}:
  *  patch:
  *      tags: [ RBAC(AdminPanel) ]
  *      summary: update permission
  *      description: از این بخش میتوانید پرمیشن مورد نظر را ادیت نمایید
  *      parameters: 
  *          -   in: path 
- *              name: id 
+ *              name: permissionID 
  *              type: string 
  *              required: true 
  *      requestBody:
