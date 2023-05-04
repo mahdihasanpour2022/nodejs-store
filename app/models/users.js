@@ -18,8 +18,8 @@ const UserSchema = new mongoose.Schema({
   bills: { type: [], default: [] },
   discount: { type: Number, default: 0 },
   birthDay: { type: String },
-  Roles: { type: [String], default: ["USER"] },
-  courses : {type :  [mongoose.Types.ObjectId],ref :"course" , default : []}, // وقتی بخوای لیست شاگرد های دوره رو بگیری
+  Role: { type: String, default: "USER" }, // اینجا برای همه رول پیش فرض یوزر رو ست کردیم
+  courses : {type :  [mongoose.Types.ObjectId] ,ref :"course" , default : []}, // وقتی بخوای لیست شاگرد های دوره رو بگیری
 },{
   timestamps : true , 
   toJSON : {

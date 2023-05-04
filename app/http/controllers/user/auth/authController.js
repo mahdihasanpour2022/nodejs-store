@@ -1,10 +1,12 @@
 // step 18 :
 const createHttpError = require("http-errors");
 const { UserModel } = require("../../../../models/users");
-const {  ROLES } = require("../../../../utils/constants");
+const { ROLES } = require("../../../../utils/constants");
 const { CreateAccessToken } = require("../../../../utils/createAccessToken");
 const { createRefreshToken } = require("../../../../utils/createRefreshToken");
-const {randomNumberGenerator} = require("../../../../utils/randomNumberGenerator");
+const {
+  randomNumberGenerator,
+} = require("../../../../utils/randomNumberGenerator");
 const { verifyRefreshToken } = require("../../../../utils/verifyRefreshToken");
 
 const {
@@ -27,8 +29,8 @@ class UserAuthController extends Controller {
       // step 26 : create otp
       const code = randomNumberGenerator();
       //step 25-1 : send sms otp
-     if(mobile && code) ghasedakSensSMS(mobile,code) ;
-const result = await this.saveUser(mobile, code);
+      if (mobile && code) ghasedakSensSMS(mobile, code);
+      const result = await this.saveUser(mobile, code);
       // if(!result) throw createHttpError.BadRequest("ورود شما ناموفق بود") //...or
       if (!result) throw createHttpError.Unauthorized("ورود شما ناموفق بود");
       return res.status(200).send({
@@ -54,12 +56,12 @@ const result = await this.saveUser(mobile, code);
     const result = await this.checkExistUser(mobile);
 
     if (result) {
-      return await this.updateUser( mobile , { otp } );
+      return await this.updateUser(mobile, { otp });
     }
     return !!(await UserModel.create({
-      mobile ,
-      otp ,
-      Roles: [ ROLES.USER ] ,
+      mobile,
+      otp,
+      Role: ROLES.USER, // اینجا برای همه رول پیش فرض یوزر رو ست کردیم
     }));
   }
 
@@ -109,7 +111,7 @@ const result = await this.saveUser(mobile, code);
 
       return res.json({
         statusCode: 200,
-        isSuccess : true ,
+        isSuccess: true,
         data: {
           accessToken,
           refreshToken,
@@ -133,7 +135,7 @@ const result = await this.saveUser(mobile, code);
       const newRefreshToken = await createRefreshToken(user._id);
       return res.json({
         statusCode: 200,
-        isSuccess : true ,
+        isSuccess: true,
         data: {
           accessToken,
           refreshToken: newRefreshToken,

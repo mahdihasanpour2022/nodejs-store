@@ -16,12 +16,20 @@
  *                  -   description
  *              properties:
  *                  title:
- *                      type: string
- *                      description: the title of permission
+ *                      type: string 
+ *                      enum:
+ *                          -   all
+ *                          -   user
+ *                          -   category
+ *                          -   products
+ *                          -   blogs
+ *                          -   courses
+ *                      description: write CAPITAL only
  *                  description:
  *                      type: string
  *                      description: the description of permission
 */
+
 
 // step 273 : Create_Permission_Definetion
 
@@ -218,7 +226,7 @@
  * /admin/permissions/all:
  *  get:
  *      tags: [ RBAC(AdminPanel) ]
- *      summary: update permission
+ *      summary: get all permission
  *      description: از این بخش میتوانید همه پرمیشن را دریافت نمایید
  *      responses:
  *          200:

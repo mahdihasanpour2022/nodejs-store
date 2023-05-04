@@ -7,14 +7,19 @@
  *      schemas:
  *          Create_role:
  *              type: object
+ *              required:
+ *                  -   title
+ *                  -   description
+ *                  -   permissions
  *              properties:
  *                  title:
  *                      type: string
  *                      description: the title of role
  *                      enum:
- *                          -   USER
+ *                          -   SUPERADMIN
  *                          -   ADMIN
- *                          -   WRITER
+ *                          -   USER
+ *                          -   CONTENT_MANAGER
  *                          -   TEACHER
  *                          -   SUPPLIER
  *                  description:
@@ -24,7 +29,6 @@
  *                      type: array
  *                      description: send permissionID
 */
-
 
 // step 265 : Create_role_Definetion
 
@@ -254,7 +258,7 @@
  * /admin/roles/all:
  *  get:
  *      tags: [ RBAC(AdminPanel) ]
- *      summary: update role
+ *      summary: get all role
  *      description: از این بخش میتوانید همه نقشها را دریافت نمایید
  *      responses:
  *          200:
