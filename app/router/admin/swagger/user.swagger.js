@@ -1,12 +1,12 @@
 
-// ------------------------------------------------------------------  public user swaggerDefinetion
+// ------------------------------------------------------------------  get all user swagger
 
 // step 248 : 
 
 /**
  * @swagger
  *  definitions:
- *      Public_User_Definetion:
+ *      GET_All_User_Definetion:
  *          type: object
  *          properties:
  *              statusCode: 
@@ -22,14 +22,12 @@
  *                  type: object
  *                  properties:
  *                      users:
- *                          type: object
- *                          example: {}
+ *                          example: [{_id: "",mobile: "",otp: {code: "",expiresIn: 0},bills: [],discount: 0,Role: "",courses: [],createdAt: "",updatedAt: "",__v: 0,id: ""}]
  *              error:
  *                  type: string
  *                  example: null
  */
 
-// ------------------------------------------------------------------  get all user swagger
 
 // step 249 : get ha chon chizi nemiferestan pas request body nadaran
 
@@ -51,7 +49,7 @@
  *              content:
  *                  application/json:
  *                      schema:
- *                          $ref: '#/definitions/Public_User_Definetion'
+ *                          $ref: '#/definitions/GET_All_User_Definetion'
  *          400:
  *              description: Bad Request
  *          401:
@@ -62,6 +60,63 @@
  *              description: internal server error
  * 
  */
+
+
+// ------------------------------------------------------------------  get user profile swagger
+
+// step 310 :
+/**
+ * @swagger
+ *  definitions:
+ *      GET_User_profile_Definetion:
+ *          type: object
+ *          properties:
+ *              statusCode: 
+ *                  type: integer
+ *                  example: 20x
+ *              isSuccess: 
+ *                  type: boolean
+ *                  example: true
+ *              message: 
+ *                  type: string
+ *                  example: "لیست همه کاربران با موفقیت گرفته شد"
+ *              data:
+ *                  type: object
+ *                  properties:
+ *                      user:
+ *                          type: object
+ *                          example: {_id: "",mobile: "",otp: {code: "",expiresIn: 0},bills: [],discount: 0,Role: "",courses: [],createdAt: "",updatedAt: "",__v: 0,id: ""}
+ *              error:
+ *                  type: string
+ *                  example: null
+ */
+
+// step 311 :
+
+/**
+ * @swagger
+ * /admin/users/profile:
+ *  get:
+ *      tags: [ users(AdminPanel) ]
+ *      summary: get user profile
+ *      responses:
+ *          200:
+ *              description: success
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/definitions/GET_User_profile_Definetion'
+ *          400:
+ *              description: Bad Request
+ *          401:
+ *              description: unauthorized
+ *          404:
+ *              description: not Found
+ *          500:
+ *              description: internal server error
+ * 
+ */
+
 
 // ------------------------------------------------------------------  update user profile swagger
 
