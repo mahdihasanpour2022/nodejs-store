@@ -21,10 +21,10 @@
  *              properties:
  *                  courseID:
  *                      type: string
- *                      description: the course id 
+ *                      description: the course id
  *                  chapterID:
  *                      type: string
- *                      description: the chapter id 
+ *                      description: the chapter id
  *                  title:
  *                      type: string
  *                      description: the title of episode
@@ -41,8 +41,7 @@
  *                      type: string
  *                      description: the video of episode
  *                      format: binary
-*/
-
+ */
 
 // step 209 : Create Chapter Definetion
 // اینو بزار وقتی در سواگر تست کردی ریسپانس رو دید از روی ریسپانس بنویسش راحت تر میشه نوشتنش
@@ -53,13 +52,13 @@
  *      CreateEpisode_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 201
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "اپیزود با موفقیت به فصل اضافه شد"
  *              data:
@@ -71,7 +70,7 @@
  *              error:
  *                  type: string
  *                  example: null
-*/
+ */
 
 //step 210  :
 // b jaie summaary bia va description benevis giatare
@@ -119,13 +118,13 @@
  *      DeleteOneEpisode_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 200
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "اپیزود با موفقیت از فصل دوره حذف شد"
  *              data:
@@ -134,9 +133,9 @@
  *              error:
  *                  type: string
  *                  example: null
-*/
+ */
 
-// step 220 : vase delete chon body chizi gharar nist befresti requestBody nadare 
+// step 220 : vase delete chon body chizi gharar nist befresti requestBody nadare
 
 /**
  * @swagger
@@ -150,7 +149,7 @@
  *              name: episodeID
  *              type: string
  *              required: true
- *              description: write episodeID 
+ *              description: write episodeID
  *      responses:
  *          201:
  *              description: success
@@ -168,11 +167,9 @@
  *              description: internal server error
  */
 
-
 // ------------------------------------------------------------------  edit(update) episode swagger
 
-// step 223 : 
-
+// step 223 :
 
 /**
  * @swagger
@@ -199,10 +196,9 @@
  *                      type: string
  *                      description: the video of episode
  *                      format: binary
-*/
+ */
 
-// step 224 :  
-
+// step 224 :
 
 /**
  * @swagger
@@ -210,13 +206,13 @@
  *      UpdateEpisode_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 200
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "اپیزود با موفقیت ادیت شد"
  *              data:
@@ -228,9 +224,9 @@
  *              error:
  *                  type: string
  *                  example: null
-*/
+ */
 
-// step 225 :  
+// step 225 :
 
 /**
  * @swagger

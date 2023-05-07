@@ -1,4 +1,3 @@
-
 // ------------------------------------------------------------------ Public_Product_Definetion
 
 // step 175 : defination for public Product
@@ -9,23 +8,23 @@
  *      Public_Product_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 20x
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
- *                  example: "دوره با موفقیت یافت شد"
+ *                  example: ""
  *              data:
  *                  type: object
  *                  properties:
- *                      product: 
+ *                      product:
  *                         type: object
  *                         properties:
  *                              _id:
- *                                 type: string    
+ *                                 type: string
  *                              title:
  *                                 type: string
  *                              text:
@@ -72,7 +71,7 @@
  *                                 type: integer
  *                              feature:
  *                                 type: object
- *                                 properties: 
+ *                                 properties:
  *                                     width:
  *                                         type: integer
  *                                     height:
@@ -99,13 +98,12 @@
  *                                 type: integer
  */
 
-// ------------------------------------------------------------------  cerate product swagger
+// ------------------------------------------------------------------  create product swagger
 
 //step 127 : نام اسکیما همیشه پاسکال باشه
 //  اگر در پراپرتی ها مثلا تگ رو در مدل اسکیما بصورت تایپ ارایه گذاشتی اینجا در پراپرتی تگ ها هم تایپش رو باید بزاری ارایه
 
 // banary = یعنی همون فایل که برای عکس چون حداکثر 10 تا عکس رو میتونه در قالب آرایه ارسال کنه واسه محصولش
-
 
 /**
  * @swagger
@@ -185,7 +183,6 @@
  *                      example: 0
  */
 
-
 //step 130 : وقتی میخوای فرم ارسال کنی چند تا پراپرتی تو فرمته و فایل مثل عکس همراهشه پس کانتنت رو بزار مالتیپارت فرم دیتا
 
 /**
@@ -217,13 +214,12 @@
  *              description: internal server error
  */
 
-
 // ------------------------------------------------------------------  delete product swagger
 
 // step 141 :
 
 /**
- * 
+ *
  * @swagger
  * /admin/products/remove/{id}:
  *  delete:
@@ -262,25 +258,25 @@
  *      Get_All_Products_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 20x
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
- *                  example: "دوره با موفقیت یافت شد"
+ *                  example: "محصولات با موفقیت یافت شد"
  *              data:
  *                  type: object
  *                  properties:
  *                      products:
  *                          type: array
- *                          items: 
+ *                          items:
  *                              type: object
  *                              properties:
  *                                   _id:
- *                                      type: string    
+ *                                      type: string
  *                                   title:
  *                                      type: string
  *                                   text:
@@ -327,7 +323,7 @@
  *                                      type: integer
  *                                   feature:
  *                                      type: object
- *                                      properties: 
+ *                                      properties:
  *                                          width:
  *                                              type: integer
  *                                          height:
@@ -353,7 +349,6 @@
  *                                   __v:
  *                                      type: integer
  */
-
 
 //step 135 : requestBody  vase get nazar vase post patch ,...  faghat bzar
 // step 145 : اضافه کردن پارامتر سرچ بر اساس  متن (تکست)در کویری درخواستی که سواگر یا فرانت میخواد برای ما(بک اند) بفرسته
@@ -386,13 +381,10 @@
  *              description: internal server error
  */
 
-
-// ------------------------------------------------------------------  edit product swagger
-
 // ------------------------------------------------------------------  edit product swagger
 
 // step 151 : این واسه ادیت پروداکته که چند تا از فیلدهاش مثل ساخت محصول الزامی (ریکوایر) نباشه
-// اگر میخوای همه موارد قابل ادیت نباشه اونایی که نمیخوای قابل ادیت باشن رو از قسمت پراپرتیز بردار  
+// اگر میخوای همه موارد قابل ادیت نباشه اونایی که نمیخوای قابل ادیت باشن رو از قسمت پراپرتیز بردار
 
 /**
  * @swagger
@@ -462,7 +454,7 @@
  *              name: id
  *              type: string
  *              description: product id for edit
- *              require: true 
+ *              require: true
  *      requestBody:
  *          required: true
  *          content:
@@ -496,7 +488,7 @@
  *  get:
  *      tags: [ product(AdminPanel) ]
  *      summary: get one products
- *      description: find product by ID 
+ *      description: find product by ID
  *      parameters:
  *          -   in: path
  *              name: id

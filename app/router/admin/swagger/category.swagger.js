@@ -1,3 +1,5 @@
+// ------------------------------------------------------------------  Create Category swagger
+
 // step 176 : مثل قدم 174 و 175 که برای پروداکت دیفاینیشن یعنی الگوی ریسپانس برای فرانت نوشتی برای این هم بنویس کافیه تو پوشه مدل ببینی هر کتگوری چه آپشن هایی داره و بنویسی
 
 // step 119 : // shema hato ijad mikoni aval name schema bad type esh bad onaie k required hast  va b hamin tartib
@@ -63,6 +65,7 @@
  *              description: internal server error
  */
 
+// ------------------------------------------------------------------  get all categories swagger
 // step 71:
 
 /**
@@ -89,6 +92,8 @@
  *              description: internal server error
  */
 
+// ------------------------------------------------------------------  get all parent of category or category head
+
 // step 65 :
 
 /**
@@ -114,6 +119,8 @@
  *          500:
  *              description: internal server error
  */
+
+// ------------------------------------------------------------------  get all children of parents category
 
 // step 68 :
 /**
@@ -144,6 +151,8 @@
  *          500:
  *              description: internal server error
  */
+
+// ------------------------------------------------------------------  delete category with object-id
 
 // step 76 :
 
@@ -176,6 +185,8 @@
  *              description: internal server error
  */
 
+// ------------------------------------------------------------------  get all categories whitout populate and nested structure
+
 // step 84 :
 
 /**
@@ -202,6 +213,7 @@
  *              description: internal server error
  */
 
+// ------------------------------------------------------------------  update title of category
 // step 88:
 
 /**
@@ -241,6 +253,8 @@
  *          500:
  *              description: internal server error
  */
+
+// ------------------------------------------------------------------  find category with object id
 
 // step 78 :
 
