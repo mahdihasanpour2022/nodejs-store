@@ -1,3 +1,5 @@
+// ------------------------------------------------------------------  Create blog swagger
+
 // step 122 :
 
 /**
@@ -42,7 +44,7 @@
  * /admin/blogs/create:
  *      post:
  *          tags: [blog(AdminPanel)]
- *          summary: create blog document
+ *          summary: create blog
  *          requestBody:
  *              required: true
  *              content:
@@ -65,6 +67,9 @@
  *              500:
  *                  description: internal server error
  */
+
+
+// ------------------------------------------------------------------  update blog swagger
 
 // step 115 :
 /**
@@ -124,6 +129,9 @@
  *              description: internal server error
  */
 
+// ------------------------------------------------------------------  get all blogs swagger
+
+
 // step 93 :
 
 /**
@@ -151,6 +159,9 @@
  *          500:
  *              description: internal server error
  */
+
+
+// ------------------------------------------------------------------  get blog by id swagger
 
 // step 109 :
 
@@ -182,6 +193,8 @@
  *          500:
  *              description: internal server error
  */
+
+// ------------------------------------------------------------------  delete blog by id swagger
 
 // step 112 :
 

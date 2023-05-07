@@ -28,7 +28,7 @@
  *                  permissions:
  *                      type: array
  *                      description: send permissionID
-*/
+ */
 
 // step 265 : Create_role_Definetion
 
@@ -38,13 +38,13 @@
  *      Create_role_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 201
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "نقش با موفقیت ایجاد شد"
  *              data:
@@ -52,7 +52,7 @@
  *                  properties:
  *                      role:
  *                          type: object
- *                          properties: 
+ *                          properties:
  *                              title:
  *                                  type: string
  *                                  example: ""
@@ -61,15 +61,13 @@
  *                                  example: ""
  *                              permissions:
  *                                  type: array
- *                                  example: [] 
+ *                                  example: []
  *              error:
  *                  type: string
  *                  example: null
-*/
-
+ */
 
 // step 266 : role swagger
-
 
 /**
  * @swagger
@@ -103,9 +101,7 @@
 
 // ------------------------------------------------------------------ edit role swagger
 
-
 // step 267 : edit  va update kolan requirenadare
-
 
 /**
  * @swagger
@@ -125,11 +121,11 @@
  *                          -   SUPPLIER
  *                  description:
  *                      type: string
- *                      description: the description of role 
+ *                      description: the description of role
  *                  permissions:
  *                      type: array
  *                      description: send permissionID
-*/
+ */
 
 // step 268 : Update_role_Definetion
 
@@ -139,13 +135,13 @@
  *      Update_role_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 201
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "نقش با موفقیت بروز رسانی شد"
  *              data:
@@ -154,11 +150,9 @@
  *              error:
  *                  type: string
  *                  example: null
-*/
-
+ */
 
 // step 269 : role swagger
-
 
 /**
  * @swagger
@@ -167,11 +161,11 @@
  *      tags: [ RBAC(AdminPanel) ]
  *      summary: update role
  *      description: از این بخش میتوانید نقش مورد نظر را ادیت نمایید
- *      parameters: 
- *          -   in: path 
- *              name: roleID 
- *              type: string 
- *              required: true 
+ *      parameters:
+ *          -   in: path
+ *              name: roleID
+ *              type: string
+ *              required: true
  *      requestBody:
  *          required: true
  *          content:
@@ -206,13 +200,13 @@
  *      get_all_role_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 201
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "نقش ها با موفقیت دریافت شد"
  *              data:
@@ -223,13 +217,13 @@
  *                          properties:
  *                              _id:
  *                                  type: string
- *                                  example: "" 
+ *                                  example: ""
  *                              title:
  *                                  type: string
- *                                  example: "" 
+ *                                  example: ""
  *                              description:
  *                                  type: string
- *                                  example: "" 
+ *                                  example: ""
  *                              permissions:
  *                                  type: array
  *                                  items:
@@ -237,21 +231,19 @@
  *                                      properties:
  *                                         _id:
  *                                             type: string
- *                                             example: "" 
+ *                                             example: ""
  *                                         title:
  *                                             type: string
- *                                             example: "" 
+ *                                             example: ""
  *                                         descriptions:
  *                                             type: string
  *                                             example: ""
  *              error:
  *                  type: string
  *                  example: null
-*/
-
+ */
 
 // step 269 : role swagger
-
 
 /**
  * @swagger
@@ -278,7 +270,7 @@
  */
 
 // ------------------------------------------------------------------ delete role swagger
-// step 270 :  
+// step 270 :
 
 /**
  * @swagger
@@ -286,13 +278,13 @@
  *      Delete_role_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 201
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "نقش با موفقیت حذف شد"
  *              data:
@@ -300,7 +292,7 @@
  *                  properties:
  *                      role:
  *                          type: object
- *                          properties: 
+ *                          properties:
  *                              title:
  *                                  type: string
  *                                  example: ""
@@ -309,11 +301,11 @@
  *                                  example: ""
  *                              permissions:
  *                                  type: array
- *                                  example: [] 
+ *                                  example: []
  *              error:
  *                  type: string
  *                  example: null
-*/
+ */
 
 // step 271 : delete request body nadare va dar path field ersal mishe na id iani inja kameltar gozashte k front ham betone baraie hazf id bede ham text
 
@@ -324,11 +316,11 @@
  *      tags: [ RBAC(AdminPanel) ]
  *      summary: delete role
  *      description: از این بخش میتوانید نقش مورد نظر را حذف نمایید
- *      parameters: 
- *          -   in: path 
- *              name: field 
- *              type: string 
- *              required: true 
+ *      parameters:
+ *          -   in: path
+ *              name: field
+ *              type: string
+ *              required: true
  *              description: send id or title of role for delete that
  *      responses:
  *          200:
@@ -346,5 +338,3 @@
  *          500:
  *              description: internal server error
  */
-
-

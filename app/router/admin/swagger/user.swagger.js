@@ -1,7 +1,6 @@
-
 // ------------------------------------------------------------------  get all user swagger
 
-// step 248 : 
+// step 248 :
 
 /**
  * @swagger
@@ -9,13 +8,13 @@
  *      GET_All_User_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 20x
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "لیست همه کاربران با موفقیت گرفته شد"
  *              data:
@@ -28,9 +27,7 @@
  *                  example: null
  */
 
-
 // step 249 : get ha chon chizi nemiferestan pas request body nadaran
-
 
 /**
  * @swagger
@@ -58,9 +55,8 @@
  *              description: not Found
  *          500:
  *              description: internal server error
- * 
+ *
  */
-
 
 // ------------------------------------------------------------------  get user profile swagger
 
@@ -71,13 +67,13 @@
  *      GET_User_profile_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 20x
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "لیست همه کاربران با موفقیت گرفته شد"
  *              data:
@@ -114,14 +110,12 @@
  *              description: not Found
  *          500:
  *              description: internal server error
- * 
+ *
  */
-
 
 // ------------------------------------------------------------------  update user profile swagger
 
 // step 253 :Update_User schemas
-
 
 /**
  * @swagger
@@ -152,13 +146,13 @@
  *      Update_User_Profile_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 20x
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "لیست همه کاربران با موفقیت گرفته شد"
  *              data:
@@ -217,5 +211,5 @@
  *              description: not Found
  *          500:
  *              description: internal server error
- * 
+ *
  */

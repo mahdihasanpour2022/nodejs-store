@@ -1,9 +1,8 @@
-// step 264 : create permission.swagger.js 
-
+// step 264 : create permission.swagger.js
 
 // ------------------------------------------------------------------ Create permission swagger
 
-// step 272 : 
+// step 272 :
 
 /**
  * @swagger
@@ -16,7 +15,7 @@
  *                  -   description
  *              properties:
  *                  title:
- *                      type: string 
+ *                      type: string
  *                      enum:
  *                          -   all
  *                          -   user
@@ -28,8 +27,7 @@
  *                  description:
  *                      type: string
  *                      description: the description of permission
-*/
-
+ */
 
 // step 273 : Create_Permission_Definetion
 
@@ -39,13 +37,13 @@
  *      Create_Permission_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 201
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "پرمیشن با موفقیت ایجاد شد"
  *              data:
@@ -54,11 +52,9 @@
  *              error:
  *                  type: string
  *                  example: null
-*/
-
+ */
 
 // step 274 : permission swagger
-
 
 /**
  * @swagger
@@ -92,9 +88,7 @@
 
 // ------------------------------------------------------------------ edit permission swagger
 
-
 // step 275 : edit  va update kolan require nadare
-
 
 /**
  * @swagger
@@ -109,7 +103,7 @@
  *                  description:
  *                      type: string
  *                      description: the description of permission
-*/
+ */
 
 // step 276 : Update_Permission_Definetion
 
@@ -119,13 +113,13 @@
  *      Update_Permission_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 201
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "پرمیشن با موفقیت بروز رسانی شد"
  *              data:
@@ -134,11 +128,9 @@
  *              error:
  *                  type: string
  *                  example: null
-*/
-
+ */
 
 // step 277 : permission swagger
-
 
 /**
  * @swagger
@@ -147,11 +139,11 @@
  *      tags: [ RBAC(AdminPanel) ]
  *      summary: update permission
  *      description: از این بخش میتوانید پرمیشن مورد نظر را ادیت نمایید
- *      parameters: 
- *          -   in: path 
- *              name: permissionID 
- *              type: string 
- *              required: true 
+ *      parameters:
+ *          -   in: path
+ *              name: permissionID
+ *              type: string
+ *              required: true
  *      requestBody:
  *          required: true
  *          content:
@@ -186,13 +178,13 @@
  *      get_all_permission_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 201
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "پرمیشن ها با موفقیت دریافت شد"
  *              data:
@@ -205,21 +197,19 @@
  *                              properties:
  *                                 _id:
  *                                     type: string
- *                                     example: "" 
+ *                                     example: ""
  *                                 title:
  *                                     type: string
- *                                     example: "" 
+ *                                     example: ""
  *                                 descriptions:
  *                                     type: string
  *                                     example: ""
  *              error:
  *                  type: string
  *                  example: null
-*/
-
+ */
 
 // step 279 : permission swagger
-
 
 /**
  * @swagger
@@ -246,7 +236,7 @@
  */
 
 // ------------------------------------------------------------------ delete permission swagger
-// step 280 :  
+// step 280 :
 
 /**
  * @swagger
@@ -254,13 +244,13 @@
  *      Delete_permission_Definetion:
  *          type: object
  *          properties:
- *              statusCode: 
+ *              statusCode:
  *                  type: integer
  *                  example: 201
- *              isSuccess: 
+ *              isSuccess:
  *                  type: boolean
  *                  example: true
- *              message: 
+ *              message:
  *                  type: string
  *                  example: "پرمیشن با موفقیت حذف شد"
  *              data:
@@ -269,7 +259,7 @@
  *              error:
  *                  type: string
  *                  example: null
-*/
+ */
 
 // step 281 : delete request body nadare
 
@@ -280,11 +270,11 @@
  *      tags: [ RBAC(AdminPanel) ]
  *      summary: delete permission
  *      description: از این بخش میتوانید پرمیشن مورد نظر را حذف نمایید
- *      parameters: 
- *          -   in: path 
+ *      parameters:
+ *          -   in: path
  *              name: permissionID
- *              type: string 
- *              required: true 
+ *              type: string
+ *              required: true
  *      responses:
  *          200:
  *              description: success
@@ -301,4 +291,3 @@
  *          500:
  *              description: internal server error
  */
-
