@@ -120,6 +120,25 @@
  * @swagger
  *  components:
  *      schemas:
+ *          Color:
+ *              type: array
+ *              items: 
+ *                  type: string
+ *                  enum:
+ *                      -   black
+ *                      -   white
+ *                      -   gray                
+ *                      -   red
+ *                      -   blue
+ *                      -   green
+ *                      -   orange
+ *                      -   purple
+ */ 
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
  *          Product:
  *              type: object
  *              required:
@@ -181,6 +200,8 @@
  *                      type: number
  *                      description: the weight of product packet
  *                      example: 0
+ *                  colors:
+ *                      $ref: '#/components/schemas/Color'
  */
 
 //step 130 : وقتی میخوای فرم ارسال کنی چند تا پراپرتی تو فرمته و فایل مثل عکس همراهشه پس کانتنت رو بزار مالتیپارت فرم دیتا
@@ -439,6 +460,8 @@
  *                      type: number
  *                      description: the weight of product packet
  *                      example: 0
+ *                  colors:
+ *                      $ref: '#/components/schemas/Color'
  */
 
 // step 150 :

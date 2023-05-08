@@ -5,10 +5,9 @@ const Controller = require("../../controller");
 const { deleteFileInPublic } = require("../../../../utils/deleteFileInPublic");
 const { BlogModel } = require("../../../../models/blogs");
 const createHttpError = require("http-errors");
-const {StatusCodes} = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 
 class BlogController extends Controller {
-
   // step 101 :
   async createBlog(req, res, next) {
     try {
@@ -61,7 +60,7 @@ class BlogController extends Controller {
       const blog = await this.findBlog(id); // dge inja hatman javab dare chon findBlog agar peida nakarde bod return mikard pas nemikhad if(!blog) ro anjam bdi
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
-        isSuccess : true ,
+        isSuccess: true,
         message: "بلاگ با موفقیت یافت شد.",
         data: {
           blog,
@@ -170,7 +169,7 @@ class BlogController extends Controller {
       next(error);
     }
   }
-//step 113 :
+  //step 113 :
   async updateBlogById(req, res, next) {
     try {
       const { id } = req.params;
@@ -208,25 +207,28 @@ class BlogController extends Controller {
           data[key] = data[key].map((item) => item.trim()); // age array bod itemhasho trim kone k fasele aval akharesh hazf bshe
         if (nullishData.includes(data[key])) delete data[key];
       });
-
+      console.log("data:", data);
       // step 102 :  zakhirie blog dar db
       // chon faghat login shode ha haghe sakhte blog daran pas inja author ro khode backend id user mizare
       // console.log("req.user:",req.user);
-      const result = await BlogModel.updateOne({ _id: id }, { $set: data }); // $set iani in data ro bezar jaie ghabli update bshe
+      const updateBlogResult = await BlogModel.updateOne(
+        { _id: id },
+        { $set: data }
+      ); // $set iani in data ro bezar jaie ghabli update bshe
       // hala javab vase frontEND mifrestim
-      if (result.modifiedCount == 0)
+      if (!updateBlogResult.modifiedCount)
         throw createHttpError.InternalServerError("آپدیت بلاگ نامو فق بود");
       // agar update dorost ejra bshe modifiedCount bozorgtar az 0 mishe masaln 1
       return res.status(StatusCodes.OK).json({
         statusCode: StatusCodes.OK,
         isSuccess: true,
         data: {
-          message: "بلاگ با موفقیت ایجاد شد.",
+          message: "بلاگ با موفقیت اصلاح شد.",
         },
         error: null,
       }); // agar to { } nabashe mige "message": "Cannot convert object to primitive value"
     } catch (error) {
-      deleteFileInPublic(req?.body?.image ); // in vase ine k agar b error khordim , to public image sakhte shode ro hazf kone
+      deleteFileInPublic(req?.body?.image); // in vase ine k agar b error khordim , to public image sakhte shode ro hazf kone
       next(error);
     }
   }

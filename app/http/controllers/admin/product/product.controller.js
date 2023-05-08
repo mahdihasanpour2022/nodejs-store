@@ -40,10 +40,7 @@ class ProductController extends Controller {
       // console.log("req.file :",req.file); // یه عکس فرستاده باشه میره تو
       // console.log("req.files :",req.files); // چند تا عکس باشه تو بادی نمیره میره تو فایلز
       // return console.log("ProductController-->req.body :",req.body)
-      const images = listOfImagesFromReq(
-        req?.files || [],
-        req?.body?.fileUploadPath
-      );
+      const images = listOfImagesFromReq(req?.files || [] ,req?.body?.fileUploadPath);
       //  اعتبار سنجی موارد ارسال شده فرانت در بادی
       const productBody = await createProductSchema.validateAsync(req.body);
 
@@ -59,10 +56,21 @@ class ProductController extends Controller {
         type
       } = productBody;
       const supplier = req.user._id;
-
-      let features = setFeatures(productBody);
-      // حالا در دیتا بیس باید ذخیره بشه
-
+// let features = setFeatures(productBody);
+let features = setFeatures(req.body);
+// حالا در دیتا بیس باید ذخیره بشه
+console.log("db :",title,
+text,
+short_text,
+category,
+tags,
+count,
+discount,
+price,
+images,
+supplier,
+type,
+features, )
       const product = await ProductModel.create({
         title,
         text,
@@ -90,6 +98,7 @@ class ProductController extends Controller {
       });
     } catch (error) {
       deleteFileInPublic(req.body.image); // in vase ine k agar b error khordim , to public image sakhte shode ro hazf kone
+      console.log("error:",error)
       next(error);
     }
   }

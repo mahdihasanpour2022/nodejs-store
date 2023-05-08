@@ -19,7 +19,7 @@ const ProductSchema = new mongoose.Schema({
   type: { type: String, require: true }, // vrtual - phisical product
   format: { type: String },
   supplier: { type: mongoose.Types.ObjectId, require: true },
-  feature: {type: Object, default: {
+  features: {type: Object, default: {
       madeIn: "",
       width: "",
       height: "",

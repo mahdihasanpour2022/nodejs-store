@@ -11,6 +11,7 @@ const createProductSchema = Joi.object({
   short_text : Joi.string().error(createHttpError.BadRequest("خلاصه متن ارسال شده صحیح نیست")),
   tags : Joi.array().min(0).max(20).error(createHttpError.BadRequest("برچسب نمیتواند بیش از 20 ایتم باشد")) ,
   category : Joi.string().regex(MONGO_ID_PATTERN).error(createHttpError.BadRequest("دسته بندی مورد نظر یافت نشد")) ,
+  colors: Joi.array().min(0).max(20).error(createHttpError.BadRequest("رنگ های انتخابی  نمیتواند بیشتر از 20 ایتم باشد")),
   price : Joi.number().error(createHttpError.BadRequest("قیمت وارد شده صحیح نیست")) ,
   count : Joi.number().error(createHttpError.BadRequest("تعداد وارد شده صحیح نیست")) ,
   discount : Joi.number().error(createHttpError.BadRequest("تخفیف وارد شده صحیح نیست")) ,

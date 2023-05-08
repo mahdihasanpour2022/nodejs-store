@@ -27,7 +27,7 @@ router.get("/", AdminBlogController.getListOfBlogs);
 router.get("/:id", AdminBlogController.getOneBlogById);
 
 // step 111 :
-router.delete("/:id", AdminBlogController.deleteBlogById);
+router.delete("/delete/:id", AdminBlogController.deleteBlogById);
 
 module.exports = {
   Blog_AdminApiRoutes: router,
