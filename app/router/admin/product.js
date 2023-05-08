@@ -7,12 +7,8 @@ const router = require("express").Router();
 
 // step 126 : route for product
 // وقتی میخوای عکس بفرستی برای بک اند از این فانکشن آپلود فایل که نوشتی استفاده کن همیشه
-router.post(
-  "/create",
-  uploadFile.array("images" , 10), // 10 iani maxCount iani hadeaksar 10 ta ax mitone upload kone
-  stringToArray("tags"),
-  ProductController.createProduct
-);
+ // 10 iani maxCount iani hadeaksar 10 ta ax mitone upload kone
+router.post("/create",uploadFile.array("images" , 10),stringToArray("tags", "colors"),ProductController.createProduct);
 
 // step 141 : yarn add @types/hapi__joi  and yarn add @types/http-errors
 // step 140 :
@@ -24,7 +20,7 @@ router.get("/all", ProductController.getAllProducts)
 //step 149:
 router.patch("/edit/:id" , 
 uploadFile.array("images" , 10), // 10 iani maxCount iani hadeaksar 10 ta ax mitone upload kone
-stringToArray("tags"),
+stringToArray("tags", "colors"),
 ProductController.editProduct )
 
 // step: 137 :

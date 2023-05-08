@@ -71,6 +71,34 @@
 
 // ------------------------------------------------------------------  update blog swagger
 
+
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Update_Blog:
+ *              type: object
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: the title of category
+ *                  short_text:
+ *                      type: string
+ *                      description: the summary of text of blog
+ *                  text:
+ *                      type: string
+ *                      description: the text of blog
+ *                  tags:
+ *                      type: string
+ *                      description: the list of tags for example(tag1#tag2#tag_foo)
+ *                  category:
+ *                      type: string
+ *                      description: the id of category for foreinField in blog
+ *                  image:
+ *                      type: file
+ *                      description: the index picture of blog
+ */
+
 // step 115 :
 /**
  * @swagger
@@ -79,39 +107,20 @@
  *  patch:
  *      tags: [blog(AdminPanel)]
  *      summary: update blog by tag
- *      consumes:
- *           - multipart/form-data
+ *      consumes: 
+ *          -   multipart/form-data
  *      parameters:
  *          -   in: path
  *              name: id
  *              type: string
  *              required: true
- *          -   in: formData
- *              name: title
- *              type: string
- *              required: false
- *          -   in: formData
- *              name: text
- *              type: string
- *              required: false
- *          -   in: formData
- *              name: short_text
- *              type: string
- *              required: false
- *          -   in: formData
- *              name: image
- *              type: file
- *              required: false
- *          -   in: formData
- *              name: category
- *              description: enter category ID
- *              type: string
- *              required: false
- *          -   in: formData
- *              name: tags
- *              example: .#tag1#tag2#tag3#tag4 || string || undefined
- *              type: string
- *              required: false
+ *              description: blog id
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              multipart/form-data:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Update_Blog'
  *      responses:
  *          200:
  *              description: success - blog created
@@ -201,7 +210,7 @@
 /**
  * @swagger
  * tag: blog(AdminPanel)
- * /admin/blogs/{id}:
+ * /admin/blogs/delete/{id}:
  *  delete:
  *      tags: [blog(AdminPanel)]
  *      summary: delete blog by id
