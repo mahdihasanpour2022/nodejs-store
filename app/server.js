@@ -47,16 +47,16 @@ module.exports = class Application {
     //__dirname in poshie k server toshe ro barmigardone ma migim na boro aghab az on poshe public hesab kon
     this.#app.use(express.static(path.join(__dirname, "..", "public")));
     //step 22 : sakhte swagger be addresse baseurl/api-doc
-    this.#app.use("/api-doc",
+    this.#app.use("/api",
       swaggerUIExp.serve,
       swaggerUIExp.setup(
         swaggerJSDoc({
           swaggerDefinition: {
             openapi : "3.0.0",// step 116 :
             info: {
-              title: "first store node.js",
+              title: "node.js",
               version: "6.2.8",
-              description: "اولین تجربه بک اند",
+              description: "adminpanel / productStore / blogs / courseSite / authentication",
               contact: {
                 name: "mahdi_hasanpour",
                 url: "https://mahdihasanpour.ir",
@@ -70,6 +70,7 @@ module.exports = class Application {
                 url: "http://localhost:3000/",
                 // =========> liara
                 // url: "https://nodejs-store.iran.liara.run/",
+                // url: "https://mahdihasanpour.ir",
               },
             ],
             components : { //step 120 : ezafe kardane dokmie authorizations dar balaie swagger baraie accesstoken  
@@ -94,7 +95,7 @@ module.exports = class Application {
     const http = require("http");
     http.createServer(this.#app).listen(this.#PORT, () => {
       console.log(
-        // "server runed at http://localhost:" + this.#PORT + " (successfully)" //  laira1
+        // "server runed successfully =>  http://mahdihasanpour.ir" //  liara
         "server runed successfully" , // local
       );
     });

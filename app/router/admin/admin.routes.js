@@ -1,5 +1,4 @@
-const { checkPermission } = require("../../http/middlewares/check_Permission");
-const { PERMISSIONS } = require("../../utils/constants");
+
 const { Blog_AdminApiRoutes } = require("./blog");
 const { Category_AdminApiRoutes } = require("./category");
 const { Chapter_AdminApiRoutes } = require("./chapter");
@@ -9,6 +8,9 @@ const { Permission_AdminApiRoutes } = require("./permission");
 const { Product_AdminApiRoutes } = require("./product");
 const { Role_AdminApiRoutes } = require("./role");
 const { User_AdminApiRoutes } = require("./user");
+const { checkPermission } = require("../../http/middlewares/checkPermission");
+const { PERMISSIONS } = require("../../utils/constants");
+
 
 const router = require("express").Router();
 

@@ -1,5 +1,5 @@
 const { UserController } = require("../../http/controllers/admin/user/user.controller");
-const { checkPermission } = require("../../http/middlewares/check_Permission");
+const { checkPermission } = require("../../http/middlewares/checkPermission");
 const { PERMISSIONS } = require("../../utils/constants");
 
 // step 244 :
