@@ -17,7 +17,6 @@ function getToken(headers) {
   // const [Bearer, token] = headers?.accesstoken?.split(" ") || [];
   // step 121 :
   const [Bearer, token] = headers?.authorization?.split(" ") || [];
-
   // if (token && ['Bearer','Bearer'].includes(Bearer?.toLowerCase())) {
   if (!!token && !!(Bearer?.toLowerCase() === "bearer")) return token;
   throw createHttpError.Unauthorized(

@@ -38,6 +38,7 @@ const { verifyAccessToken } = require('../../http/middlewares/verifyAccessToken'
  */
 
 // step 39 : add verifyAccessToken hala dar swagger test kon '/'
+// router.get("/" , homeController.indexPage );
 router.get("/" ,verifyAccessToken, homeController.indexPage );
 
 //name router pascal bashe

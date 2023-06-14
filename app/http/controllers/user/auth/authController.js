@@ -14,7 +14,8 @@ const {
   checkOtpSchema,
 } = require("../../../validators/user/auth.schema");
 const Controller = require("../../controller");
-const { ghasedakSensSMS } = require("../../../../utils/ghasedakSendSMS.JS");
+const { ghasedakSendSMS } = require("../../../../utils/ghasedakSendSMS.js");
+const { StatusCodes } = require("http-status-codes");
 
 class UserAuthController extends Controller {
   // inja miad req.body ro migire badesh check mikone bebine ghablan kasi ba in mobile hast dar db agar nabod yeki jadid bsaze  agar bod update user
@@ -29,14 +30,14 @@ class UserAuthController extends Controller {
       // step 26 : create otp
       const code = randomNumberGenerator();
       //step 25-1 : send sms otp
-      if (mobile && code) ghasedakSensSMS(mobile, code);
+      if (mobile && code) ghasedakSendSMS(mobile, code);
       const result = await this.saveUser(mobile, code);
       // if(!result) throw createHttpError.BadRequest("ورود شما ناموفق بود") //...or
       if (!result) throw createHttpError.Unauthorized("ورود شما ناموفق بود");
-      return res.status(200).send({
+      return res.status(StatusCodes.OK).send({
+        statusCode: StatusCodes.OK,
+        message: "کد اعتبار سنجی با موفقیت برای شما ارسال شد.",
         data: {
-          statusCode: 200,
-          message: "کد اعتبار سنجی با موفقیت برای شما ارسال شد.",
           code,
           mobile,
         },
@@ -44,6 +45,12 @@ class UserAuthController extends Controller {
       });
     } catch (error) {
       next(error);
+      return res.json({
+        statusCode: StatusCodes.BAD_REQUEST,
+        isSuccess: false,
+        data: null,
+        error,
+      });
     }
   }
 
@@ -97,9 +104,8 @@ class UserAuthController extends Controller {
       if (!user)
         throw createHttpError.NotFound("کاربری با این شماره موبایل یافت نشد..");
       // check kardane code dar otp
-      if (user.otp.code != code) {
+      if (user.otp.code != code)
         throw createHttpError.Unauthorized("کد ارسال شده صحیح نمی باشد.");
-      }
       // check kardane expiresIn dar otp
       const now = Date.now();
       if (user.otp.exports < now)
@@ -110,7 +116,7 @@ class UserAuthController extends Controller {
       const refreshToken = await createRefreshToken(user._id);
 
       return res.json({
-        statusCode: 200,
+        statusCode: StatusCodes.OK,
         isSuccess: true,
         data: {
           accessToken,
@@ -121,6 +127,12 @@ class UserAuthController extends Controller {
       });
     } catch (error) {
       next(error);
+      return res.json({
+        statusCode: StatusCodes.BAD_REQUEST,
+        isSuccess: false,
+        data: null,
+        error,
+      });
     }
   }
 
@@ -134,7 +146,7 @@ class UserAuthController extends Controller {
       const accessToken = await CreateAccessToken(user._id);
       const newRefreshToken = await createRefreshToken(user._id);
       return res.json({
-        statusCode: 200,
+        statusCode: StatusCodes.OK,
         isSuccess: true,
         data: {
           accessToken,

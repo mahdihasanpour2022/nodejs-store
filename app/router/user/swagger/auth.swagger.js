@@ -22,7 +22,7 @@
  *                      type: string
  *                      description:  user mobile and code otp for signup/signin
  *                  code:
- *                      type: integer
+ *                      type: string
  *                      description: reviced code from getOTP
  *          RefreshToken:
  *              type: object

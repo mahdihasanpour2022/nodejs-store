@@ -39,10 +39,13 @@ function checkPermission(requiredPermissions = []) {
       ); // Forbidden iani hamon 403 iani mahdodiate dastrasi
     } catch (error) {
       next(error);
+      console.log("check permission error:",error)
     }
   };
-}
+};
 
+// وقتی میخوای روی لیارا دیپلوی کنی چون سرور لینوکسیه به بزرگی و کوچکی حروف حساسه یعنی
+//injori nanevis chech_permission => injori benevis chechPermission
 module.exports = {
-  checkPermission,
+  checkPermission
 };
