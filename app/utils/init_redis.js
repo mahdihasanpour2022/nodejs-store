@@ -6,6 +6,7 @@ const redisDB = require("redis");
 const redisClient = redisDB.createClient();
 // ===================> liara1
 // const redisClient = redisDB.createClient({url : process.env.REDIS_PRIVATE_DATABASE_URL });
+// const redisClient = redisDB.createClient({url : "redis://:hc8kJiXNtR9m0yBLkJ9W5K9g@redis-db:6379/0" });
 
 redisClient.connect();
 redisClient.on('connect' , ()=>  console.log('connect to redis'));

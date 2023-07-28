@@ -6,9 +6,8 @@ const Application = require("./app/server");
 // new Application( 3000,  "mongodb://localhost:27017/storeDB");
 // new Application( 3000,  "mongodb://127.0.0.1:27017/storeDB");
 new Application( process.env.APPLICATION_PORT ,  "mongodb://127.0.0.1:27017/storeDB");
+
 // step 185 :
 // --------------> liara1
 // new Application( 3000, process.env.MONGODB_PRIVATE_DATABASE_URL );
 // new Application( process.env.APPLICATION_PORT , process.env.MONGODB_PRIVATE_DATABASE_URL );
-
-

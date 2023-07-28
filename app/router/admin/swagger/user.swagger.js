@@ -75,7 +75,7 @@
  *                  example: true
  *              message:
  *                  type: string
- *                  example: "لیست همه کاربران با موفقیت گرفته شد"
+ *                  example: "پروفایل کاربر با موفقیت گرفته شد"
  *              data:
  *                  type: object
  *                  properties:
@@ -135,7 +135,7 @@
  *                      description: mahdihasanpour
  *                  email:
  *                      type: string
- *                      example: mahdihasanpour2022@gmail.com
+ *                      description: example : mahdihasanpour2022@gmail.com
  */
 
 // step 254 :
@@ -154,7 +154,7 @@
  *                  example: true
  *              message:
  *                  type: string
- *                  example: "لیست همه کاربران با موفقیت گرفته شد"
+ *                  example: "پروفایل کاربر با موفقیت ادیت شد"
  *              data:
  *                  type: object
  *                  properties:

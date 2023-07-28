@@ -22,11 +22,8 @@ const { verifyAccessToken } = require('../../http/middlewares/verifyAccessToken'
  *      parameters:
  *          -   in: header
  *              name: accesstoken
- *              description: enter accessToken for auth
- *              example: Bearer your token
  *              type: string
  *              required: true
- *              default : Bearer 
  *      responses:
  *          200:
  *              description: success
