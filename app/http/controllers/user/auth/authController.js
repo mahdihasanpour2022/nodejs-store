@@ -139,7 +139,8 @@ class UserAuthController extends Controller {
   //step 42 :
   async refreshToken(req, res, next) {
     try {
-      const { refreshtoken } = req.body;
+      // const { refreshtoken } = req.body;
+      const  refreshtoken  = req.headers['refreshtoken'] ;
       const mobile = await verifyRefreshToken(refreshtoken);
       const user = await UserModel.findOne({ mobile });
       if (!user) next(createHttpError.Unauthorized("کاربر یافت نشد."));

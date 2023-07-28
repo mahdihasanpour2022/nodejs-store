@@ -24,14 +24,6 @@
  *                  code:
  *                      type: string
  *                      description: reviced code from getOTP
- *          RefreshToken:
- *              type: object
- *              required:
- *                  -   refreshtoken
- *              properties:
- *                  refreshtoken:
- *                      type: string
- *                      description: enter refreshtoken for get fresh token and refreshtoken
  */
 
 // step 24 : write this base on yaml language
@@ -112,15 +104,11 @@
  *      tags: [user-authentication]
  *      summary: send refresh token for get new accessToken and refreshToken
  *      description:  refresh token
- *      requestBody:
- *          required: true
- *          content:
- *              application/x-www-form-urlencoded:
- *                  schema:
- *                      $ref: '#/components/schemas/RefreshToken'
- *              application/json:
- *                  schema:
- *                      $ref: '#/components/schemas/RefreshToken'
+ *      parameters:
+ *          -   in: header
+ *              name: refreshtoken
+ *              type: string
+ *              required: true
  *      responses:
  *          200:
  *              description: Success

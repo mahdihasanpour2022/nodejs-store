@@ -61,7 +61,7 @@
  * /admin/permissions/create:
  *  post:
  *      tags: [ RBAC(AdminPanel) ]
- *      summary: craete new permission
+ *      summary: create new permission
  *      description: از این بخش میتوانید پرمیشن مورد نظر را تعیین نمایید
  *      requestBody:
  *          required: true
